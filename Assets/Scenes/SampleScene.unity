@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &46944411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2959722282104834670, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 6583672755582387628}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &49511251
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,6 +339,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!1 &304203746 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3038391215503037721, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 6583672755582387628}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &612013216 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3814122152840852414, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 6583672755582387628}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &619928871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,6 +1194,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!1 &1913198005 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1505989154898115646, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 6583672755582387628}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1928655446
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,6 +1311,22 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
   m_PrefabInstance: {fileID: 6583672755582387628}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2086836081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46944411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba5a034c987b84343804a9941804c5da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spoilers:
+  - {fileID: 1913198005}
+  - {fileID: 304203746}
+  - {fileID: 612013216}
 --- !u!1001 &6583672755582387628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1346,7 +1382,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2959722282104834670, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2086836081}
   m_SourcePrefab: {fileID: 100100000, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

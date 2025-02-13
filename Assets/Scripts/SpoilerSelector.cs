@@ -50,6 +50,6 @@ public class SpoilerSelector : MonoBehaviour
     public void ConfirmSelection()
     {
         PlayerPrefs.SetInt("SelectedSpoiler", currentIndex);  // Guardar el índice seleccionado
-        SceneManager.LoadScene("RaceScene");  // Cargar la escena de la carrera
+        SceneManager.LoadScene("SampleScene");  // Cargar la escena de la carrera
     }
 }
