@@ -2,15 +2,23 @@ using UnityEngine;
 
 public class ApplySpoiler : MonoBehaviour
 {
-    public GameObject[] spoilers;
+    public GameObject[] spoilersRear;
+    public GameObject[] spoilersFront;
 
     void Start()
     {
-        int selectedSpoilerIndex = PlayerPrefs.GetInt("SelectedSpoiler", 0);  // Cargar el alerón seleccionado
+        int selectedSpoilerRearIndex = PlayerPrefs.GetInt("SelectedSpoilerRear", 0);  // Cargar el alerón seleccionado
 
-        for (int i = 0; i < spoilers.Length; i++)
+        for (int i = 0; i < spoilersRear.Length; i++)
         {
-            spoilers[i].SetActive(i == selectedSpoilerIndex);
+            spoilersRear[i].SetActive(i == selectedSpoilerRearIndex);
+        }
+        
+        int selectedSpoilerFrontIndex = PlayerPrefs.GetInt("SelectedSpoilerFront", 0);  // Cargar el alerón seleccionado
+
+        for (int i = 0; i < spoilersFront.Length; i++)
+        {
+            spoilersFront[i].SetActive(i == selectedSpoilerFrontIndex);
         }
     }
 }

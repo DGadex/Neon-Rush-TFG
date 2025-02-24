@@ -4,52 +4,78 @@ using UnityEngine.SceneManagement;
 
 public class SpoilerSelector : MonoBehaviour
 {
-    public GameObject[] spoilers;  // Array de alerones
-    private int currentIndex = 0;  // Índice del alerón seleccionado
-
-    public Text spoilerNameText;   // Texto para mostrar el nombre del alerón
+    public GameObject[] spoilersRear;  // Array de alerones
+    public GameObject[] spoilersFront;  // Array de alerones
+    private int currentRearIndex = 0;  // Índice del alerón seleccionado
+    private int currentFrontIndex = 0;  // Índice del alerón seleccionado
     public Button confirmButton;   // Botón para confirmar la selección
+    public Button backButton;      // Botón para cambiar alerón siguiente
 
     void Start()
     {
-        ShowSpoiler(currentIndex);
+        currentRearIndex = PlayerPrefs.GetInt("SelectedSpoilerRear", 0);
+        ShowSpoilerRear(currentRearIndex);
+        currentFrontIndex = PlayerPrefs.GetInt("SelectedSpoilerFront", 0);
+        ShowSpoilerFront(currentFrontIndex);
 
         // Asignar función al botón de confirmación
         confirmButton.onClick.AddListener(ConfirmSelection);
+        backButton.onClick.AddListener(GoBack);
     }
 
     // Mostrar el alerón seleccionado y ocultar los demás
-    public void ShowSpoiler(int index)
+    public void ShowSpoilerRear(int index)
     {
-        for (int i = 0; i < spoilers.Length; i++)
+        for (int i = 0; i < spoilersRear.Length; i++)
         {
-            spoilers[i].SetActive(i == index);
+            spoilersRear[i].SetActive(i == index);
         }
-
-        // Actualizar el texto con el nombre del alerón
-        spoilerNameText.text = "Alerón: " + spoilers[index].name;
+    }
+    public void ShowSpoilerFront(int index)
+    {
+        for (int i = 0; i < spoilersFront.Length; i++)
+        {
+            spoilersFront[i].SetActive(i == index);
+        }
     }
 
     // Función para cambiar al alerón siguiente
-    public void NextSpoiler()
+    public void NextSpoilerRear()
     {
-        currentIndex = (currentIndex + 1) % spoilers.Length;
-        ShowSpoiler(currentIndex);
-        Debug.Log(currentIndex);
+        currentRearIndex = (currentRearIndex + 1) % spoilersRear.Length;
+        ShowSpoilerRear(currentRearIndex);
+        Debug.Log(currentRearIndex);
+    }
+    public void NextSpoilerFront()
+    {
+        currentFrontIndex = (currentFrontIndex + 1) % spoilersFront.Length;
+        ShowSpoilerFront(currentFrontIndex);
+        Debug.Log(currentFrontIndex);
     }
 
     // Función para cambiar al alerón anterior
-    public void PreviousSpoiler()
+    public void PreviousSpoilerRear()
     {
-        currentIndex = (currentIndex - 1 + spoilers.Length) % spoilers.Length;
-        ShowSpoiler(currentIndex);
-        Debug.Log(currentIndex);
+        currentRearIndex = (currentRearIndex - 1 + spoilersRear.Length) % spoilersRear.Length;
+        ShowSpoilerRear(currentRearIndex);
+        Debug.Log(currentRearIndex);
+    }
+    public void PreviousSpoilerFront()
+    {
+        currentFrontIndex = (currentFrontIndex - 1 + spoilersFront.Length) % spoilersFront.Length;
+        ShowSpoilerFront(currentFrontIndex);
+        Debug.Log(currentFrontIndex);
     }
 
     // Confirmar selección y guardar datos
     public void ConfirmSelection()
     {
-        PlayerPrefs.SetInt("SelectedSpoiler", currentIndex);  // Guardar el índice seleccionado
-        SceneManager.LoadScene("SampleScene");  // Cargar la escena de la carrera
+        PlayerPrefs.SetInt("SelectedSpoilerRear", currentRearIndex);  // Guardar el índice seleccionado
+        PlayerPrefs.SetInt("SelectedSpoilerFront", currentFrontIndex);  // Guardar el índice seleccionado
+    }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("Start"); // Cargar la escena principal
     }
 }
