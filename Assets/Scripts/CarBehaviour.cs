@@ -64,7 +64,7 @@ public class CarBehaviour : MonoBehaviour
 
         // Calcula el grip base
         float baseGripFactor = 2.0f; // Ajusta este valor según sea necesario
-        float carSpeed = carRigidBody.velocity.magnitude;
+        float carSpeed = carRigidBody.linearVelocity.magnitude;
         float gripAdjustment = Mathf.Clamp(1 - (carSpeed / carTopSpeed), 0.5f, 1);
         tireGripFactor = baseGripFactor * gripAdjustment * (1 - Mathf.Abs(steeringInput) * 0.5f);
 
@@ -76,7 +76,7 @@ public class CarBehaviour : MonoBehaviour
         }
 
         // Añadir fuerzas laterales para mejorar la tracción en curvas
-        Vector3 lateralForce = Vector3.Cross(carRigidBody.velocity, transform.up) * tireGripFactor;
+        Vector3 lateralForce = Vector3.Cross(carRigidBody.linearVelocity, transform.up) * tireGripFactor;
         carRigidBody.AddForce(lateralForce);
 
         // Control de estabilidad
@@ -126,7 +126,7 @@ public class CarBehaviour : MonoBehaviour
             bool isFrontWheel = (wheel == wheels[0] || wheel == wheels[1]);
             if (!isFrontWheel) return;
 
-            float carSpeed = carRigidBody.velocity.magnitude;
+            float carSpeed = carRigidBody.linearVelocity.magnitude;
             float maxSteeringAngle = Mathf.Lerp(30f, 10f, carSpeed / carTopSpeed);
             float steeringAngle = -steeringInput * maxSteeringAngle;
 
@@ -160,7 +160,7 @@ public class CarBehaviour : MonoBehaviour
 
             if (applyForce)
             {
-                float carSpeed = Vector3.Dot(transform.forward, carRigidBody.velocity);
+                float carSpeed = Vector3.Dot(transform.forward, carRigidBody.linearVelocity);
                 float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / carTopSpeed);
                 float availableTorque = powerCurve.Evaluate(normalizedSpeed) * accelerationInput;
 
@@ -175,7 +175,7 @@ public class CarBehaviour : MonoBehaviour
                 if (brakeInput > 0.0f)
                 {
                     float brakeForce = brakeInput * carRigidBody.mass * 10f; // Ajusta el multiplicador según sea necesario
-                    Vector3 brakeDirection = -carRigidBody.velocity.normalized;
+                    Vector3 brakeDirection = -carRigidBody.linearVelocity.normalized;
                     carRigidBody.AddForce(brakeDirection * brakeForce, ForceMode.Force);
                     Debug.DrawRay(wheel.position, brakeDirection * brakeForce * 0.001f, Color.magenta); // Debug de frenado
                 }
@@ -184,7 +184,7 @@ public class CarBehaviour : MonoBehaviour
                 if (accelerationInput == 0 && brakeInput == 0)
                 {
                     float engineBrakeForce = carRigidBody.mass * 2f; // Ajusta este valor según sea necesario
-                    Vector3 engineBrakeDirection = -carRigidBody.velocity.normalized;
+                    Vector3 engineBrakeDirection = -carRigidBody.linearVelocity.normalized;
                     carRigidBody.AddForce(engineBrakeDirection * engineBrakeForce, ForceMode.Force);
                 }
             }
