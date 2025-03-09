@@ -43,6 +43,8 @@ public class ArcadeCarController : MonoBehaviour
     private Rigidbody rigidbody;
     private bool isNitroActive = false;
     private bool isDrifting = false;
+    private bool driftInitialBool = false;
+    private float driftStartYRotation = 0f; // Guarda la rotación al iniciar el derrape
 
     void Start() {
         rigidbody = GetComponent<Rigidbody>();
@@ -83,8 +85,8 @@ public class ArcadeCarController : MonoBehaviour
         frontRightWheel.steerAngle = steeringAngle;
 
         // Limitar la velocidad máxima
-        if (rigidbody.linearVelocity.magnitude > maxSpeed) {
-            rigidbody.linearVelocity = rigidbody.linearVelocity.normalized * maxSpeed;
+        if (rigidbody.velocity.magnitude > maxSpeed) {
+            rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
         }
 
         // Drift
@@ -139,7 +141,7 @@ public class ArcadeCarController : MonoBehaviour
         driftSound.Play();
     }
 }*/
-
+/*
     void ActivateDrift(float turnInput) {
         // Reducir fricción lateral para derrapar
         WheelFrictionCurve sidewaysFriction = rearLeftWheel.sidewaysFriction;
@@ -163,7 +165,50 @@ public class ArcadeCarController : MonoBehaviour
             driftSound.Play();
         }
     }
+*/
 
+    void ActivateDrift(float turnInput)
+    {
+        // Reducir fricción lateral para derrapar
+        WheelFrictionCurve sidewaysFriction = rearLeftWheel.sidewaysFriction;
+        sidewaysFriction.stiffness = driftFriction;
+        rearLeftWheel.sidewaysFriction = sidewaysFriction;
+        rearRightWheel.sidewaysFriction = sidewaysFriction;
+
+        // Si el derrape inicia, guardamos la rotación actual
+        if (!driftInitialBool)
+        {
+            driftStartYRotation = transform.eulerAngles.y;
+            Debug.Log("Drift Start Y Rotation: " + driftStartYRotation);
+            driftInitialBool = true;
+        }
+
+        // Calcular el ángulo de giro relativo a la rotación inicial
+        float targetRotationY = driftStartYRotation + (turnInput * maxDriftRotation);
+
+        // Limitar el ángulo de derrape
+        float currentRotationY = transform.eulerAngles.y;
+        float deltaRotationY = Mathf.DeltaAngle(currentRotationY, targetRotationY);
+
+        if (Mathf.Abs(deltaRotationY) > maxDriftRotation)
+        {
+            targetRotationY = driftStartYRotation + Mathf.Sign(deltaRotationY) * maxDriftRotation;
+        }
+
+        // Aplicar la rotación suavemente
+        Quaternion targetRotation = Quaternion.Euler(0, targetRotationY, 0);
+        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
+
+        // Inclinar el chasis
+        float tilt = -turnInput * driftTiltAngle;
+        chassis.rotation = Quaternion.Euler(0, transform.eulerAngles.y, tilt);
+
+        // Reproducir sonido de derrape
+        if (driftSound != null && !driftSound.isPlaying)
+        {
+            driftSound.Play();
+        }
+    }
     void DeactivateDrift() {
         // Restaurar fricción lateral normal
         WheelFrictionCurve sidewaysFriction = rearLeftWheel.sidewaysFriction;
@@ -174,6 +219,7 @@ public class ArcadeCarController : MonoBehaviour
         // Enderezar el coche y el chasis
         transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, 0), Time.deltaTime * 5f);
         chassis.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
+        driftInitialBool = false;
 
         // Detener sonido de derrape
         if (driftSound != null && driftSound.isPlaying) {
