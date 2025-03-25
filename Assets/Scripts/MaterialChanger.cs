@@ -8,24 +8,63 @@ public class MaterialSwitcher : MonoBehaviour
 
     private Renderer objRenderer;
 
+    private int materialIndex; // Índice del material actual
+
+    private Color currentColor;
+
     void Start()
     {
         objRenderer = GetComponent<Renderer>(); // Obtiene el Renderer del objeto
-        objRenderer.material = matteMaterial; // Establece el material mate por defecto
+
+        // Recuperar el índice del material almacenado
+        materialIndex = PlayerPrefs.GetInt("SavedMaterialIndex", 0);
+
+        ApplyMaterial(); // Aplicar el material guardado
+    }
+
+    private void ApplyMaterial()
+    {
+        switch (materialIndex)
+        {
+            case 0:
+                objRenderer.material = matteMaterial;
+                break;
+            case 1:
+                objRenderer.material = metalMaterial;
+                break;
+            case 2:
+                objRenderer.material = satinMaterial;
+                break;
+        }
     }
 
     public void SetMetalMaterial()
     {
-        objRenderer.material = metalMaterial; // Cambia al material metálico
+        currentColor = objRenderer.sharedMaterial.color;
+        materialIndex = 1;
+        objRenderer.sharedMaterial = metalMaterial;
+        objRenderer.sharedMaterial.color = currentColor; // Mantener el color
+        PlayerPrefs.SetInt("SavedMaterialIndex", materialIndex); // Guardar el índice
+        PlayerPrefs.Save(); // Guardar los cambios
     }
 
     public void SetMatteMaterial()
     {
-        objRenderer.material = matteMaterial; // Cambia al material mate
+        currentColor = objRenderer.sharedMaterial.color;
+        materialIndex = 0;
+        objRenderer.sharedMaterial = matteMaterial;
+        objRenderer.sharedMaterial.color = currentColor; // Mantener el color
+        PlayerPrefs.SetInt("SavedMaterialIndex", materialIndex);
+        PlayerPrefs.Save();
     }
 
     public void SetSatinMaterial()
     {
-        objRenderer.material = satinMaterial; // Cambia al material mate
+        currentColor = objRenderer.sharedMaterial.color;
+        materialIndex = 2;
+        objRenderer.sharedMaterial = satinMaterial;
+        objRenderer.sharedMaterial.color = currentColor; // Mantener el color
+        PlayerPrefs.SetInt("SavedMaterialIndex", materialIndex);
+        PlayerPrefs.Save();
     }
 }

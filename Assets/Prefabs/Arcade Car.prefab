@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 2282690895882226561}
   - component: {fileID: 7051798112646908411}
   - component: {fileID: 1059224081374004452}
+  - component: {fileID: 3027137441517770393}
   m_Layer: 0
   m_Name: R1
   m_TagString: Untagged
@@ -130,6 +131,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -176,6 +180,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3027137441517770393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1505989154898115646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalMaterial: {fileID: 2100000, guid: 15095fa1b9fd29042b6d2565e902c1a7, type: 2}
+  matteMaterial: {fileID: 2100000, guid: 2871b0505c010bb43b97b7e1e608acd3, type: 2}
+  satinMaterial: {fileID: 2100000, guid: 8420da4b7c0c33240942de3791799eaa, type: 2}
 --- !u!1 &1990381434006367962
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,6 +395,7 @@ GameObject:
   - component: {fileID: 1844436331387149861}
   - component: {fileID: 718669250348749008}
   - component: {fileID: 9063307137485667001}
+  - component: {fileID: 6159462772514850586}
   m_Layer: 0
   m_Name: R2
   m_TagString: Untagged
@@ -423,6 +443,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -469,6 +492,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6159462772514850586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3038391215503037721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalMaterial: {fileID: 2100000, guid: 15095fa1b9fd29042b6d2565e902c1a7, type: 2}
+  matteMaterial: {fileID: 2100000, guid: 2871b0505c010bb43b97b7e1e608acd3, type: 2}
+  satinMaterial: {fileID: 2100000, guid: 8420da4b7c0c33240942de3791799eaa, type: 2}
 --- !u!1 &3046754637990887455
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +590,7 @@ GameObject:
   - component: {fileID: 6225485442989945447}
   - component: {fileID: 787107233786573012}
   - component: {fileID: 2419787613813623452}
+  - component: {fileID: 2763399097731811091}
   m_Layer: 0
   m_Name: F1
   m_TagString: Untagged
@@ -599,6 +638,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -645,6 +687,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2763399097731811091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3690463694080572880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalMaterial: {fileID: 2100000, guid: 15095fa1b9fd29042b6d2565e902c1a7, type: 2}
+  matteMaterial: {fileID: 2100000, guid: 2871b0505c010bb43b97b7e1e608acd3, type: 2}
+  satinMaterial: {fileID: 2100000, guid: 8420da4b7c0c33240942de3791799eaa, type: 2}
 --- !u!1 &3814122152840852414
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,6 +714,7 @@ GameObject:
   - component: {fileID: 7324118038081108612}
   - component: {fileID: 6272089843827337933}
   - component: {fileID: 2467867882179420378}
+  - component: {fileID: 2215072651447682909}
   m_Layer: 0
   m_Name: R3
   m_TagString: Untagged
@@ -704,6 +762,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -750,6 +811,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2215072651447682909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814122152840852414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalMaterial: {fileID: 2100000, guid: 15095fa1b9fd29042b6d2565e902c1a7, type: 2}
+  matteMaterial: {fileID: 2100000, guid: 2871b0505c010bb43b97b7e1e608acd3, type: 2}
+  satinMaterial: {fileID: 2100000, guid: 8420da4b7c0c33240942de3791799eaa, type: 2}
 --- !u!1 &4552937007993910717
 GameObject:
   m_ObjectHideFlags: 0
@@ -762,6 +838,7 @@ GameObject:
   - component: {fileID: 8130832245913951843}
   - component: {fileID: 7391429127164016830}
   - component: {fileID: 8620595890108663768}
+  - component: {fileID: 2926983493278398949}
   m_Layer: 0
   m_Name: F3
   m_TagString: Untagged
@@ -809,6 +886,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -855,6 +935,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2926983493278398949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4552937007993910717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalMaterial: {fileID: 2100000, guid: 15095fa1b9fd29042b6d2565e902c1a7, type: 2}
+  matteMaterial: {fileID: 2100000, guid: 2871b0505c010bb43b97b7e1e608acd3, type: 2}
+  satinMaterial: {fileID: 2100000, guid: 8420da4b7c0c33240942de3791799eaa, type: 2}
 --- !u!1 &5272265917087427467
 GameObject:
   m_ObjectHideFlags: 0
@@ -867,6 +962,7 @@ GameObject:
   - component: {fileID: 5060690075337518320}
   - component: {fileID: 6893401132097648838}
   - component: {fileID: 1379986878684917177}
+  - component: {fileID: 8686337466244484185}
   m_Layer: 0
   m_Name: F2
   m_TagString: Untagged
@@ -914,6 +1010,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -960,6 +1059,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8686337466244484185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5272265917087427467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalMaterial: {fileID: 2100000, guid: 15095fa1b9fd29042b6d2565e902c1a7, type: 2}
+  matteMaterial: {fileID: 2100000, guid: 2871b0505c010bb43b97b7e1e608acd3, type: 2}
+  satinMaterial: {fileID: 2100000, guid: 8420da4b7c0c33240942de3791799eaa, type: 2}
 --- !u!1 &5541291863752335192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1156,7 @@ GameObject:
   - component: {fileID: 922619643141918875}
   - component: {fileID: 7911856318182054608}
   - component: {fileID: 7884076978911332931}
+  - component: {fileID: 4691527658195954954}
   m_Layer: 0
   m_Name: Chassis
   m_TagString: Untagged
@@ -1095,6 +1210,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1120,6 +1238,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4691527658195954954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7375467205035513155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  metalMaterial: {fileID: 2100000, guid: 15095fa1b9fd29042b6d2565e902c1a7, type: 2}
+  matteMaterial: {fileID: 2100000, guid: 2871b0505c010bb43b97b7e1e608acd3, type: 2}
+  satinMaterial: {fileID: 2100000, guid: 8420da4b7c0c33240942de3791799eaa, type: 2}
 --- !u!1 &8498238852140084423
 GameObject:
   m_ObjectHideFlags: 0
