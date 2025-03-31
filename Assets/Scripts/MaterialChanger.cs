@@ -12,7 +12,7 @@ public class MaterialSwitcher : MonoBehaviour
 
     private Color currentColor;
 
-    void Start()
+    void Awake()
     {
         objRenderer = GetComponent<Renderer>(); // Obtiene el Renderer del objeto
 
