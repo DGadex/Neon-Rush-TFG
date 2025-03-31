@@ -17,8 +17,6 @@ public class ColorPickerControl : MonoBehaviour
 
     private Texture2D hueTexture, svTexture, outputTexture;
 
-    //[SerializeField]
-    //CarColour car; //Para controlar el color del coche
     
     [SerializeField]
     MeshRenderer changeThisColour;
