@@ -12,7 +12,7 @@ public class MaterialSwitcher : MonoBehaviour
 
     private Color currentColor;
 
-    void Start()
+    void Awake()
     {
         objRenderer = GetComponent<Renderer>(); // Obtiene el Renderer del objeto
 
@@ -38,6 +38,15 @@ public class MaterialSwitcher : MonoBehaviour
         }
     }
 
+        public void SetMatteMaterial()
+    {
+        currentColor = objRenderer.sharedMaterial.color;
+        materialIndex = 0;
+        objRenderer.sharedMaterial = matteMaterial;
+        objRenderer.sharedMaterial.color = currentColor; // Mantener el color
+        PlayerPrefs.SetInt("SavedMaterialIndex", materialIndex);
+        PlayerPrefs.Save();
+    }
     public void SetMetalMaterial()
     {
         currentColor = objRenderer.sharedMaterial.color;
@@ -46,16 +55,6 @@ public class MaterialSwitcher : MonoBehaviour
         objRenderer.sharedMaterial.color = currentColor; // Mantener el color
         PlayerPrefs.SetInt("SavedMaterialIndex", materialIndex); // Guardar el índice
         PlayerPrefs.Save(); // Guardar los cambios
-    }
-
-    public void SetMatteMaterial()
-    {
-        currentColor = objRenderer.sharedMaterial.color;
-        materialIndex = 0;
-        objRenderer.sharedMaterial = matteMaterial;
-        objRenderer.sharedMaterial.color = currentColor; // Mantener el color
-        PlayerPrefs.SetInt("SavedMaterialIndex", materialIndex);
-        PlayerPrefs.Save();
     }
 
     public void SetSatinMaterial()

@@ -17,15 +17,13 @@ public class ColorPickerControl : MonoBehaviour
 
     private Texture2D hueTexture, svTexture, outputTexture;
 
-    //[SerializeField]
-    //CarColour car; //Para controlar el color del coche
     
     [SerializeField]
-    MeshRenderer changeThisColour;
+    MeshRenderer[] changeThisColour;
 
     private void Awake()
     {
-        Color initialColor = changeThisColour.GetComponent<MeshRenderer>().sharedMaterial.color;
+        Color initialColor = changeThisColour[0].GetComponent<MeshRenderer>().sharedMaterial.color;
 
         Color.RGBToHSV(initialColor, out currentHue, out currentSat, out currentVal);
 
@@ -108,7 +106,10 @@ public class ColorPickerControl : MonoBehaviour
 
         hexInputField.text = ColorUtility.ToHtmlStringRGB(currentColour);
 
-        changeThisColour.GetComponent<MeshRenderer>().sharedMaterial.color = currentColour;
+        for(int i = 0; i < changeThisColour.Length; i++)
+        {
+            changeThisColour[i].GetComponent<MeshRenderer>().sharedMaterial.color = currentColour;
+        }
 
     }
 
