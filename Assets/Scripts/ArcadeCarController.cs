@@ -85,8 +85,8 @@ public class ArcadeCarController : MonoBehaviour
         frontRightWheel.steerAngle = steeringAngle;
 
         // Limitar la velocidad máxima
-        if (rigidbody.velocity.magnitude > maxSpeed) {
-            rigidbody.velocity = rigidbody.velocity.normalized * maxSpeed;
+        if (rigidbody.linearVelocity.magnitude > maxSpeed) {
+            rigidbody.linearVelocity = rigidbody.linearVelocity.normalized * maxSpeed;
         }
 
         // Drift
