@@ -937,17 +937,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1505989154898115646, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      propertyPath: m_Name
-      value: R1
-      objectReference: {fileID: 0}
     - target: {fileID: 2959722282104834670, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: m_Name
       value: Arcade Car
-      objectReference: {fileID: 0}
-    - target: {fileID: 3038391215503037721, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      propertyPath: m_Name
-      value: R2
       objectReference: {fileID: 0}
     - target: {fileID: 3458474501396287086, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: m_Drag
@@ -960,10 +952,6 @@ PrefabInstance:
     - target: {fileID: 3458474501396287086, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: m_AngularDrag
       value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 3814122152840852414, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      propertyPath: m_Name
-      value: R3
       objectReference: {fileID: 0}
     - target: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1279,7 +1267,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1361793383}
+  m_TargetGraphic: {fileID: 506737311}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -4359,7 +4347,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1361793383}
+  m_TargetGraphic: {fileID: 2028817968}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
