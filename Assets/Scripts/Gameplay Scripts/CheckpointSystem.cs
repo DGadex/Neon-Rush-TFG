@@ -18,6 +18,9 @@ public class CheckpointSystem : MonoBehaviour
 
     // Referencia al coche
     public Transform car;
+    // Evento para notificar vueltas completadas
+    public delegate void LapCompletedAction();
+    public event LapCompletedAction OnLapCompleted;
 
     void Start() {
         // Inicializar el array de tiempos por sector
@@ -55,15 +58,19 @@ public class CheckpointSystem : MonoBehaviour
     }
 
     // Método para reiniciar los checkpoints
-    private void ResetCheckpoints() {
+    private void ResetCheckpoints()
+    {
         currentCheckpointIndex = 0;
         totalTime = 0f;
 
-        // Reiniciar los tiempos de los sectores
-        for (int i = 0; i < sectorTimes.Length; i++) {
-            sectorTimes[i] = 0f;
+        // Notificar que se completó una vuelta
+        if (OnLapCompleted != null)
+        {
+            OnLapCompleted();
         }
     }
+
+    
 
     // Método para obtener la posición de respawn
     public Vector3 GetRespawnPosition() {
