@@ -2,253 +2,233 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class ArcadeCarController : MonoBehaviour
 {
-    // Parámetros del coche
-    public float maxMotorTorque = 3000f; // Fuerza de aceleración
-    public float maxSteeringAngle = 30f; // Ángulo de giro
-    public float driftFriction = 0.6f; // Fricción lateral para derrapar
-    public float nitroBoost = 2000f; // Aumento de velocidad con nitro
-    public float nitroDuration = 2f; // Duración del nitro
-    public float jumpForce = 10f; // Fuerza de salto en rampas
-    public float driftTiltAngle = 10f; // Ángulo de inclinación durante el derrape
-    public float maxSpeed = 60f; // Velocidad máxima
-    public float maxDriftRotation = 45f; // Máxima rotación en Y durante el derrape
-    public Transform chassis; // Modelo 3D del chasis
+    #region Configuración Básica
+    [Header("Referencias")]
+    public Transform chassis; // Modelo 3D del chasis (para inclinación visual)
+    public WheelCollider[] driveWheels; // Ruedas motrices (asignar en Inspector)
+    public WheelCollider[] steeringWheels; // Ruedas direccionales
+    public InputActionAsset inputActions; // Sistema de Input
 
-    // WheelColliders
-    public WheelCollider frontLeftWheel;
-    public WheelCollider frontRightWheel;
-    public WheelCollider rearLeftWheel;
-    public WheelCollider rearRightWheel;
+    [Header("Aceleración/Frenado")]
+    public float maxMotorTorque = 6000f;    // Fuerza inicial (ajustar según peso)
+    public float brakeTorque = 4000f;       // Freno potente pero no instantáneo
+    public float maxSpeed = 120f;           // Velocidad máxima en unidades/Unity
+    public AnimationCurve torqueCurve = new AnimationCurve(
+        new Keyframe(0, 1f),    // Máximo torque al inicio
+        new Keyframe(0.8f, 0.4f), // Reduce torque al 80% de velocidad
+        new Keyframe(1, 0.1f)   // Mínimo torque al tope
+    );
 
-    // Modelos 3D de las ruedas (opcional)
-    public Transform frontLeftMesh;
-    public Transform frontRightMesh;
-    public Transform rearLeftMesh;
-    public Transform rearRightMesh;
+    [Header("Dirección")]
+    public float maxSteeringAngle = 25f;    // Ángulo máximo de giro
+    #endregion
 
-    // Input System
-    public InputActionAsset inputActions;
-    private InputAction accelerateAction;
-    private InputAction brakeAction;
-    private InputAction turnAction;
-    private InputAction driftAction;
-    private InputAction nitroAction;
+    #region Derrape
+    [Header("Derrape")]
+    public float driftFriction = 0.4f;
+    public float normalFriction = 1.5f;
+    public float driftTiltAngle = 15f;
+    public float driftRotationSpeed = 5f;
+    public float minDriftSpeed = 15f; // Velocidad mínima para iniciar derrape
+    private bool isDrifting = false;
+    public float tiltSmoothness = 5f;
+    #endregion
 
-    // Efectos de sonido
+    #region Nitro
+    [Header("Nitro")]
+    public float nitroBoost = 1.8f;
+    public float nitroDuration = 2.5f;
+    public AudioSource nitroSound;
+    private bool isNitroActive = false;
+    #endregion
+
+    #region Salto
+    [Header("Salto")]
+    public float jumpForce = 15f;
+    public LayerMask rampLayer;
+    #endregion
+
+    #region Sonidos
+    [Header("Sonidos")]
     public AudioSource driftSound;
     public AudioSource engineSound;
+    #endregion
 
-    private Rigidbody rigidbody;
-    private bool isNitroActive = false;
-    private bool isDrifting = false;
-    private bool driftInitialBool = false;
-    private float driftStartYRotation = 0f; // Guarda la rotación al iniciar el derrape
+    #region Variables Privadas
+    private Rigidbody rb;
+    private float currentSteerAngle;
+    private float steeringSpeed = 2f;
+    private InputAction throttleAction, brakeAction, steerAction, driftAction, nitroAction;
+    #endregion
 
-    void Start() {
-        rigidbody = GetComponent<Rigidbody>();
+    // Inicialización
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.centerOfMass = new Vector3(0, -0.5f, 0); // Bajar centro de masa
 
         // Configurar Input System
-        var gameplayActionMap = inputActions.FindActionMap("Driving");
-        accelerateAction = gameplayActionMap.FindAction("Throttle");
-        brakeAction = gameplayActionMap.FindAction("Brake");
-        turnAction = gameplayActionMap.FindAction("Steering");
-        driftAction = gameplayActionMap.FindAction("Drift");
-        nitroAction = gameplayActionMap.FindAction("Nitro");
+        var map = inputActions.FindActionMap("Driving");
+        throttleAction = map.FindAction("Throttle");
+        brakeAction = map.FindAction("Brake");
+        steerAction = map.FindAction("Steering");
+        driftAction = map.FindAction("Drift");
+        nitroAction = map.FindAction("Nitro");
 
-        accelerateAction.Enable();
+        throttleAction.Enable();
         brakeAction.Enable();
-        turnAction.Enable();
+        steerAction.Enable();
         driftAction.Enable();
         nitroAction.Enable();
 
-        // Bajar el centro de masa para evitar vuelcos
-        rigidbody.centerOfMass = new Vector3(0, -0.7f, 0);
-    }
-
-    void Update() {
-        // Obtener inputs
-        float accelerateInput = accelerateAction.ReadValue<float>();
-        float brakeInput = brakeAction.ReadValue<float>();
-        float turnInput = turnAction.ReadValue<Vector2>().x;
-        isDrifting = driftAction.ReadValue<float>() > 0;
-        bool isNitroPressed = nitroAction.triggered;
-
-        // Aplicar motor y dirección
-        float motorTorque = (accelerateInput - brakeInput) * maxMotorTorque;
-        rearLeftWheel.motorTorque = motorTorque;
-        rearRightWheel.motorTorque = motorTorque;
-
-        float steeringAngle = turnInput * maxSteeringAngle;
-        frontLeftWheel.steerAngle = steeringAngle;
-        frontRightWheel.steerAngle = steeringAngle;
-
-        // Limitar la velocidad máxima
-        if (rigidbody.linearVelocity.magnitude > maxSpeed) {
-            rigidbody.linearVelocity = rigidbody.linearVelocity.normalized * maxSpeed;
-        }
-
-        // Drift
-        if (isDrifting) {
-            ActivateDrift(turnInput);
-        } else {
-            DeactivateDrift();
-        }
-
-        // Nitro
-        if (isNitroPressed && !isNitroActive) {
-            StartCoroutine(ActivateNitro());
-        }
-
-        // Sincronizar modelos 3D de las ruedas (opcional)
-        UpdateWheelVisuals(frontLeftWheel, frontLeftMesh);
-        UpdateWheelVisuals(frontRightWheel, frontRightMesh);
-        UpdateWheelVisuals(rearLeftWheel, rearLeftMesh);
-        UpdateWheelVisuals(rearRightWheel, rearRightMesh);
-    }
-
- /*   void ActivateDrift(float turnInput) {
-    // Reducir fricción lateral para derrapar
-    WheelFrictionCurve sidewaysFriction = rearLeftWheel.sidewaysFriction;
-    sidewaysFriction.stiffness = driftFriction;
-    rearLeftWheel.sidewaysFriction = sidewaysFriction;
-    rearRightWheel.sidewaysFriction = sidewaysFriction;
-
-    // Calcular la rotación deseada en función del input y el límite máximo
-    float targetRotationY = turnInput * maxDriftRotation;
-
-    // Calcular la rotación deseada relativa a la orientación actual del coche
-    Quaternion targetRotation = Quaternion.Euler(0, rigidbody.rotation.eulerAngles.y + targetRotationY, 0);
-
-    // Limitar la rotación para que no supere maxDriftRotation
-    float currentRotationY = rigidbody.rotation.eulerAngles.y;
-    float deltaRotationY = Mathf.DeltaAngle(currentRotationY, targetRotation.eulerAngles.y);
-
-    if (Mathf.Abs(deltaRotationY) > maxDriftRotation) {
-        targetRotation = Quaternion.Euler(0, currentRotationY + Mathf.Sign(deltaRotationY) * maxDriftRotation, 0);
-    }
-
-    // Suavizar la transición hacia la rotación deseada
-    rigidbody.rotation = Quaternion.Lerp(rigidbody.rotation, targetRotation, Time.deltaTime * 5f);
-
-    // Inclinar el chasis
-    float tilt = -turnInput * driftTiltAngle;
-    chassis.rotation = Quaternion.Euler(0, rigidbody.rotation.eulerAngles.y, tilt);
-
-    // Reproducir sonido de derrape
-    if (driftSound != null && !driftSound.isPlaying) {
-        driftSound.Play();
-    }
-}*/
-/*
-    void ActivateDrift(float turnInput) {
-        // Reducir fricción lateral para derrapar
-        WheelFrictionCurve sidewaysFriction = rearLeftWheel.sidewaysFriction;
-        sidewaysFriction.stiffness = driftFriction;
-        rearLeftWheel.sidewaysFriction = sidewaysFriction;
-        rearRightWheel.sidewaysFriction = sidewaysFriction;
-
-        // Calcular la rotación deseada durante el derrape
-        float targetRotationY = turnInput * maxDriftRotation; //* (rigidbody.velocity.magnitude / maxSpeed) OPCIÓN PARA REGULAR POR VELOCIDAD, MIRARLO MAS ADELANTE
-
-        // Limitar la rotación en Y
-        Quaternion targetRotation = Quaternion.Euler(0, targetRotationY , 0); //+ rigidbody.rotation.eulerAngles.y
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-
-        // Inclinar el chasis
-        float tilt = -turnInput * driftTiltAngle;
-        chassis.rotation = Quaternion.Euler(0, transform.eulerAngles.y, tilt);
-
-        // Reproducir sonido de derrape
-        if (driftSound != null && !driftSound.isPlaying) {
-            driftSound.Play();
+        // Configurar curva de torque por defecto si no está asignada
+        if (torqueCurve == null || torqueCurve.length == 0)
+        {
+            torqueCurve = new AnimationCurve(
+                new Keyframe(0, 1f),
+                new Keyframe(0.7f, 0.6f),
+                new Keyframe(1, 0.1f)
+            );
         }
     }
-*/
 
-    void ActivateDrift(float turnInput)
+    // Físicas en FixedUpdate
+    void FixedUpdate()
     {
-        // Reducir fricción lateral para derrapar
-        WheelFrictionCurve sidewaysFriction = rearLeftWheel.sidewaysFriction;
-        sidewaysFriction.stiffness = driftFriction;
-        rearLeftWheel.sidewaysFriction = sidewaysFriction;
-        rearRightWheel.sidewaysFriction = sidewaysFriction;
+        float throttle = throttleAction.ReadValue<float>();
+        float brake = brakeAction.ReadValue<float>();
+        float steer = steerAction.ReadValue<Vector2>().x;
+        bool drift = driftAction.ReadValue<float>() > 0.5f;
+        bool nitro = nitroAction.triggered;
 
-        // Si el derrape inicia, guardamos la rotación actual
-        if (!driftInitialBool)
-        {
-            driftStartYRotation = transform.eulerAngles.y;
-            Debug.Log("Drift Start Y Rotation: " + driftStartYRotation);
-            driftInitialBool = true;
-        }
+        ApplyMotor(throttle, brake);
+        ApplySteering(steer);
+        HandleDrift(drift, steer);
+        LimitSpeed();
 
-        // Calcular el ángulo de giro relativo a la rotación inicial
-        float targetRotationY = driftStartYRotation + (turnInput * maxDriftRotation);
-
-        // Limitar el ángulo de derrape
-        float currentRotationY = transform.eulerAngles.y;
-        float deltaRotationY = Mathf.DeltaAngle(currentRotationY, targetRotationY);
-
-        if (Mathf.Abs(deltaRotationY) > maxDriftRotation)
-        {
-            targetRotationY = driftStartYRotation + Mathf.Sign(deltaRotationY) * maxDriftRotation;
-        }
-
-        // Aplicar la rotación suavemente
-        Quaternion targetRotation = Quaternion.Euler(0, targetRotationY, 0);
-        transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
-
-        // Inclinar el chasis
-        float tilt = -turnInput * driftTiltAngle;
-        chassis.rotation = Quaternion.Euler(0, transform.eulerAngles.y, tilt);
-
-        // Reproducir sonido de derrape
-        if (driftSound != null && !driftSound.isPlaying)
-        {
-            driftSound.Play();
-        }
-    }
-    void DeactivateDrift() {
-        // Restaurar fricción lateral normal
-        WheelFrictionCurve sidewaysFriction = rearLeftWheel.sidewaysFriction;
-        sidewaysFriction.stiffness = 1f;
-        rearLeftWheel.sidewaysFriction = sidewaysFriction;
-        rearRightWheel.sidewaysFriction = sidewaysFriction;
-
-        // Enderezar el coche y el chasis
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, transform.eulerAngles.y, 0), Time.deltaTime * 5f);
-        chassis.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
-        driftInitialBool = false;
-
-        // Detener sonido de derrape
-        if (driftSound != null && driftSound.isPlaying) {
-            driftSound.Stop();
-        }
+        if (nitro && !isNitroActive) StartCoroutine(ActivateNitro());
     }
 
-    IEnumerator ActivateNitro() {
+    #region Funciones de Físicas
+    void ApplyMotor(float throttle, float brake)
+    {
+        float speedFactor = rb.linearVelocity.magnitude / maxSpeed;
+        float currentTorque = maxMotorTorque * torqueCurve.Evaluate(speedFactor);
+
+        foreach (var wheel in driveWheels)
+        {
+            if (throttle > 0.1f)
+            {
+                wheel.motorTorque = throttle * currentTorque * (isNitroActive ? nitroBoost : 1f);
+                wheel.brakeTorque = 0f;
+            }
+            else if (brake > 0.1f)
+            {
+                wheel.brakeTorque = brake * brakeTorque;
+                wheel.motorTorque = 0f;
+            }
+            else
+            {
+                // Freno motor suave
+                wheel.motorTorque = 0f;
+                wheel.brakeTorque = rb.linearVelocity.magnitude > 5f ? 1000f : 0f;
+            }
+        }
+
+        // Actualizar sonido del motor (pitch basado en velocidad)
+        if (engineSound) engineSound.pitch = 0.5f + speedFactor * 1.5f;
+    }
+
+    void ApplySteering(float steerInput)
+    {
+        currentSteerAngle = Mathf.Lerp(
+            currentSteerAngle,
+            steerInput * maxSteeringAngle * (1 - (rb.linearVelocity.magnitude / maxSpeed) * 0.7f),
+            steeringSpeed * Time.fixedDeltaTime
+        );
+
+        foreach (var wheel in steeringWheels)
+        {
+            wheel.steerAngle = steerInput * this.maxSteeringAngle;  // "this" asegura que usas la variable de clase
+        }
+    }
+
+    void HandleDrift(bool driftInput, float steerInput)
+    {
+        bool canDrift = rb.linearVelocity.magnitude > minDriftSpeed && Mathf.Abs(steerInput) > 0.3f;
+
+        if (driftInput && canDrift)
+        {
+            isDrifting = true;
+            SetWheelFriction(driftFriction);
+
+            // Inclinación más controlada
+            float targetTilt = -steerInput * driftTiltAngle;
+            Quaternion targetRotation = Quaternion.Euler(0, 0, targetTilt);
+            chassis.localRotation = Quaternion.Lerp(chassis.localRotation, targetRotation, tiltSmoothness * Time.fixedDeltaTime);
+
+            // Rotación más suave
+            rb.AddTorque(transform.up * steerInput * driftRotationSpeed * 0.1f, ForceMode.VelocityChange); // Reduje la fuerza
+
+            if (driftSound && !driftSound.isPlaying) driftSound.Play();
+        }
+        else if (isDrifting)
+        {
+            isDrifting = false;
+            SetWheelFriction(Mathf.Lerp(GetCurrentFriction(), normalFriction, Time.fixedDeltaTime * 5f));
+            
+            // Vuelta a posición neutral más rápida
+            chassis.localRotation = Quaternion.Lerp(chassis.localRotation, Quaternion.identity, Time.fixedDeltaTime * 10f);
+            
+            if (driftSound && driftSound.isPlaying) driftSound.Stop();
+        }
+    }
+    void LimitSpeed()
+    {
+        if (rb.linearVelocity.magnitude > maxSpeed * (isNitroActive ? nitroBoost : 1f))
+        {
+            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed * (isNitroActive ? nitroBoost : 1f);
+        }
+    }
+    #endregion
+
+    #region Nitro
+    IEnumerator ActivateNitro()
+    {
         isNitroActive = true;
-        maxMotorTorque += nitroBoost;
+        if (nitroSound) nitroSound.Play();
         yield return new WaitForSeconds(nitroDuration);
-        maxMotorTorque -= nitroBoost;
         isNitroActive = false;
     }
+    #endregion
 
-    void OnCollisionEnter(Collision collision) {
-        // Saltar en rampas
-        if (collision.gameObject.CompareTag("Ramp")) {
-            rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+    #region Salto (Rampas)
+    void OnCollisionEnter(Collision collision)
+    {
+        if (((1 << collision.gameObject.layer) & rampLayer) != 0)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+    #endregion
+
+    #region Helpers
+    void SetWheelFriction(float stiffness)
+    {
+        foreach (var wheel in driveWheels)
+        {
+            WheelFrictionCurve friction = wheel.sidewaysFriction;
+            friction.stiffness = stiffness;
+            wheel.sidewaysFriction = friction;
         }
     }
 
-    void UpdateWheelVisuals(WheelCollider collider, Transform mesh) {
-        if (collider == null || mesh == null) return;
-
-        Vector3 position;
-        Quaternion rotation;
-        collider.GetWorldPose(out position, out rotation);
-        mesh.position = position;
-        mesh.rotation = rotation;
+    float GetCurrentFriction()
+    {
+        return driveWheels[0].sidewaysFriction.stiffness;
     }
+    #endregion
 }
