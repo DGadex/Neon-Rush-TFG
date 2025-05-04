@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
     // Variables internas
     private int currentLap = 1;
     private bool raceFinished = false;
+    private float raceTime = 0f; // Tiempo total de carrera
     private ArcadeCarController carController; // Script de control del coche
     private Rigidbody carRigidbody;
+    public UIManager uiManager;
 
     void Start()
     {
@@ -37,6 +39,14 @@ public class GameManager : MonoBehaviour
         carRigidbody.angularVelocity = Vector3.zero;
     }
 
+    void Update()
+{
+    if (!raceFinished)
+    {
+        raceTime += Time.deltaTime;
+        uiManager.UpdateRaceUI(currentLap, totalLaps, raceTime); // Actualiza UI cada frame
+    }
+}
     // Lógica cuando se completa una vuelta
     private void HandleLapCompletion()
     {
@@ -56,6 +66,8 @@ public class GameManager : MonoBehaviour
     private void FinishRace()
     {
         raceFinished = true;
+        uiManager.ShowFinishPanel(raceTime); // Muestra el panel final con el tiempo
+
         Debug.Log("¡Carrera terminada!");
 
         // Deshabilitar controles
