@@ -26,9 +26,9 @@ public class GridData
         List<Vector3Int> returnVal = new();
         for(int x = 0; x < objectSize.x; x++)
         {
-            for(int y = 0; y < objectSize.y; y++)
+            for(int z = 0; z < objectSize.z; z++)
             {
-                returnVal.Add(gridPosition + new Vector3Int(x,0,y));
+                returnVal.Add(gridPosition + new Vector3Int(x,0,z));
             }
         }
         return returnVal;
@@ -43,6 +43,21 @@ public class GridData
                 return false;
         }
         return true;
+    }
+
+    internal int GetRepresentationIndex(Vector3Int gridPosition)
+    {
+        if(placedObjects.ContainsKey(gridPosition) == false)
+            return -1;
+        return placedObjects[gridPosition].PlacedObjectsIndex;
+    }
+
+    internal void RemoveObjectAt(Vector3Int gridPosition)
+    {
+        foreach(var pos in placedObjects[gridPosition].occupiedPositions)
+        {
+            placedObjects.Remove(pos);
+        }
     }
 }
 

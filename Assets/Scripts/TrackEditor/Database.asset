@@ -25,3 +25,7 @@ MonoBehaviour:
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 1, y: 1, z: 1}
     <Prefab>k__BackingField: {fileID: 3234627631679655112, guid: a17ffa91f613a6443b1e2d338a967774, type: 3}
+  - <Name>k__BackingField: Curva Derecha 2
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 2, y: 1, z: 2}
+    <Prefab>k__BackingField: {fileID: 7305019747604021124, guid: 5d604d2d89cebbb4595139abfd62df7c, type: 3}
