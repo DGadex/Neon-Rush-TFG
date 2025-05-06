@@ -12,14 +12,14 @@ public class RemovingState : IBuildingState
 
     public RemovingState(Grid grid,
                          PreviewSystem previewSystem,
-                         GridData floorData,
-                         GridData furnitureData,
+                         GridData extraData,
+                         GridData trackData,
                          ObjectPlacer objectPlacer)
     {
         this.grid = grid;
         this.previewSystem = previewSystem;
-        this.extraData = floorData;
-        this.trackData = furnitureData;
+        this.extraData = extraData;
+        this.trackData = trackData;
         this.objectPlacer = objectPlacer;
 
         previewSystem.StartShowingRemovePreview();

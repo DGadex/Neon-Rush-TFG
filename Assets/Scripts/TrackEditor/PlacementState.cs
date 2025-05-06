@@ -7,8 +7,8 @@ public class PlacementState : IBuildingState
     Grid grid;
     PreviewSystem previewSystem;
     ObjectsDatabaseSO database;
-    GridData floorData;
-    GridData furnitureData;
+    GridData extraData;
+    GridData trackData;
     ObjectPlacer objectPlacer;
 
     private Quaternion currentRotation = Quaternion.identity;
@@ -25,8 +25,8 @@ public class PlacementState : IBuildingState
         this.grid = grid;
         this.previewSystem = previewSystem;
         this.database = database;
-        this.floorData = floorData;
-        this.furnitureData = furnitureData;
+        this.extraData = floorData;
+        this.trackData = furnitureData;
         this.objectPlacer = objectPlacer;
 
         selectedObjectIndex = database.objectsData.FindIndex(data => data.ID == ID);
@@ -56,7 +56,7 @@ public class PlacementState : IBuildingState
 
         int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition), currentRotation);
 
-        GridData selectedData = database.objectsData[selectedObjectIndex].ID < 0 ? floorData : furnitureData; //Menor que 0 para qu el objeto se pueda colocar encima de otros trozos de pista
+        GridData selectedData = database.objectsData[selectedObjectIndex].ID < 0 ? extraData : trackData; //Menor que 0 para qu el objeto se pueda colocar encima de otros trozos de pista
         selectedData.AddObjectAt(gridPosition,
                     database.objectsData[selectedObjectIndex].Size,
                     database.objectsData[selectedObjectIndex].ID,
@@ -66,7 +66,7 @@ public class PlacementState : IBuildingState
 
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex)
     {
-        GridData selectedData = database.objectsData[selectedObjectIndex].ID < 0 ? floorData : furnitureData; //Menor que 0 para qu el objeto se pueda colocar encima de otros trozos de pista
+        GridData selectedData = database.objectsData[selectedObjectIndex].ID < 0 ? extraData : trackData; //Menor que 0 para qu el objeto se pueda colocar encima de otros trozos de pista
         return selectedData.CanPlaceObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size);
     }
 
