@@ -6,6 +6,12 @@ public class GridData
 {
     Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
+    [SerializeField]
+    private Grid grid;
+
+    private int sizeX = 150, sizeY = 50, sizeZ = 150;
+
+
     public void AddObjectAt(Vector3Int gridPosition,
                             Vector3Int objectSize,
                             int ID,
@@ -26,9 +32,12 @@ public class GridData
         List<Vector3Int> returnVal = new();
         for(int x = 0; x < objectSize.x; x++)
         {
-            for(int z = 0; z < objectSize.z; z++)
+            for(int y = 0; y < objectSize.y; y++)
             {
-                returnVal.Add(gridPosition + new Vector3Int(x,0,z));
+                for(int z = 0; z < objectSize.z; z++)
+                {
+                    returnVal.Add(gridPosition + new Vector3Int(x,y,z));
+                }
             }
         }
         return returnVal;
@@ -40,6 +49,10 @@ public class GridData
         foreach(var pos in positionToOccupy)
         {
             if(placedObjects.ContainsKey(pos))
+                return false;
+            if(pos.x < -sizeX || pos.y < 0 || pos.z < -sizeZ)
+                return false;
+            if(pos.x >= sizeX || pos.y >= sizeY || pos.z >= sizeZ)
                 return false;
         }
         return true;
