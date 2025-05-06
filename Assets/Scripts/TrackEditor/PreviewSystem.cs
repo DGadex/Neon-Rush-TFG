@@ -103,4 +103,10 @@ public class PreviewSystem : MonoBehaviour
         PrepareCursor(Vector3Int.one);
         ApplyFeedbackToCursor(false);
     }
+
+    public void ApplyRotation(Quaternion rotation)
+    {
+        if (previewObject != null)
+            previewObject.transform.GetChild(0).rotation = rotation;
+    }
 }

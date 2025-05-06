@@ -105,5 +105,9 @@ public class PlacementSystem : MonoBehaviour
             buildingState.UpdateState(gridPosition);
             lastDetectedPosition = gridPosition;
         }
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            (buildingState as PlacementState)?.RotatePreview();
+        }
     }
 }

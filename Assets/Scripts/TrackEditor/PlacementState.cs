@@ -11,6 +11,8 @@ public class PlacementState : IBuildingState
     GridData furnitureData;
     ObjectPlacer objectPlacer;
 
+    private Quaternion currentRotation = Quaternion.identity;
+
     public PlacementState(int iD,
                           Grid grid,
                           PreviewSystem previewSystem,
@@ -52,7 +54,7 @@ public class PlacementState : IBuildingState
 
         // SourceFilter.Play(); Sonido al posicionar
 
-        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition));
+        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition), currentRotation);
 
         GridData selectedData = database.objectsData[selectedObjectIndex].ID < 0 ? floorData : furnitureData; //Menor que 0 para qu el objeto se pueda colocar encima de otros trozos de pista
         selectedData.AddObjectAt(gridPosition,
@@ -69,9 +71,15 @@ public class PlacementState : IBuildingState
     }
 
     public void UpdateState(Vector3Int gridPosition)
-    {
-        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
+    {  
 
+        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex);
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity);
+    }
+    
+    public void RotatePreview()
+    {
+        currentRotation *= Quaternion.Euler(0, 90, 0);
+        previewSystem.ApplyRotation(currentRotation);
     }
 }
