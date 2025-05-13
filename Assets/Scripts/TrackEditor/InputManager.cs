@@ -13,6 +13,8 @@ public class InputManager : MonoBehaviour
     private LayerMask placementLayermask;
 
     public event Action OnClicked, onExit;
+    [SerializeField]
+    private GameObject gridVisualization;
 
     private void Update()
     {
@@ -20,6 +22,10 @@ public class InputManager : MonoBehaviour
             OnClicked?.Invoke();
         if(Input.GetKeyDown(KeyCode.Escape))
             onExit?.Invoke();
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+            gridVisualization.transform.position += Vector3.up;
+        if(Input.GetKeyDown(KeyCode.DownArrow))
+            gridVisualization.transform.position += Vector3.down;
     }
 
     public bool IsPointerOverUI()
