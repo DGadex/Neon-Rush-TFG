@@ -54,7 +54,7 @@ public class PlacementState : IBuildingState
 
         // SourceFilter.Play(); Sonido al posicionar
 
-        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition), currentRotation);
+        int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition), currentRotation, database.objectsData[selectedObjectIndex].ID);
 
         GridData selectedData = database.objectsData[selectedObjectIndex].ID < 0 ? extraData : trackData; //Menor que 0 para qu el objeto se pueda colocar encima de otros trozos de pista
         selectedData.AddObjectAt(gridPosition,
