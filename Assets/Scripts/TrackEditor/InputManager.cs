@@ -23,9 +23,9 @@ public class InputManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
             onExit?.Invoke();
         if(Input.GetKeyDown(KeyCode.UpArrow))
-            gridVisualization.transform.position += Vector3.up;
+            gridVisualization.transform.position += Vector3.up*7;
         if(Input.GetKeyDown(KeyCode.DownArrow))
-            gridVisualization.transform.position += Vector3.down;
+            gridVisualization.transform.position += Vector3.down*7;
     }
 
     public bool IsPointerOverUI()
