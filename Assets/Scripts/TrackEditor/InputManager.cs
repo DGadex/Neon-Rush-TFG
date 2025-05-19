@@ -13,6 +13,8 @@ public class InputManager : MonoBehaviour
     private LayerMask placementLayermask;
 
     public event Action OnClicked, onExit;
+    [SerializeField]
+    private GameObject gridVisualization;
 
     private void Update()
     {
@@ -20,6 +22,10 @@ public class InputManager : MonoBehaviour
             OnClicked?.Invoke();
         if(Input.GetKeyDown(KeyCode.Escape))
             onExit?.Invoke();
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+            gridVisualization.transform.position += Vector3.up*14;
+        if(Input.GetKeyDown(KeyCode.DownArrow))
+            gridVisualization.transform.position += Vector3.down*14;
     }
 
     public bool IsPointerOverUI()
@@ -31,7 +37,7 @@ public class InputManager : MonoBehaviour
         mousePos.z = sceneCamera.nearClipPlane;
         Ray ray = sceneCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 100, placementLayermask))
+        if(Physics.Raycast(ray, out hit, 1000, placementLayermask))
         {
             lastPosition = hit.point;
         }

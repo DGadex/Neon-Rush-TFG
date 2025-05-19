@@ -16,16 +16,12 @@ MonoBehaviour:
   - <Name>k__BackingField: Recto
     <ID>k__BackingField: 0
     <Size>k__BackingField: {x: 1, y: 1, z: 1}
-    <Prefab>k__BackingField: {fileID: 8003662237167141613, guid: 214f9f9870af7524b97738a2c7822747, type: 3}
-  - <Name>k__BackingField: Curva Izquierda
+    <Prefab>k__BackingField: {fileID: 8222109995788101088, guid: 74dba74ffa26696499d37b6376b268e4, type: 3}
+  - <Name>k__BackingField: Curva
     <ID>k__BackingField: 1
-    <Size>k__BackingField: {x: 1, y: 1, z: 1}
-    <Prefab>k__BackingField: {fileID: 7414284507340550769, guid: eb9bd90f5aad0f64793408c879b0052b, type: 3}
-  - <Name>k__BackingField: Curva Derecha
-    <ID>k__BackingField: 2
-    <Size>k__BackingField: {x: 1, y: 1, z: 1}
-    <Prefab>k__BackingField: {fileID: 3234627631679655112, guid: a17ffa91f613a6443b1e2d338a967774, type: 3}
-  - <Name>k__BackingField: Curva Derecha 2
-    <ID>k__BackingField: 3
     <Size>k__BackingField: {x: 2, y: 1, z: 2}
-    <Prefab>k__BackingField: {fileID: 7305019747604021124, guid: 5d604d2d89cebbb4595139abfd62df7c, type: 3}
+    <Prefab>k__BackingField: {fileID: 2182362533588807250, guid: da1951011a8256e4086a987c8e69fc0f, type: 3}
+  - <Name>k__BackingField: Looping
+    <ID>k__BackingField: 2
+    <Size>k__BackingField: {x: 3, y: 2, z: 3}
+    <Prefab>k__BackingField: {fileID: 6029060368013570840, guid: ef525f1dffcb4b04ca24b2dd3896877a, type: 3}

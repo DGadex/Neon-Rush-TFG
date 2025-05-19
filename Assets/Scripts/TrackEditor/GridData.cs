@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class GridData
 {
-    Dictionary<Vector3Int, PlacementData> placedObjects = new();
+    [SerializeField]
+    public Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
     [SerializeField]
     private Grid grid;
@@ -74,6 +76,7 @@ public class GridData
     }
 }
 
+[System.Serializable]
 public class PlacementData
 {
     public List<Vector3Int> occupiedPositions;

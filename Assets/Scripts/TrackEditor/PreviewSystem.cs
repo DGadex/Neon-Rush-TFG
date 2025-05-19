@@ -36,7 +36,7 @@ public class PreviewSystem : MonoBehaviour
     {
         if(size.x > 0 || size.y > 0)
         {
-            cellIndicator.transform.localScale = new Vector3(size.x, 1, size.z);
+            cellIndicator.transform.localScale = new Vector3(size.x * 14, 1, size.z * 14);
             cellIndicatorRenderer.material.mainTextureScale = new Vector2(size.x, size.z);
         }
     }
