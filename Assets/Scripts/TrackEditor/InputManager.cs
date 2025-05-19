@@ -23,9 +23,9 @@ public class InputManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape))
             onExit?.Invoke();
         if(Input.GetKeyDown(KeyCode.UpArrow))
-            gridVisualization.transform.position += Vector3.up*7;
+            gridVisualization.transform.position += Vector3.up*14;
         if(Input.GetKeyDown(KeyCode.DownArrow))
-            gridVisualization.transform.position += Vector3.down*7;
+            gridVisualization.transform.position += Vector3.down*14;
     }
 
     public bool IsPointerOverUI()
@@ -37,7 +37,7 @@ public class InputManager : MonoBehaviour
         mousePos.z = sceneCamera.nearClipPlane;
         Ray ray = sceneCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 100, placementLayermask))
+        if(Physics.Raycast(ray, out hit, 1000, placementLayermask))
         {
             lastPosition = hit.point;
         }
