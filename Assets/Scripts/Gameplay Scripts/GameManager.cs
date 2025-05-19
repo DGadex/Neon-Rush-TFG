@@ -1,69 +1,92 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
-    // Referencias
-    public GameObject car; // Objeto del coche (con Rigidbody y ArcadeCarController)
-    public Transform startPos; // Empty "StartPos" para respawn inicial
-    public CheckpointSystem checkpointSystem; // Sistema de checkpoints
-    public int totalLaps = 3; // Vueltas totales del circuito
-
-    // Variables internas
+    [Header("Referencias")]
+    public GameObject car; 
+    public Transform startPos;
+    public CheckpointSystem checkpointSystem;
+    public UIManager uiManager;
+    
+    [Header("Configuración")]
+    public int totalLaps = 3;
+    
+    // Variables privadas
     private int currentLap = 1;
     private bool raceFinished = false;
-    private ArcadeCarController carController; // Script de control del coche
+    private float raceTime = 0f;
+    private ArcadeCarController carController;
     private Rigidbody carRigidbody;
 
     void Start()
     {
-        // Inicializar componentes del coche
+        InitializeComponents();
+        StartCoroutine(DelayedResetPosition()); // Reset con delay
+    }
+
+    void InitializeComponents()
+    {
         carController = car.GetComponent<ArcadeCarController>();
         carRigidbody = car.GetComponent<Rigidbody>();
-
-        // Posicionar el coche al inicio
-        ResetCarPosition();
-
-        // Configurar el checkpoint system
         checkpointSystem.OnLapCompleted += HandleLapCompletion;
+        
+        // Configuración inicial del Rigidbody
+        carRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    // Reinicia la posición del coche al StartPos
-    public void ResetCarPosition()
+    IEnumerator DelayedResetPosition()
     {
-        car.transform.position = startPos.position;
-        car.transform.rotation = startPos.rotation;
+        yield return new WaitForFixedUpdate(); // Espera al próximo FixedUpdate
+        
+        carRigidbody.isKinematic = true;
+        car.transform.SetPositionAndRotation(startPos.position, startPos.rotation);
         carRigidbody.linearVelocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
+        carRigidbody.isKinematic = false;
     }
 
-    // Lógica cuando se completa una vuelta
+    void Update()
+    {
+        if (!raceFinished)
+        {
+            raceTime += Time.deltaTime;
+            uiManager.UpdateRaceUI(currentLap, totalLaps, raceTime);
+        }
+    }
+
     private void HandleLapCompletion()
     {
         currentLap++;
-
+        
         if (currentLap > totalLaps)
         {
             FinishRace();
         }
         else
         {
-            Debug.Log($"¡Vuelta {currentLap - 1} completada! Vueltas restantes: {totalLaps - currentLap + 1}");
+            Debug.Log($"Vuelta {currentLap}/ {totalLaps}");
+            // Efecto visual/sonoro opcional al completar vuelta
         }
     }
 
-    // Finalizar la carrera
     private void FinishRace()
     {
         raceFinished = true;
-        Debug.Log("¡Carrera terminada!");
+        uiManager.ShowFinishPanel(raceTime);
+        
+        // Desactivar controles suavemente
+        carController.enabled = false;
+        carRigidbody.linearVelocity = Vector3.zero;
+        carRigidbody.angularVelocity = Vector3.zero;
+    }
 
-        // Deshabilitar controles
-        carController.enabled = false; // Desactiva el script de control
-
-        // Opcional: Congelar el coche
-        carRigidbody.linearVelocity = Vector3.zero; // Congela la velocidad
-        carRigidbody.angularVelocity = Vector3.zero; // Congela la rotación
-        //carRigidbody.isKinematic = true;
+    // Para reinicio manual (por ejemplo, al caer al vacío)
+    public void ForceRespawn()
+    {
+        currentLap = 1;
+        raceFinished = false;
+        StartCoroutine(DelayedResetPosition());
     }
 }
