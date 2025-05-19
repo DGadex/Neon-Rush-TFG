@@ -833,27 +833,6 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6893401132097648838, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
   m_PrefabInstance: {fileID: 411839792}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &248657544 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4552937007993910717, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-  m_PrefabInstance: {fileID: 411839792}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &248657545 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2926983493278398949, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-  m_PrefabInstance: {fileID: 411839792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 248657544}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!23 &248657547 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7391429127164016830, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-  m_PrefabInstance: {fileID: 411839792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &280038455 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4691527658195954954, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
@@ -1466,7 +1445,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 248657545}
+      - m_Target: {fileID: 1647370687}
         m_TargetAssemblyTypeName: MaterialSwitcher, Assembly-CSharp
         m_MethodName: SetMetalMaterial
         m_Mode: 1
@@ -2767,7 +2746,7 @@ MonoBehaviour:
   - {fileID: 2099355082}
   - {fileID: 1804338731}
   - {fileID: 199236463}
-  - {fileID: 248657547}
+  - {fileID: 1647370688}
 --- !u!1 &1351048665
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,7 +3035,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 248657545}
+      - m_Target: {fileID: 1647370687}
         m_TargetAssemblyTypeName: MaterialSwitcher, Assembly-CSharp
         m_MethodName: SetMatteMaterial
         m_Mode: 1
@@ -3588,7 +3567,7 @@ MonoBehaviour:
   spoilersFront:
   - {fileID: 1804338726}
   - {fileID: 199236458}
-  - {fileID: 248657544}
+  - {fileID: 1647370686}
   confirmButton: {fileID: 1406309313}
   backButton: {fileID: 1937402095}
 --- !u!1 &1499836275
@@ -4001,6 +3980,27 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &1647370686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 937065951591388168, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 411839792}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1647370687 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8541512744781994844, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 411839792}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1647370686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!23 &1647370688 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1585791486775555549, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 411839792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1797358660
 GameObject:
   m_ObjectHideFlags: 0
@@ -4575,7 +4575,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 248657545}
+      - m_Target: {fileID: 1647370687}
         m_TargetAssemblyTypeName: MaterialSwitcher, Assembly-CSharp
         m_MethodName: SetSatinMaterial
         m_Mode: 1
