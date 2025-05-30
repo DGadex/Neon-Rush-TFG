@@ -807,11 +807,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 184219343}
   m_CullTransparentMesh: 1
---- !u!23 &190794243 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 7884076978911332931, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-  m_PrefabInstance: {fileID: 411839792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &199236458 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5272265917087427467, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
@@ -833,17 +828,6 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6893401132097648838, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
   m_PrefabInstance: {fileID: 411839792}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &280038455 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4691527658195954954, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-  m_PrefabInstance: {fileID: 411839792}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &395279356
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,6 +939,10 @@ PrefabInstance:
       propertyPath: satinMaterial
       value: 
       objectReference: {fileID: 2100000, guid: c03e4987cb1e0574c824a8e112ed1780, type: 2}
+    - target: {fileID: 2612106311119673180, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2763399097731811091, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: matteMaterial
       value: 
@@ -1104,9 +1092,28 @@ PrefabInstance:
     - {fileID: 4830819359327080762, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
     - {fileID: 8717619620582078881, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2120415381}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+--- !u!114 &423157279 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6852938123684246894, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 411839792}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!23 &423157280 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3750157107321105459, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 411839792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &433571673
 GameObject:
   m_ObjectHideFlags: 0
@@ -1373,7 +1380,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 280038455}
+      - m_Target: {fileID: 423157279}
         m_TargetAssemblyTypeName: MaterialSwitcher, Assembly-CSharp
         m_MethodName: SetMetalMaterial
         m_Mode: 1
@@ -2635,6 +2642,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282109343}
   m_CullTransparentMesh: 1
+--- !u!4 &1300404268 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 411839792}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1341654828
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,7 +2752,7 @@ MonoBehaviour:
   hueSlider: {fileID: 36691917}
   hexInputField: {fileID: 573437443}
   changeThisColour:
-  - {fileID: 190794243}
+  - {fileID: 423157280}
   - {fileID: 16003517}
   - {fileID: 1629140452}
   - {fileID: 2099355082}
@@ -2963,7 +2975,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 280038455}
+      - m_Target: {fileID: 423157279}
         m_TargetAssemblyTypeName: MaterialSwitcher, Assembly-CSharp
         m_MethodName: SetMatteMaterial
         m_Mode: 1
@@ -4503,7 +4515,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 280038455}
+      - m_Target: {fileID: 423157279}
         m_TargetAssemblyTypeName: MaterialSwitcher, Assembly-CSharp
         m_MethodName: SetSatinMaterial
         m_Mode: 1
@@ -4813,6 +4825,62 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6272089843827337933, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
   m_PrefabInstance: {fileID: 411839792}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2120415380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2120415381}
+  - component: {fileID: 2120415382}
+  m_Layer: 0
+  m_Name: Decal Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2120415381
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120415380}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.34409016, y: 0.8747985, z: -0.124845326, w: 0.3174007}
+  m_LocalPosition: {x: -0.868, y: 0.46, z: 0.7425}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1300404268}
+  m_LocalEulerAnglesHint: {x: 25.904, y: 148.544, z: 35.532}
+--- !u!114 &2120415382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120415380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: ec0b60559730f4a4fb9522e705829abe, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 0.9
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 0.18645796, y: 0.117592685}
+  m_UVBias: {x: 0.27490592, y: 0.2461916}
+  m_DecalLayerMask: 1
+  m_ScaleMode: 0
+  m_Offset: {x: 0.31815827, y: -0.237032, z: 1.2233924}
+  m_Size: {x: 1.3067961, y: 0.3469718, z: 2.0641081}
+  m_FadeFactor: 1
 --- !u!1 &2143370438
 GameObject:
   m_ObjectHideFlags: 0
