@@ -12,8 +12,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Catadioptrico
+    second: {fileID: 2100000, guid: 6cc90797cfc167f44857304a9b92d918, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Chapa
     second: {fileID: 2100000, guid: 15095fa1b9fd29042b6d2565e902c1a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Chapa_Faro
+    second: {fileID: 2100000, guid: f844a314544b273448539762a4cc04c1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -22,8 +32,43 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: CristalFaro
+    second: {fileID: 2100000, guid: 2a2d9216423fac4439024ebfff09995e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Escape
+    second: {fileID: 2100000, guid: b4922bbbbff6d954bb5f4fad362520f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Faro
+    second: {fileID: 2100000, guid: 61ba59d3c899882489c557b49d5c0644, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Luz
+    second: {fileID: 2100000, guid: 9484ffa5214a37c4a825718447a70f69, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Luz Trasera
+    second: {fileID: 2100000, guid: 6090fc85ded54be4b90bfc3a8534fec3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Material.001
     second: {fileID: 2100000, guid: a28dc138b6377f84fb9a8a705f94147b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Parrilla
+    second: {fileID: 2100000, guid: a28dc138b6377f84fb9a8a705f94147b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tubo
+    second: {fileID: 2100000, guid: 26e0a3d3fd7c0e34bb4dfb73b2ad2cc2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

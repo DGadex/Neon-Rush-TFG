@@ -1092,10 +1092,7 @@ PrefabInstance:
     - {fileID: 4830819359327080762, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
     - {fileID: 8717619620582078881, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2120415381}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
 --- !u!114 &423157279 stripped
@@ -1109,11 +1106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7860873be8cdc1545b4c8772645178c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!23 &423157280 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 3750157107321105459, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-  m_PrefabInstance: {fileID: 411839792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &433571673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2642,11 +2634,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282109343}
   m_CullTransparentMesh: 1
---- !u!4 &1300404268 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-  m_PrefabInstance: {fileID: 411839792}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1341654828
 GameObject:
   m_ObjectHideFlags: 0
@@ -2690,7 +2677,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00024414062, y: 0.000091552734}
+  m_AnchoredPosition: {x: 0.00024414062, y: 0.00012207031}
   m_SizeDelta: {x: 0.00061035, y: -0.00024414}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1341654830
@@ -2752,7 +2739,7 @@ MonoBehaviour:
   hueSlider: {fileID: 36691917}
   hexInputField: {fileID: 573437443}
   changeThisColour:
-  - {fileID: 423157280}
+  - {fileID: 0}
   - {fileID: 16003517}
   - {fileID: 1629140452}
   - {fileID: 2099355082}
@@ -4825,62 +4812,6 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 6272089843827337933, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
   m_PrefabInstance: {fileID: 411839792}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2120415380
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2120415381}
-  - component: {fileID: 2120415382}
-  m_Layer: 0
-  m_Name: Decal Projector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2120415381
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120415380}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.34409016, y: 0.8747985, z: -0.124845326, w: 0.3174007}
-  m_LocalPosition: {x: -0.868, y: 0.46, z: 0.7425}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1300404268}
-  m_LocalEulerAnglesHint: {x: 25.904, y: 148.544, z: 35.532}
---- !u!114 &2120415382
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2120415380}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: ec0b60559730f4a4fb9522e705829abe, type: 2}
-  m_DrawDistance: 1000
-  m_FadeScale: 0.9
-  m_StartAngleFade: 180
-  m_EndAngleFade: 180
-  m_UVScale: {x: 0.18645796, y: 0.117592685}
-  m_UVBias: {x: 0.27490592, y: 0.2461916}
-  m_DecalLayerMask: 1
-  m_ScaleMode: 0
-  m_Offset: {x: 0.31815827, y: -0.237032, z: 1.2233924}
-  m_Size: {x: 1.3067961, y: 0.3469718, z: 2.0641081}
-  m_FadeFactor: 1
 --- !u!1 &2143370438
 GameObject:
   m_ObjectHideFlags: 0
