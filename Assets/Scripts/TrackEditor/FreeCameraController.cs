@@ -5,7 +5,6 @@ public class FreeCameraController : MonoBehaviour
     public float movementSpeed = 25f;
     public float rotationSpeed = 200f;
     public Transform cameraTransform;
-
     public GameObject targetObject;
     private float yaw = 0f;
     private float pitch = 0f;
