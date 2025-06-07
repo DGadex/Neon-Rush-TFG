@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-using Cinemachine; // Necesario para Cinemachine
+using Unity.Cinemachine; // Necesario para Cinemachine
 
 public class TestSpawner : MonoBehaviour
 {
