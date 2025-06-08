@@ -419,6 +419,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2104103865}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!1 &335480923 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 927852848297752386, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 734892329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &403565613
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,14 +1626,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 328817406260822592, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      propertyPath: skidmarksController
-      value: 
-      objectReference: {fileID: 148081688}
     - target: {fileID: 2959722282104834670, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: m_Name
       value: Arcade Car
       objectReference: {fileID: 0}
+    - target: {fileID: 3171186394823067091, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: skidmarksController
+      value: 
+      objectReference: {fileID: 148081688}
+    - target: {fileID: 5106960325875444949, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: skidmarksController
+      value: 
+      objectReference: {fileID: 148081688}
     - target: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1669,22 +1678,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7070313891715992763, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      propertyPath: maxMotorTorque
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8221488917036803861, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+    - target: {fileID: 7370821923592649953, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: skidmarksController
       value: 
       objectReference: {fileID: 148081688}
-    - target: {fileID: 9181361480647328019, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+    - target: {fileID: 8639213946648846845, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: skidmarksController
       value: 
       objectReference: {fileID: 148081688}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 7695882694659721907, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1968405287}
+    - targetCorrespondingSourceObject: {fileID: 3998406555761213070, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 863065285}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3046754637990887455, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2114316165}
+    - targetCorrespondingSourceObject: {fileID: 927852848297752386, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 734892338}
   m_SourcePrefab: {fileID: 100100000, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
 --- !u!114 &734892330 stripped
 MonoBehaviour:
@@ -1697,6 +1714,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cbb2b6b6f47ca74196176eae80574ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &734892336 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3998406555761213070, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 734892329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &734892338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335480923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 287ff19d2eb8e2247abef67ef95532a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smokeVFX: {fileID: 863065287}
+  minSlipForSmoke: 0.5
+  maxIntensity: 2
+  spawnRateMultiplier: 1
+  wheelSlipMultiplier: 10
+  vehicleRb: {fileID: 1412466912}
 --- !u!1 &769312406
 GameObject:
   m_ObjectHideFlags: 0
@@ -1834,6 +1874,120 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 769312406}
   m_CullTransparentMesh: 1
+--- !u!1 &863065284
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 863065285}
+  - component: {fileID: 863065287}
+  - component: {fileID: 863065286}
+  m_Layer: 0
+  m_Name: Smoke
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &863065285
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863065284}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 734892336}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!73398921 &863065286
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863065284}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!2083052967 &863065287
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863065284}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: b9bb9eca64c927d4e86a650118a8ee6c, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array: []
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
 --- !u!1 &872057020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2849,6 +3003,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
   m_PrefabInstance: {fileID: 734892329}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &1412466912 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 3458474501396287086, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 734892329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1481418694
 GameObject:
   m_ObjectHideFlags: 0
@@ -3763,6 +3922,120 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2104103865}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -2.649}
+--- !u!1 &1968405286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1968405287}
+  - component: {fileID: 1968405289}
+  - component: {fileID: 1968405288}
+  m_Layer: 0
+  m_Name: Smoke
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1968405287
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968405286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2114316163}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!73398921 &1968405288
+VFXRenderer:
+  serializedVersion: 1
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968405286}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!2083052967 &1968405289
+VisualEffect:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1968405286}
+  m_Enabled: 1
+  m_Asset: {fileID: 8926484042661614526, guid: b9bb9eca64c927d4e86a650118a8ee6c, type: 3}
+  m_InitialEventName: OnPlay
+  m_InitialEventNameOverriden: 0
+  m_StartSeed: 0
+  m_ResetSeedOnPlay: 1
+  m_AllowInstancing: 1
+  m_ResourceVersion: 1
+  m_PropertySheet:
+    m_Float:
+      m_Array: []
+    m_Vector2f:
+      m_Array: []
+    m_Vector3f:
+      m_Array: []
+    m_Vector4f:
+      m_Array: []
+    m_Uint:
+      m_Array: []
+    m_Int:
+      m_Array: []
+    m_Matrix4x4f:
+      m_Array: []
+    m_AnimationCurve:
+      m_Array: []
+    m_Gradient:
+      m_Array: []
+    m_NamedObject:
+      m_Array: []
+    m_Bool:
+      m_Array: []
 --- !u!1 &1974043955
 GameObject:
   m_ObjectHideFlags: 0
@@ -3847,6 +4120,34 @@ Transform:
   - {fileID: 1601065091}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2114316162 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3046754637990887455, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 734892329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2114316163 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7695882694659721907, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+  m_PrefabInstance: {fileID: 734892329}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2114316165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114316162}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 287ff19d2eb8e2247abef67ef95532a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smokeVFX: {fileID: 1968405289}
+  minSlipForSmoke: 0.5
+  maxIntensity: 2
+  spawnRateMultiplier: 1
+  wheelSlipMultiplier: 10
+  vehicleRb: {fileID: 1412466912}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
