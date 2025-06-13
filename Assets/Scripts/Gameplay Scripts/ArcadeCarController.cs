@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
+
 
 [RequireComponent(typeof(Rigidbody))]
 public class ArcadeCarController : MonoBehaviour
 {
-    #region Configuración Básica
+    #region Configuración
     [Header("Referencias")]
     public Transform chassis;
     public WheelCollider[] driveWheels;
@@ -13,8 +15,8 @@ public class ArcadeCarController : MonoBehaviour
     public InputActionAsset inputActions;
     #endregion
 
-    #region Aceleración Brutal
-    [Header("⚡ Aceleración")]
+    #region Aceleración
+    [Header(" Aceleración")]
     public float maxMotorTorque = 12000f;
     public float brakeTorque = 8000f;
     public float maxSpeed = 180f;
@@ -25,16 +27,16 @@ public class ArcadeCarController : MonoBehaviour
     );
     #endregion
 
-    #region Dirección Tipo F1
-    [Header("🏎️ Dirección")]
+    #region Dirección
+    [Header(" Dirección")]
     public float maxSteeringAngle = 15f;
     public float steeringResponse = 10f;
     public float downforce = 50f;
     private float currentSteerAngle;
     #endregion
 
-    #region Derrape Épico
-    [Header("💥 Derrape")]
+    #region Derrape
+    [Header(" Derrape")]
     public float driftFriction = 0.2f;
     public float normalFriction = 2f;
     public float driftTiltAngle = 25f;
@@ -45,23 +47,29 @@ public class ArcadeCarController : MonoBehaviour
     #endregion
 
     #region Nitro
-    [Header("🚀 Nitro")]
+    [Header("Nitro")]
     public float nitroBoost = 2f;
     public float nitroDuration = 2f;
     public AudioSource nitroSound;
-    private bool isNitroActive;
+    private bool isNitroActive = false;
     #endregion
 
     #region Salto
-    [Header("🌟 Salto")]
+    [Header("Salto")]
     public float jumpForce = 20f;
     public LayerMask rampLayer;
     #endregion
 
     #region Sonidos
-    [Header("🔊 Sonidos")]
+    [Header("Sonidos")]
     public AudioSource driftSound;
     public AudioSource engineSound;
+    #endregion
+
+    #region Efectos Visuales
+    [Header("VFX")]
+    public VisualEffect nitroFlamesVFX;   // Llamaradas del escape (Nitro)
+    public VisualEffect[] brakeTrailsVFX;
     #endregion
 
     #region Privadas
@@ -86,7 +94,15 @@ public class ArcadeCarController : MonoBehaviour
         steerAction.Enable();
         driftAction.Enable();
         nitroAction.Enable();
-    }
+        if (nitroFlamesVFX != null) nitroFlamesVFX.Stop();
+        if (brakeTrailsVFX != null)
+        {
+            foreach (var trail in brakeTrailsVFX)
+            {
+                trail.Stop();
+            }
+        }
+    }   
 
     void FixedUpdate()
     {
@@ -94,16 +110,16 @@ public class ArcadeCarController : MonoBehaviour
         float brake = brakeAction.ReadValue<float>();
         float steer = steerAction.ReadValue<Vector2>().x;
         bool drift = driftAction.ReadValue<float>() > 0.5f;
-        bool nitro = nitroAction.triggered;
+        bool nitro = nitroAction.IsPressed();
+        Debug.Log(nitro);
 
         ApplyDownforce();
         ApplyMotor(throttle, brake);
         ApplySteering(steer);
         HandleDrift(drift, steer);
         LimitSpeed();
+        HandleNitroInput();
 
-        if (nitro && !isNitroActive) StartCoroutine(ActivateNitro());
-        
         UpdateEngineSound();
     }
 
@@ -195,6 +211,15 @@ public class ArcadeCarController : MonoBehaviour
         }
     }
 
+    void HandleNitroInput()
+    {
+        Debug.Log("Handling Nitro Input");
+        // Si se presiona el botón de nitro y no está activo
+        if (nitroAction.IsPressed() && !isNitroActive)
+        {
+            StartCoroutine(ActivateNitro());
+        }
+    }
     void LimitSpeed()
     {
         if (rb.linearVelocity.magnitude > maxSpeed * (isNitroActive ? nitroBoost : 1f))
@@ -227,10 +252,46 @@ public class ArcadeCarController : MonoBehaviour
     #region Nitro
     IEnumerator ActivateNitro()
     {
+        Debug.Log("Activating Nitro");
         isNitroActive = true;
-        if (nitroSound) nitroSound.Play();
+        if (nitroFlamesVFX != null)
+        {
+            nitroFlamesVFX.Play(); // Efecto visual de nitro
+        }
+        if (brakeTrailsVFX != null) 
+        {
+            foreach (var trail in brakeTrailsVFX)
+        {
+            trail.Play();
+        }
+        }
+
+        
+        // Efecto de sonido
+        if (nitroSound != null) nitroSound.Play();
+        
+        // Aplicar boost de velocidad
+        float originalMaxSpeed = maxSpeed;
+        maxSpeed *= nitroBoost;  // Aumentamos la velocidad máxima
+        
         yield return new WaitForSeconds(nitroDuration);
+        
+        if (nitroFlamesVFX != null) 
+        {
+            nitroFlamesVFX.Stop();
+        }
+        if (brakeTrailsVFX != null) 
+        {
+            foreach (var trail in brakeTrailsVFX)
+        {
+            trail.Stop();
+        }        }
+
+        // Restaurar valores normales
+        maxSpeed = originalMaxSpeed;
         isNitroActive = false;
+        
+        // Opcional: Efecto visual de desactivación
     }
     #endregion
 

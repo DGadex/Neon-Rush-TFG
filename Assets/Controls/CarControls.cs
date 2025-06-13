@@ -229,8 +229,8 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""aa91ab27-b326-4e42-a047-5da673f37bf3"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Nitro"",

@@ -450,12 +450,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371197495}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.5, y: -0.12, z: -0.3}
-  m_LocalScale: {x: 0.33333334, y: 1, z: 1.5800002}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.6329114}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1412466910}
+  m_Father: {fileID: 1823766770}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!73398921 &371197497
 VFXRenderer:
@@ -678,7 +678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!73398921 &413313874
 VFXRenderer:
   serializedVersion: 1
@@ -687,7 +687,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 413313873}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -1906,6 +1906,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7070313891715992763, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: nitroBoost
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070313891715992763, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: nitroFlamesVFX
+      value: 
+      objectReference: {fileID: 413313875}
+    - target: {fileID: 7070313891715992763, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: brakeTrailsVFX.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7070313891715992763, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: 'brakeTrailsVFX.Array.data[0]'
+      value: 
+      objectReference: {fileID: 371197498}
+    - target: {fileID: 7070313891715992763, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: 'brakeTrailsVFX.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2107925632}
+    - target: {fileID: 7070313891715992763, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: 'brakeTrailsVFX.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1248323180}
+    - target: {fileID: 7070313891715992763, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
+      propertyPath: 'brakeTrailsVFX.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1641286276}
     - target: {fileID: 7370821923592649953, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       propertyPath: skidmarksController
       value: 
@@ -1919,18 +1947,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       insertIndex: 1
-      addedObject: {fileID: 371197496}
+      addedObject: {fileID: 1823766770}
     - targetCorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       insertIndex: 2
-      addedObject: {fileID: 2107925630}
-    - targetCorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 1248323178}
-    - targetCorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 1641286274}
-    - targetCorrespondingSourceObject: {fileID: 5690505154009615007, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      insertIndex: 5
       addedObject: {fileID: 413313876}
     - targetCorrespondingSourceObject: {fileID: 7695882694659721907, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       insertIndex: -1
@@ -1975,7 +1994,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokeVFX: {fileID: 1566013793}
-  minSlipForSmoke: 3
+  minSlipForSmoke: 75
   maxIntensity: 1.5
   spawnRateMultiplier: 1
   wheelSlipMultiplier: 2
@@ -2155,7 +2174,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 1.55, z: -6.9}
+  FollowOffset: {x: 0, y: 0.91, z: -5.3}
 --- !u!114 &872057022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2208,7 +2227,7 @@ Transform:
   m_GameObject: {fileID: 872057020}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.43861085, y: 3.57, z: -6.8860455}
+  m_LocalPosition: {x: 0.33690396, y: 2.93, z: -5.2892814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2379,6 +2398,7 @@ GameObject:
   - component: {fileID: 913780692}
   - component: {fileID: 913780696}
   - component: {fileID: 913780697}
+  - component: {fileID: 913780698}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -2454,7 +2474,7 @@ Transform:
   m_GameObject: {fileID: 913780691}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4386108, y: 3.57, z: -6.8860455}
+  m_LocalPosition: {x: 0.33690402, y: 2.93, z: -5.2892814}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2483,7 +2503,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -2536,6 +2556,23 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!114 &913780698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913780691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: b239d29fbd6bc064dbb09e75c53cc0bc, type: 2}
 --- !u!1 &913961954
 GameObject:
   m_ObjectHideFlags: 0
@@ -3108,12 +3145,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1248323177}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.37, y: -0.12, z: -0.3}
-  m_LocalScale: {x: 0.33333334, y: 1, z: 1.5800002}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.082278475}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1412466910}
+  m_Father: {fileID: 1823766770}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!73398921 &1248323179
 VFXRenderer:
@@ -3452,9 +3489,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 734892336}
     m_Modifications:
+    - target: {fileID: 2622784274350127542, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Name
+      value: SpawnRate
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 0.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Name
+      value: CarVelocity
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Overridden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7159038709075809524, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
       propertyPath: m_Name
       value: Smoke
+      objectReference: {fileID: 0}
+    - target: {fileID: 7159038709075809524, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8715499255848817278, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3647,12 +3724,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641286273}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.5, y: -0.12, z: -0.3}
-  m_LocalScale: {x: 0.33333334, y: 1, z: 1.5800002}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1412466910}
+  m_Father: {fileID: 1823766770}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!73398921 &1641286275
 VFXRenderer:
@@ -3981,6 +4058,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2104103865}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 90}
+--- !u!1 &1823766769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823766770}
+  m_Layer: 0
+  m_Name: BrakeTrailParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1823766770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823766769}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.5, y: -0.120000005, z: -0.3}
+  m_LocalScale: {x: 0.33333334, y: 1, z: 1.5800003}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 371197496}
+  - {fileID: 2107925630}
+  - {fileID: 1248323178}
+  - {fileID: 1641286274}
+  m_Father: {fileID: 1412466910}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1880122044
 GameObject:
   m_ObjectHideFlags: 0
@@ -4580,12 +4692,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2107925629}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.37, y: -0.12, z: -0.3}
-  m_LocalScale: {x: 0.33333334, y: 1, z: 1.5800002}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.55063295}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1412466910}
+  m_Father: {fileID: 1823766770}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!73398921 &2107925631
 VFXRenderer:
@@ -4691,7 +4803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokeVFX: {fileID: 1968405289}
-  minSlipForSmoke: 3
+  minSlipForSmoke: 75
   maxIntensity: 1.5
   spawnRateMultiplier: 1
   wheelSlipMultiplier: 2
@@ -4704,6 +4816,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2114316163}
     m_Modifications:
+    - target: {fileID: 2622784274350127542, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_AllowInstancing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Name
+      value: CarVelocity
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Value.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3637700869020126373, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
+      propertyPath: m_PropertySheet.m_Vector3f.m_Array.Array.data[0].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7159038709075809524, guid: 11f991b65edd02246b844ef3a5aec76b, type: 3}
       propertyPath: m_Name
       value: Smoke
