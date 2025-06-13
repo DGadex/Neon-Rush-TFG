@@ -1214,8 +1214,8 @@
     "m_ObjectId": "18e5927c18c74348bf9b08d8b414a0c2",
     "m_Title": "Edge Detection",
     "m_Position": {
-        "x": -833.0,
-        "y": 819.0
+        "x": -832.9998779296875,
+        "y": 818.9999389648438
     }
 }
 
@@ -1500,8 +1500,8 @@
     "m_ObjectId": "2cffd2c1a1214d2bb228af766076a8e0",
     "m_Title": "Edge Detection",
     "m_Position": {
-        "x": -828.0,
-        "y": 1410.0
+        "x": -827.9998779296875,
+        "y": 1410.0001220703125
     }
 }
 
@@ -1816,7 +1816,7 @@
     "m_Title": "Edge Detection",
     "m_Position": {
         "x": -849.0,
-        "y": 220.0
+        "y": 219.99996948242188
     }
 }
 
@@ -2297,7 +2297,7 @@
     "m_ObjectId": "460e024aebfb452b991fcb76b74380f5",
     "m_Title": "Edge Detection",
     "m_Position": {
-        "x": -830.0,
+        "x": -829.9998779296875,
         "y": -352.0
     }
 }
