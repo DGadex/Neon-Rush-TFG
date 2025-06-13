@@ -21,7 +21,19 @@ MonoBehaviour:
     <ID>k__BackingField: 1
     <Size>k__BackingField: {x: 2, y: 1, z: 2}
     <Prefab>k__BackingField: {fileID: 2182362533588807250, guid: da1951011a8256e4086a987c8e69fc0f, type: 3}
-  - <Name>k__BackingField: Looping
+  - <Name>k__BackingField: LoopingDer
     <ID>k__BackingField: 2
     <Size>k__BackingField: {x: 3, y: 2, z: 3}
     <Prefab>k__BackingField: {fileID: 6029060368013570840, guid: ef525f1dffcb4b04ca24b2dd3896877a, type: 3}
+  - <Name>k__BackingField: LoopingIzq
+    <ID>k__BackingField: 3
+    <Size>k__BackingField: {x: 3, y: 2, z: 3}
+    <Prefab>k__BackingField: {fileID: 6029060368013570840, guid: 5165f305794b23d47a2842c3913ba340, type: 3}
+  - <Name>k__BackingField: CurvaSubidaDer
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 2, y: 2, z: 2}
+    <Prefab>k__BackingField: {fileID: 6722078823815912330, guid: 6696419514e77aa4f8e305f99747abf0, type: 3}
+  - <Name>k__BackingField: CurvaSubidaIzq
+    <ID>k__BackingField: 5
+    <Size>k__BackingField: {x: 2, y: 2, z: 2}
+    <Prefab>k__BackingField: {fileID: 6722078823815912330, guid: d47332eadc3d36347baaef8b20d75c76, type: 3}
