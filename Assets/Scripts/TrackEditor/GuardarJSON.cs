@@ -1,5 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine.UI;
+using TMPro;
 public class GuardarJSON : MonoBehaviour
 {
     [SerializeField]
@@ -7,21 +10,40 @@ public class GuardarJSON : MonoBehaviour
     [SerializeField]
     private ObjectPlacer objectPlacer;
 
-    string filePath = "Assets/Resources/gridData.json";
+    [SerializeField]
+    private string saveDirectory = "Assets/Resources/";
+
+    public TextMeshProUGUI fileName;
 
     Wrapper wrapper = new Wrapper();
 
     public void SaveToJson()
     {
+        if(!Directory.Exists(saveDirectory))
+        {
+            Directory.CreateDirectory(saveDirectory);
+        }
+
+        string filePath = Path.Combine(saveDirectory, fileName.text + ".json");
+
         wrapper.serializableObjects = new List<SerializableObject>(objectPlacer.serializableObjects);
         string json = JsonUtility.ToJson(wrapper, true);
-        System.IO.File.WriteAllText(filePath, json);
+        File.WriteAllText(filePath, json);
     }
 
-    public void LoadFromJson()
+    public void LoadFromJson(string fileName)
     {
-        string json = System.IO.File.ReadAllText(filePath);
+        string filePath = Path.Combine(saveDirectory, fileName + ".json");
+
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError("File not found: " + filePath);
+            return;
+        }
+
+        string json = File.ReadAllText(filePath);
         JsonUtility.FromJsonOverwrite(json, wrapper);
+
         Debug.Log(wrapper.serializableObjects.Count);
         foreach (var data in wrapper.serializableObjects)
         {

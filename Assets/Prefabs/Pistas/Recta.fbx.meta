@@ -3,7 +3,22 @@ guid: 2ee81d45c4f2576488fe11a8a1f4abc2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Asfalto
+    second: {fileID: 2100000, guid: 392e20806de08154b85c1436d800152f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal
+    second: {fileID: 2100000, guid: cbf74c65cd61b17499fc167ffa42c5cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Reflejo
+    second: {fileID: 2100000, guid: 458c0ecbdf260474a8440f7699f7cf94, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
