@@ -18,32 +18,36 @@ public class InputManager : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
             OnClicked?.Invoke();
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
             onExit?.Invoke();
-        if(Input.GetKeyDown(KeyCode.UpArrow))
-            gridVisualization.transform.position += Vector3.up*14;
-        if(Input.GetKeyDown(KeyCode.DownArrow))
-            gridVisualization.transform.position += Vector3.down*14;
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+            gridVisualization.transform.position += Vector3.up * 14;
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            gridVisualization.transform.position += Vector3.down * 14;
     }
 
     public bool IsPointerOverUI()
         => EventSystem.current.IsPointerOverGameObject();
 
     public Vector3 GetSelectedMapPosition()
-     {
+    {
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = sceneCamera.nearClipPlane;
         Ray ray = sceneCamera.ScreenPointToRay(mousePos);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 1000, placementLayermask))
+        if (Physics.Raycast(ray, out hit, 1000, placementLayermask))
         {
             lastPosition = hit.point;
         }
         return lastPosition;
-     }
+    }
 
+    public void Deselect()
+    {
+        onExit?.Invoke();
+    }
 
 
 

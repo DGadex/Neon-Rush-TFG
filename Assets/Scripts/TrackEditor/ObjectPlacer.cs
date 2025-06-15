@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectPlacer : MonoBehaviour
 {
@@ -10,6 +12,12 @@ public class ObjectPlacer : MonoBehaviour
     
     [SerializeField]
     public List<SerializableObject> serializableObjects = new();
+
+    [SerializeField]
+    private Button metaButton;
+
+    [SerializeField]
+    private InputManager inputManager;
 
     public int PlaceObject(GameObject prefab, Vector3 position, Quaternion currentRotation, int ID)
     {
@@ -26,6 +34,11 @@ public class ObjectPlacer : MonoBehaviour
             rotation = currentRotation.eulerAngles.y
         };
         serializableObjects.Add(serializableObject);
+        if (ID == 6)
+        {
+            metaButton.interactable = false;
+            inputManager.Deselect();
+        }
         return placedGameObjects.Count - 1;
     }
 
@@ -35,8 +48,13 @@ public class ObjectPlacer : MonoBehaviour
         {
             return;
         }
+
+        
         Destroy(placedGameObjects[gameObjectIndex]);
         placedGameObjects[gameObjectIndex] = null;
+        if(serializableObjects[gameObjectIndex].ID == 6)
+            metaButton.interactable = true;
+        serializableObjects[gameObjectIndex].ID = -1;
     }
 }
 
