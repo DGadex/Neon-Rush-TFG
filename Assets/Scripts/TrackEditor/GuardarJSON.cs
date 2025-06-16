@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 public class GuardarJSON : MonoBehaviour
 {
     [SerializeField]
@@ -11,7 +12,7 @@ public class GuardarJSON : MonoBehaviour
     private ObjectPlacer objectPlacer;
 
     [SerializeField]
-    private string saveDirectory = "Assets/Resources/";
+    private string saveDirectory = "Assets/Resources/"; //Application.dataPath
 
     public TextMeshProUGUI fileName;
 
@@ -26,7 +27,7 @@ public class GuardarJSON : MonoBehaviour
 
         string filePath = Path.Combine(saveDirectory, fileName.text + ".json");
 
-        wrapper.serializableObjects = new List<SerializableObject>(objectPlacer.serializableObjects);
+        wrapper.serializableObjects = new List<SerializableObject>(objectPlacer.serializableObjects.FindAll(track => track.ID != -1));
         string json = JsonUtility.ToJson(wrapper, true);
         File.WriteAllText(filePath, json);
     }

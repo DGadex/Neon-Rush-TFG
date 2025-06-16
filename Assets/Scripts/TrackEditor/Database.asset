@@ -37,3 +37,7 @@ MonoBehaviour:
     <ID>k__BackingField: 5
     <Size>k__BackingField: {x: 2, y: 2, z: 2}
     <Prefab>k__BackingField: {fileID: 6722078823815912330, guid: d47332eadc3d36347baaef8b20d75c76, type: 3}
+  - <Name>k__BackingField: Meta
+    <ID>k__BackingField: 6
+    <Size>k__BackingField: {x: 1, y: 1, z: 1}
+    <Prefab>k__BackingField: {fileID: 8222109995788101088, guid: cc80ab88beae51a408f8de832362f211, type: 3}
