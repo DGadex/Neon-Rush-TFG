@@ -58,7 +58,7 @@ public class GuardarJSON : MonoBehaviour
 
             if (data.ID == 7)
             {
-                checkpointSystem.quantity += 1;
+                checkpointSystem.RegisterCheckpoint(prefab.GetComponent<Checkpoint>());
             }
         }
     }

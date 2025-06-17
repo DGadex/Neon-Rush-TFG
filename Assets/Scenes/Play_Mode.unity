@@ -258,13 +258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be88f812c9ec0e4e9940f64d9588115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpoints:
-  - {fileID: 884532058}
-  - {fileID: 403565614}
-  - {fileID: 1393730289}
-  - {fileID: 1922039682}
   car: {fileID: 1412466910}
-  quantity: 0
 --- !u!4 &148081686
 Transform:
   m_ObjectHideFlags: 0
@@ -751,6 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointSystem: {fileID: 148081685}
+  isFinishLine: 0
 --- !u!64 &403565615
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1102,7 +1097,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 884268911}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
       propertyPath: m_LocalScale.x
@@ -2576,9 +2571,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2827792424140062273, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       insertIndex: -1
       addedObject: {fileID: 380880728}
-    - targetCorrespondingSourceObject: {fileID: 8233187657374165886, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 518389323}
     - targetCorrespondingSourceObject: {fileID: 7695882694659721907, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1968405287}
@@ -2976,17 +2968,6 @@ MonoBehaviour:
   CustomTarget: {fileID: 0}
   FocusDepthOffset: 0
   Damping: 0.2
---- !u!114 &884532058 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2605238942252821806, guid: bec2a907925fe28439e7a6f9bf5d26e4, type: 3}
-  m_PrefabInstance: {fileID: 5868137246271092262}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3fd10285028ae4680620bdb307ad8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &884532062 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1307656103917921576, guid: bec2a907925fe28439e7a6f9bf5d26e4, type: 3}
@@ -4030,6 +4011,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointSystem: {fileID: 148081685}
+  isFinishLine: 0
 --- !u!64 &1393730290
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5296,6 +5278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointSystem: {fileID: 148081685}
+  isFinishLine: 0
 --- !u!64 &1922039683
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -5687,6 +5670,7 @@ MonoBehaviour:
   serializableObjects: []
   metaButton: {fileID: 0}
   inputManager: {fileID: 0}
+  editmode: 1
 --- !u!1 &2037286444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3498830518210807787, guid: 95e32346c10d57545b510762e211ade3, type: 3}
@@ -6164,3 +6148,4 @@ SceneRoots:
   - {fileID: 452307409}
   - {fileID: 2104103865}
   - {fileID: 913961957}
+  - {fileID: 518389322}

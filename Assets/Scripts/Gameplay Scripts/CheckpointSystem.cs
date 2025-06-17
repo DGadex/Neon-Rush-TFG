@@ -4,83 +4,117 @@ using UnityEngine;
 
 public class CheckpointSystem : MonoBehaviour
 {
-    // Lista de checkpoints (puertas) en el circuito
-    public List<Checkpoint> checkpoints;
-
-    // Tiempo por sector (último sector completado)
-    private float[] sectorTimes;
-
-    // Tiempo total de la vuelta
+    [Tooltip("Lista completa de checkpoints, incluyendo el de meta.")]
+    private List<Checkpoint> checkpoints = new List<Checkpoint>();
+    private HashSet<Checkpoint> checkpointsPassed = new HashSet<Checkpoint>();
     private float totalTime;
 
-    // Checkpoint actual (índice en la lista)
-    private int currentCheckpointIndex = 0;
-
-    // Referencia al coche
     public Transform car;
-    // Evento para notificar vueltas completadas
+
     public delegate void LapCompletedAction();
     public event LapCompletedAction OnLapCompleted;
 
-    public int quantity = 0;
+    public delegate void FinishLineUnlockedAction();
+    public event FinishLineUnlockedAction OnFinishLineUnlocked;
 
-    void Start() {
-        // Inicializar el array de tiempos por sector
-        sectorTimes = new float[checkpoints.Count];
+    private Checkpoint finishLine;
+    private bool finishLineUnlocked = false;
 
-        // Iniciar el temporizador total
+    void Start()
+    {
         totalTime = 0f;
-    }
 
-    void Update() {
-        // Actualizar el tiempo total
-        totalTime += Time.deltaTime;
-    }
-
-    // Método para registrar el paso por un checkpoint
-    public void OnCheckpointPassed(Checkpoint checkpoint) {
-        // Verificar si el checkpoint es el siguiente en la secuencia
-        if (checkpoint == checkpoints[currentCheckpointIndex]) {
-            // Registrar el tiempo del sector
-            sectorTimes[currentCheckpointIndex] = totalTime;
-
-            // Mostrar el tiempo del sector en la consola
-            Debug.Log($"Sector {currentCheckpointIndex + 1} completado en {sectorTimes[currentCheckpointIndex]:F2} segundos.");
-
-            // Actualizar el checkpoint actual
-            currentCheckpointIndex++;
-
-            // Si se completó la última puerta, reiniciar el contador
-            if (currentCheckpointIndex >= checkpoints.Count) {
-                Debug.Log("¡Vuelta completada!");
-                Debug.Log($"Tiempo total: {totalTime:F2} segundos.");
-                ResetCheckpoints();
+        // Buscar el checkpoint de meta
+        foreach (Checkpoint cp in checkpoints)
+        {
+            if (cp.isFinishLine)
+            {
+                finishLine = cp;
+                break;
             }
         }
+
+        if (finishLine == null)
+        {
+            Debug.LogError("No se ha encontrado un checkpoint de meta en la lista.");
+        }
     }
 
-    // Método para reiniciar los checkpoints
-    private void ResetCheckpoints()
+    void Update()
     {
-        currentCheckpointIndex = 0;
-        totalTime = 0f;
-
-        // Notificar que se completó una vuelta
-        if (OnLapCompleted != null)
-        {
-            OnLapCompleted();
-        }
+        totalTime += Time.deltaTime;
     }
 
     
 
-    // Método para obtener la posición de respawn
-    public Vector3 GetRespawnPosition() {
-        if (currentCheckpointIndex > 0) {
-            // Respawn en el último checkpoint pasado
-            return checkpoints[currentCheckpointIndex - 1].transform.position;
-        } else {
-            // Respawn en la posición inicial
+    public void OnCheckpointPassed(Checkpoint checkpoint)
+    {
+        // Si es el checkpoint de meta pero no está desbloqueado aún, ignorar
+        if (checkpoint == finishLine && !finishLineUnlocked)
+        {
+            Debug.Log("El checkpoint de meta aún no está desbloqueado.");
+            return;
+        }
+
+        // Si es la meta y ya está desbloqueado, completar la vuelta
+        if (checkpoint == finishLine && finishLineUnlocked)
+        {
+            Debug.Log("¡Vuelta completada!");
+            Debug.Log($"Tiempo total: {totalTime:F2} segundos.");
+
+            // Notificar antes de resetear
+            OnLapCompleted?.Invoke();
+
+            ResetCheckpoints();
+            return;
+        }
+
+        // Si no es la meta y no se ha pasado aún
+        if (!checkpointsPassed.Contains(checkpoint) && checkpoint != finishLine)
+        {
+            checkpointsPassed.Add(checkpoint);
+            Debug.Log($"Checkpoint {checkpoint.name} registrado.");
+
+            // Si ahora solo queda la meta sin pasar, desbloquearla
+            int totalNonFinishCheckpoints = checkpoints.Count - 1; // descontamos el de meta
+            if (checkpointsPassed.Count == totalNonFinishCheckpoints)
+            {
+                finishLineUnlocked = true;
+                Debug.Log("¡Checkpoint de meta desbloqueado!");
+
+                OnFinishLineUnlocked?.Invoke(); // Para efectos visuales
+            }
+        }
+    }
+
+    private void ResetCheckpoints()
+    {
+        checkpointsPassed.Clear();
+        totalTime = 0f;
+        finishLineUnlocked = false;
+    }
+
+    public void RegisterCheckpoint(Checkpoint cp)
+    {
+        if (!checkpoints.Contains(cp))
+        {
+            checkpoints.Add(cp);
+        }
+    }   
+    public Vector3 GetRespawnPosition()
+    {
+        if (checkpointsPassed.Count > 0)
+        {
+            Checkpoint lastCheckpoint = null;
+            foreach (var cp in checkpoints)
+            {
+                if (checkpointsPassed.Contains(cp))
+                    lastCheckpoint = cp;
+            }
+            return lastCheckpoint.transform.position;
+        }
+        else
+        {
             return checkpoints[0].transform.position;
         }
     }
