@@ -41,3 +41,7 @@ MonoBehaviour:
     <ID>k__BackingField: 6
     <Size>k__BackingField: {x: 1, y: 1, z: 1}
     <Prefab>k__BackingField: {fileID: 8222109995788101088, guid: cc80ab88beae51a408f8de832362f211, type: 3}
+  - <Name>k__BackingField: Checkpoint
+    <ID>k__BackingField: 7
+    <Size>k__BackingField: {x: 1, y: 1, z: 1}
+    <Prefab>k__BackingField: {fileID: 8222109995788101088, guid: f23db21287359f547b66661db6513b8e, type: 3}

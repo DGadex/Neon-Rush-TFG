@@ -22,6 +22,8 @@ public class CheckpointSystem : MonoBehaviour
     public delegate void LapCompletedAction();
     public event LapCompletedAction OnLapCompleted;
 
+    public int quantity = 0;
+
     void Start() {
         // Inicializar el array de tiempos por sector
         sectorTimes = new float[checkpoints.Count];

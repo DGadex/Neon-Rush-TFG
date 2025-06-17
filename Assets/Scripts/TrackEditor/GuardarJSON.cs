@@ -12,6 +12,9 @@ public class GuardarJSON : MonoBehaviour
     private ObjectPlacer objectPlacer;
 
     [SerializeField]
+    private CheckpointSystem checkpointSystem;
+
+    [SerializeField]
     private string saveDirectory = "Assets/Resources/"; //Application.dataPath
 
     public TextMeshProUGUI fileName;
@@ -20,7 +23,7 @@ public class GuardarJSON : MonoBehaviour
 
     public void SaveToJson()
     {
-        if(!Directory.Exists(saveDirectory))
+        if (!Directory.Exists(saveDirectory))
         {
             Directory.CreateDirectory(saveDirectory);
         }
@@ -34,6 +37,8 @@ public class GuardarJSON : MonoBehaviour
 
     public void LoadFromJson(string fileName)
     {
+        objectPlacer.editmode = false;
+
         string filePath = Path.Combine(saveDirectory, fileName + ".json");
 
         if (!File.Exists(filePath))
@@ -49,7 +54,12 @@ public class GuardarJSON : MonoBehaviour
         foreach (var data in wrapper.serializableObjects)
         {
             var prefab = objectsDatabase.objectsData[data.ID].Prefab;
-            objectPlacer.PlaceObject(prefab, new Vector3Int(data.x, data.y, data.z), Quaternion.Euler(new Vector3 (0, data.rotation, 0)), data.ID);
+            objectPlacer.PlaceObject(prefab, new Vector3Int(data.x, data.y, data.z), Quaternion.Euler(new Vector3(0, data.rotation, 0)), data.ID);
+
+            if (data.ID == 7)
+            {
+                checkpointSystem.quantity += 1;
+            }
         }
     }
 }

@@ -19,6 +19,8 @@ public class ObjectPlacer : MonoBehaviour
     [SerializeField]
     private InputManager inputManager;
 
+    public bool editmode = true;
+
     public int PlaceObject(GameObject prefab, Vector3 position, Quaternion currentRotation, int ID)
     {
         GameObject newObject = Instantiate(prefab);
@@ -34,7 +36,7 @@ public class ObjectPlacer : MonoBehaviour
             rotation = currentRotation.eulerAngles.y
         };
         serializableObjects.Add(serializableObject);
-        if (ID == 6)
+        if (ID == 6 && editmode)
         {
             metaButton.interactable = false;
             inputManager.Deselect();
