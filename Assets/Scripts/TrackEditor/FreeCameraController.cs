@@ -10,6 +10,7 @@ public class FreeCameraController : MonoBehaviour
     private float pitch = 0f;
 
     private bool escribiendo = false;
+    public bool probando = false;
 
     void Start()
     {
@@ -18,8 +19,8 @@ public class FreeCameraController : MonoBehaviour
 
     void Update()
     {
-        if (!escribiendo)
-        { 
+        if (!escribiendo && !probando)
+        {
             if (Input.GetKey(KeyCode.Mouse1))
             {
                 Cursor.lockState = CursorLockMode.Locked;
@@ -71,6 +72,16 @@ public class FreeCameraController : MonoBehaviour
     public void SetBoolTrue()
     {
         escribiendo = true;
+    }
+
+    public void SetProbandoFalse()
+    {
+        probando = false;
+    }
+    
+    public void SetProbandoTrue()
+    {
+        probando = true;
     }
 
 }
