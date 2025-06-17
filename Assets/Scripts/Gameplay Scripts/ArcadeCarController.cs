@@ -15,6 +15,10 @@ public class ArcadeCarController : MonoBehaviour
     public InputActionAsset inputActions;
     #endregion
 
+    [Header("Configuración Ruedas Visuales")]
+    public Transform[] wheelVisuals;
+    public bool[] isSteeringWheel;
+
     #region Aceleración
     [Header(" Aceleración")]
     public float maxMotorTorque = 12000f;
@@ -119,7 +123,7 @@ public class ArcadeCarController : MonoBehaviour
         HandleDrift(drift, steer);
         LimitSpeed();
         HandleNitroInput();
-
+        UpdateWheelVisuals();
         UpdateEngineSound();
     }
 
@@ -167,6 +171,41 @@ public class ArcadeCarController : MonoBehaviour
         foreach (var wheel in steeringWheels)
         {
             wheel.steerAngle = currentSteerAngle;
+        }
+    }
+
+    void UpdateWheelVisuals()
+    {
+        // Primero actualizamos las ruedas motrices
+        for (int i = 0; i < driveWheels.Length; i++)
+        {
+            driveWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
+            wheelVisuals[i].position = position;
+            wheelVisuals[i].rotation = rotation;
+            
+            // Aplicar rotación de dirección si es una rueda direccional
+            if (isSteeringWheel[i])
+            {
+                float steerAngle = driveWheels[i].steerAngle;
+                wheelVisuals[i].localRotation *= Quaternion.Euler(0, steerAngle, 0);
+            }
+        }
+        
+        // Luego las ruedas de dirección (si son diferentes)
+        for (int i = 0; i < steeringWheels.Length; i++)
+        {
+            // Calculamos el índice correcto para las visuales (asumiendo que están en el mismo orden)
+            int visualIndex = i + driveWheels.Length;
+            if (visualIndex < wheelVisuals.Length)
+            {
+                steeringWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
+                wheelVisuals[visualIndex].position = position;
+                wheelVisuals[visualIndex].rotation = rotation;
+                
+                // Todas las ruedas de dirección deberían girar
+                float steerAngle = steeringWheels[i].steerAngle;
+                wheelVisuals[visualIndex].localRotation *= Quaternion.Euler(0, steerAngle, 0);
+            }
         }
     }
 
