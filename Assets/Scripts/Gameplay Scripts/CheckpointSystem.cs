@@ -5,7 +5,7 @@ using UnityEngine;
 public class CheckpointSystem : MonoBehaviour
 {
     [Tooltip("Lista completa de checkpoints, incluyendo el de meta.")]
-    private List<Checkpoint> checkpoints = new List<Checkpoint>();
+    public List<Checkpoint> checkpoints = new List<Checkpoint>();
     private HashSet<Checkpoint> checkpointsPassed = new HashSet<Checkpoint>();
     private float totalTime;
 
@@ -22,7 +22,7 @@ public class CheckpointSystem : MonoBehaviour
 
     void Start()
     {
-        totalTime = 0f;
+        /*totalTime = 0f;
 
         // Buscar el checkpoint de meta
         foreach (Checkpoint cp in checkpoints)
@@ -37,7 +37,7 @@ public class CheckpointSystem : MonoBehaviour
         if (finishLine == null)
         {
             Debug.LogError("No se ha encontrado un checkpoint de meta en la lista.");
-        }
+        }*/
     }
 
     void Update()
@@ -45,8 +45,27 @@ public class CheckpointSystem : MonoBehaviour
         totalTime += Time.deltaTime;
     }
 
-    
 
+    public void InitializeCheckpoint()
+    {
+        totalTime = 0f;
+
+        // Buscar el checkpoint de meta
+        foreach (Checkpoint cp in checkpoints)
+        {
+            if (cp.isFinishLine)
+            {
+                finishLine = cp;
+                Debug.Log("LLAMADA META");
+                break;
+            }
+        }
+
+        if (finishLine == null)
+        {
+            Debug.LogError("No se ha encontrado un checkpoint de meta en la lista.");
+        }
+    }
     public void OnCheckpointPassed(Checkpoint checkpoint)
     {
         // Si es el checkpoint de meta pero no está desbloqueado aún, ignorar
@@ -96,11 +115,8 @@ public class CheckpointSystem : MonoBehaviour
 
     public void RegisterCheckpoint(Checkpoint cp)
     {
-        if (!checkpoints.Contains(cp))
-        {
-            checkpoints.Add(cp);
-        }
-    }   
+        checkpoints.Add(cp);
+    }
     public Vector3 GetRespawnPosition()
     {
         if (checkpointsPassed.Count > 0)
