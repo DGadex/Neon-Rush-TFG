@@ -21,6 +21,14 @@ public class ObjectPlacer : MonoBehaviour
 
     public bool editmode = true;
 
+    public bool escenarioProbado = true;
+
+    public bool hayMeta = false;
+
+    public bool hayCheckpoint = false;
+
+    private int cont = 0;
+
     public int PlaceObject(GameObject prefab, Vector3 position, Quaternion currentRotation, int ID)
     {
         GameObject newObject = Instantiate(prefab);
@@ -40,7 +48,15 @@ public class ObjectPlacer : MonoBehaviour
         {
             metaButton.interactable = false;
             inputManager.Deselect();
+            hayMeta = true;
         }
+        if (ID == 7 && editmode)
+        {
+            cont += 1;
+            hayCheckpoint = true;
+        }
+        escenarioProbado = false;
+
         return placedGameObjects.Count - 1;
     }
 
@@ -54,8 +70,20 @@ public class ObjectPlacer : MonoBehaviour
         
         Destroy(placedGameObjects[gameObjectIndex]);
         placedGameObjects[gameObjectIndex] = null;
-        if(serializableObjects[gameObjectIndex].ID == 6)
+        if (serializableObjects[gameObjectIndex].ID == 6)
+        {
             metaButton.interactable = true;
+            hayMeta = false;
+        }
+        if (serializableObjects[gameObjectIndex].ID == 7)
+        {
+            cont -= 1;
+            if (cont <= 0)
+            {
+                hayCheckpoint = false;
+            }
+        }
+
         serializableObjects[gameObjectIndex].ID = -1;
     }
 }

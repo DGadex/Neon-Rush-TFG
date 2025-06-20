@@ -13,12 +13,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Metal
-    second: {fileID: 2100000, guid: cbf74c65cd61b17499fc167ffa42c5cb, type: 2}
+    second: {fileID: 2100000, guid: 6513cbdd3feaba6498a0216cb80cfe21, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Reflejo
-    second: {fileID: 2100000, guid: 458c0ecbdf260474a8440f7699f7cf94, type: 2}
+    second: {fileID: 2100000, guid: 8f92ccc63d32b5e49b35ba290899e183, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

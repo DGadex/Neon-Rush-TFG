@@ -1,6 +1,8 @@
 using System;
+using System.IO.Enumeration;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
 {
@@ -16,16 +18,32 @@ public class InputManager : MonoBehaviour
     [SerializeField]
     private GameObject gridVisualization;
 
+    [SerializeField]
+    private FreeCameraController freeCameraController;
+
+    [SerializeField]
+    private GuardarJSON guardarJSON;
+
+    [SerializeField]
+    private Button guardarButton;
+
+    [SerializeField]
+    private ObjectPlacer objectPlacer;
+
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            OnClicked?.Invoke();
-        if (Input.GetKeyDown(KeyCode.Escape))
-            onExit?.Invoke();
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-            gridVisualization.transform.position += Vector3.up * 14;
-        if (Input.GetKeyDown(KeyCode.DownArrow))
-            gridVisualization.transform.position += Vector3.down * 14;
+        if (!freeCameraController.probando)
+        {
+            if (Input.GetMouseButtonDown(0))
+                OnClicked?.Invoke();
+            if (Input.GetKeyDown(KeyCode.Escape))
+                onExit?.Invoke();
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+                gridVisualization.transform.position += Vector3.up * 14;
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+                gridVisualization.transform.position += Vector3.down * 14;
+        }
+        Desactivate();
     }
 
     public bool IsPointerOverUI()
@@ -49,6 +67,19 @@ public class InputManager : MonoBehaviour
         onExit?.Invoke();
     }
 
+
+    public void Desactivate()
+    {
+        if (guardarJSON.fileName.text == "" || !objectPlacer.escenarioProbado || !objectPlacer.hayMeta || !objectPlacer.hayCheckpoint)
+        {
+            guardarButton.interactable = false;
+        }
+        else
+        {
+            guardarButton.interactable = true;
+        }
+
+    }
 
 
 }

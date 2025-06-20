@@ -32,7 +32,7 @@ public class GuardarJSON : MonoBehaviour
         {
             Directory.CreateDirectory(saveDirectory);
         }
-
+        
         string filePath = Path.Combine(saveDirectory, fileName.text + ".json");
 
         wrapper.serializableObjects = new List<SerializableObject>(objectPlacer.serializableObjects.FindAll(track => track.ID != -1));
