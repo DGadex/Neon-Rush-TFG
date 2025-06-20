@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [Header("Referencias")]
     public GameObject car;
-    //public Transform startPos;
+    public Transform startPos;
     public CinemachineCamera virtualCamera;
     public CheckpointSystem checkpointSystem;
     public UIManager uiManager;
@@ -40,9 +40,10 @@ public class GameManager : MonoBehaviour
         carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    public void SetupCar(GameObject carInstance)
+    public void SetupCar(GameObject carInstance, Transform startPosInstance)
     {
         this.car = carInstance;
+        this.startPos = startPosInstance;
         carController = car.GetComponent<ArcadeCarController>();
         carRigidbody = car.GetComponent<Rigidbody>();
         wheelSkids = car.GetComponentsInChildren<WheelSkid>();
@@ -65,11 +66,11 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForFixedUpdate(); // Espera al próximo FixedUpdate
         
-        carRigidbody.isKinematic = true;
-        //car.transform.SetPositionAndRotation(startPos.position, startPos.rotation);
+        //carRigidbody.isKinematic = true;
+        car.transform.SetPositionAndRotation(startPos.position, startPos.rotation);
         carRigidbody.linearVelocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
-        carRigidbody.isKinematic = false;
+        //carRigidbody.isKinematic = false;
     }
 
     void Update()

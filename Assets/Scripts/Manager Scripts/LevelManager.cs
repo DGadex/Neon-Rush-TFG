@@ -6,6 +6,8 @@ using System.Collections;
 public class LevelManager : MonoBehaviour
 {
     [Header("Referencias")]
+    public GameObject car;
+
     public GameObject countdownPanel; // Panel UI con el texto "3, 2, 1, ¡GO!"
     public GameObject racePanel; // Panel UI con el texto "3, 2, 1, ¡GO!"
     public TextMeshProUGUI countdownText;
@@ -17,7 +19,6 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(StartCountdown());
     }
 
     // Corrutina para la cuenta atrás
@@ -38,6 +39,13 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         countdownPanel.SetActive(false);
         racePanel.SetActive(true);
+    }
+
+    public void SetupCar(GameObject carInstance)
+    {
+        this.car = carInstance;
+        carController = carInstance.GetComponent<ArcadeCarController>();
+        StartCoroutine(StartCountdown()); // Inicia la cuenta atrás al configurar el coche
     }
 
     // Llamado al completar el nivel

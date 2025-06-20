@@ -11,7 +11,7 @@ public class TestSpawner : MonoBehaviour
 
     [Header("Cámaras")]
     public GameObject freeLookCamera; // Cámara libre (WASD)
-    public CinemachineVirtualCamera followCamera; // Cámara que sigue al coche
+    public CinemachineCamera followCamera; // Cámara que sigue al coche
 
     private GameObject currentCar;
     private bool isCarSpawned = false;

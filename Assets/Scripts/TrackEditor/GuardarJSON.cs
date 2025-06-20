@@ -13,6 +13,8 @@ public class GuardarJSON : MonoBehaviour
 
     [SerializeField]
     private GameManager gameManager;
+    [SerializeField]
+    private LevelManager levelManager;
 
     [SerializeField]
     private CheckpointSystem checkpointSystem;
@@ -61,7 +63,13 @@ public class GuardarJSON : MonoBehaviour
 
             if (data.ID == 7 || data.ID == 6)
             {
-                if (data.ID == 6) gameManager.SetupCar(prefab.transform.Find("Arcade Car").gameObject);
+                if (data.ID == 6)
+                {
+                    GameObject car = prefab.transform.Find("Arcade Car").gameObject;
+                    GameObject startPos = prefab.transform.Find("startPos").gameObject;
+                    gameManager.SetupCar(car, startPos.transform);
+                    levelManager.SetupCar(car);
+                }
                 checkpointSystem.RegisterCheckpoint(prefab.GetComponentInChildren<Checkpoint>());
             }
         }
