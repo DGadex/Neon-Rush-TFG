@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 0}
   startPos: {fileID: 0}
-  virtualCamera: {fileID: 872057022}
+  Camera: {fileID: 872057022}
   checkpointSystem: {fileID: 148081685}
   uiManager: {fileID: 596023421}
   totalLaps: 3
@@ -2847,6 +2847,9 @@ MonoBehaviour:
   metaButton: {fileID: 0}
   inputManager: {fileID: 0}
   editmode: 1
+  escenarioProbado: 1
+  hayMeta: 0
+  hayCheckpoint: 0
 --- !u!1 &2037286444 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3498830518210807787, guid: 95e32346c10d57545b510762e211ade3, type: 3}

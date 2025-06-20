@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     [Header("Referencias")]
     public GameObject car;
     public Transform startPos;
-    public CinemachineCamera virtualCamera;
+    public CinemachineCamera Camera;
     public CheckpointSystem checkpointSystem;
     public UIManager uiManager;
     
@@ -49,8 +49,8 @@ public class GameManager : MonoBehaviour
         wheelSkids = car.GetComponentsInChildren<WheelSkid>();
 
         // Cinemachine
-        virtualCamera.Follow = car.transform;
-        virtualCamera.LookAt = car.transform;
+        Camera.Follow = car.transform;
+        Camera.LookAt = car.transform;
 
         // Checkpoint system
         checkpointSystem.car = car.transform;
