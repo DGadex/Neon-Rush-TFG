@@ -12,6 +12,11 @@ public class GuardarJSON : MonoBehaviour
     private ObjectPlacer objectPlacer;
 
     [SerializeField]
+    private GameManager gameManager;
+    [SerializeField]
+    private LevelManager levelManager;
+
+    [SerializeField]
     private CheckpointSystem checkpointSystem;
 
     [SerializeField]
@@ -56,11 +61,20 @@ public class GuardarJSON : MonoBehaviour
             var prefab = objectsDatabase.objectsData[data.ID].Prefab;
             objectPlacer.PlaceObject(prefab, new Vector3Int(data.x, data.y, data.z), Quaternion.Euler(new Vector3(0, data.rotation, 0)), data.ID);
 
-            if (data.ID == 7)
+            if (data.ID == 7 || data.ID == 6)
             {
-                checkpointSystem.quantity += 1;
+                if (data.ID == 6)
+                {
+                    GameObject car = prefab.transform.Find("Arcade Car").gameObject;
+                    GameObject startPos = prefab.transform.Find("startPos").gameObject;
+                    gameManager.SetupCar(car, startPos.transform);
+                    levelManager.SetupCar(car);
+                }
+                checkpointSystem.RegisterCheckpoint(prefab.GetComponentInChildren<Checkpoint>());
             }
         }
+
+        checkpointSystem.InitializeCheckpoint();
     }
 }
 

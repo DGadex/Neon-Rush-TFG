@@ -1,11 +1,13 @@
 using System.Collections;
 using UnityEngine;
+using Unity.Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Referencias")]
-    public GameObject car; 
+    public GameObject car;
     public Transform startPos;
+    public CinemachineCamera virtualCamera;
     public CheckpointSystem checkpointSystem;
     public UIManager uiManager;
     
@@ -19,10 +21,12 @@ public class GameManager : MonoBehaviour
     private ArcadeCarController carController;
     private Rigidbody carRigidbody;
 
+    public WheelSkid[] wheelSkids;
+
     void Start()
     {
-        InitializeComponents();
-        StartCoroutine(DelayedResetPosition()); // Reset con delay
+        //InitializeComponents();
+        //StartCoroutine(DelayedResetPosition()); // Reset con delay
     }
 
     void InitializeComponents()
@@ -36,15 +40,37 @@ public class GameManager : MonoBehaviour
         carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
+    public void SetupCar(GameObject carInstance, Transform startPosInstance)
+    {
+        this.car = carInstance;
+        this.startPos = startPosInstance;
+        carController = car.GetComponent<ArcadeCarController>();
+        carRigidbody = car.GetComponent<Rigidbody>();
+        wheelSkids = car.GetComponentsInChildren<WheelSkid>();
+
+        // Cinemachine
+        virtualCamera.Follow = car.transform;
+        virtualCamera.LookAt = car.transform;
+
+        // Checkpoint system
+        checkpointSystem.car = car.transform;
+
+        // Rigidbody config
+        carRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        StartCoroutine(DelayedResetPosition()); // Reset con delay
+    }
+
     IEnumerator DelayedResetPosition()
     {
         yield return new WaitForFixedUpdate(); // Espera al próximo FixedUpdate
         
-        carRigidbody.isKinematic = true;
+        //carRigidbody.isKinematic = true;
         car.transform.SetPositionAndRotation(startPos.position, startPos.rotation);
         carRigidbody.linearVelocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
-        carRigidbody.isKinematic = false;
+        //carRigidbody.isKinematic = false;
     }
 
     void Update()
