@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     {
         //InitializeComponents();
         //StartCoroutine(DelayedResetPosition()); // Reset con delay
+        checkpointSystem.OnLapCompleted += HandleLapCompletion;
     }
 
     void InitializeComponents()
@@ -44,20 +45,25 @@ public class GameManager : MonoBehaviour
     {
         this.car = carInstance;
         this.startPos = startPosInstance;
+
+         //Teletransporte inmediato
+        /*car.transform.position = startPos.position;
+        car.transform.rotation = startPos.rotation;*/
+
         carController = car.GetComponent<ArcadeCarController>();
         carRigidbody = car.GetComponent<Rigidbody>();
         wheelSkids = car.GetComponentsInChildren<WheelSkid>();
 
         // Cinemachine
-        Camera.Follow = car.transform;
-        Camera.LookAt = car.transform;
+        //Camera.Follow = car.transform;
+        //Camera.LookAt = car.transform;
 
         // Checkpoint system
         checkpointSystem.car = car.transform;
 
         // Rigidbody config
         carRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-        carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        //carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         StartCoroutine(DelayedResetPosition()); // Reset con delay
     }
@@ -66,11 +72,14 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForFixedUpdate(); // Espera al próximo FixedUpdate
         
+        yield return new WaitForSeconds(1f); // Pequeño delay para asegurar estabilidad
+        Debug.LogWarning("DALE POSICION");
         //carRigidbody.isKinematic = true;
-        car.transform.SetPositionAndRotation(startPos.position, startPos.rotation);
+        carController.transform.SetLocalPositionAndRotation(startPos.localPosition, startPos.localRotation);
+        carRigidbody.isKinematic = false;
         carRigidbody.linearVelocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
-        //carRigidbody.isKinematic = false;
+        
     }
 
     void Update()

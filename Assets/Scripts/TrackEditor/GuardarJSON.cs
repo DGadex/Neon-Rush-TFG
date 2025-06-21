@@ -59,18 +59,18 @@ public class GuardarJSON : MonoBehaviour
         foreach (var data in wrapper.serializableObjects)
         {
             var prefab = objectsDatabase.objectsData[data.ID].Prefab;
-            objectPlacer.PlaceObject(prefab, new Vector3Int(data.x, data.y, data.z), Quaternion.Euler(new Vector3(0, data.rotation, 0)), data.ID);
+            int objectNumber = objectPlacer.PlaceObject(prefab, new Vector3Int(data.x, data.y, data.z), Quaternion.Euler(new Vector3(0, data.rotation, 0)), data.ID);
 
             if (data.ID == 7 || data.ID == 6)
             {
                 if (data.ID == 6)
                 {
-                    GameObject car = prefab.transform.Find("Arcade Car").gameObject;
-                    GameObject startPos = prefab.transform.Find("startPos").gameObject;
+                    GameObject car = objectPlacer.placedGameObjects[objectNumber].transform.Find("Arcade Car").gameObject;
+                    GameObject startPos = objectPlacer.placedGameObjects[objectNumber].transform.Find("startPos").gameObject;
                     gameManager.SetupCar(car, startPos.transform);
                     levelManager.SetupCar(car);
                 }
-                checkpointSystem.RegisterCheckpoint(prefab.GetComponentInChildren<Checkpoint>());
+                checkpointSystem.RegisterCheckpoint(objectPlacer.placedGameObjects[objectNumber].GetComponentInChildren<Checkpoint>());
             }
         }
 

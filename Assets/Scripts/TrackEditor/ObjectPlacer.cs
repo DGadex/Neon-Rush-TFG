@@ -31,8 +31,7 @@ public class ObjectPlacer : MonoBehaviour
 
     public int PlaceObject(GameObject prefab, Vector3 position, Quaternion currentRotation, int ID)
     {
-        GameObject newObject = Instantiate(prefab);
-        newObject.transform.position = position;
+        GameObject newObject = Instantiate(prefab, position, Quaternion.identity);
         newObject.transform.GetChild(0).rotation = currentRotation;
         placedGameObjects.Add(newObject);
         SerializableObject serializableObject = new()

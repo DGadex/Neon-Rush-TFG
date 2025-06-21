@@ -84,7 +84,7 @@ public class ArcadeCarController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = new Vector3(0, -0.3f, 0); // Centro de masa más bajo
+       // rb.centerOfMass = new Vector3(0, -0.3f, 0); // Centro de masa más bajo
 
         // Configuración de inputs
         var map = inputActions.FindActionMap("Driving");
@@ -176,7 +176,7 @@ public class ArcadeCarController : MonoBehaviour
 
     void UpdateWheelVisuals()
     {
-        // Primero actualizamos las ruedas motrices
+       /* // Primero actualizamos las ruedas motrices
         for (int i = 0; i < driveWheels.Length; i++)
         {
             driveWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
@@ -206,7 +206,7 @@ public class ArcadeCarController : MonoBehaviour
                 float steerAngle = steeringWheels[i].steerAngle;
                 wheelVisuals[visualIndex].localRotation *= Quaternion.Euler(0, steerAngle, 0);
             }
-        }
+        }*/
     }
 
     void HandleDrift(bool driftInput, float steerInput)
