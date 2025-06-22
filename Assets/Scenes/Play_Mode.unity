@@ -184,6 +184,7 @@ MonoBehaviour:
   Camera: {fileID: 0}
   checkpointSystem: {fileID: 148081685}
   uiManager: {fileID: 596023421}
+  inputActions: {fileID: -944628639613478452, guid: a91e2ea82e503954cb95ce49ed361106, type: 3}
   totalLaps: 3
   wheelSkids: []
 --- !u!114 &148081688

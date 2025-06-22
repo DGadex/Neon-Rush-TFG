@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Unity.Cinemachine;
 
 public class GameManager : MonoBehaviour
@@ -10,6 +11,7 @@ public class GameManager : MonoBehaviour
     public CinemachineCamera Camera;
     public CheckpointSystem checkpointSystem;
     public UIManager uiManager;
+    public InputActionAsset inputActions;
     
     [Header("Configuración")]
     public int totalLaps = 3;
@@ -21,13 +23,18 @@ public class GameManager : MonoBehaviour
     private ArcadeCarController carController;
     private Rigidbody carRigidbody;
 
+
     public WheelSkid[] wheelSkids;
+    private InputAction respawnAction;
 
     void Start()
     {
         //InitializeComponents();
         //StartCoroutine(DelayedResetPosition()); // Reset con delay
         checkpointSystem.OnLapCompleted += HandleLapCompletion;
+        var map = inputActions.FindActionMap("Driving");
+        respawnAction = map.FindAction("Respawn");
+        respawnAction.Enable();
     }
 
     void InitializeComponents()
@@ -88,6 +95,7 @@ public class GameManager : MonoBehaviour
         {
             raceTime += Time.deltaTime;
             uiManager.UpdateRaceUI(currentLap, totalLaps, raceTime);
+            if (respawnAction.IsPressed()) ForceRespawn();
         }
     }
 
@@ -120,8 +128,17 @@ public class GameManager : MonoBehaviour
     // Para reinicio manual (por ejemplo, al caer al vacío)
     public void ForceRespawn()
     {
-        currentLap = 1;
-        raceFinished = false;
-        StartCoroutine(DelayedResetPosition());
+        if (car == null || carRigidbody == null || checkpointSystem == null) return;
+
+        // Obtener posición de respawn
+        Vector3 respawnPos = checkpointSystem.GetRespawnPosition();
+        Quaternion respawnRot = Quaternion.Euler(0, car.transform.rotation.eulerAngles.y, 0); // Orientación neutral
+
+        // Reset Rigidbody
+        carRigidbody.linearVelocity = Vector3.zero;
+        carRigidbody.angularVelocity = Vector3.zero;
+
+        carRigidbody.MovePosition(respawnPos);
+        carRigidbody.MoveRotation(respawnRot);
     }
 }

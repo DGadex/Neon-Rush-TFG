@@ -64,8 +64,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
-  - {fileID: 7210397108875402240, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  - {fileID: 2100000, guid: db4d19f1c08cb094fa8c0cde4a8a2dea, type: 2}
+  - {fileID: 2100000, guid: 8504f403d3590884caf5c496f4c3b732, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -343,7 +343,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770139518858427863}
-  m_Mesh: {fileID: -5658338536183748539, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  m_Mesh: {fileID: 1785832072108035389, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
 --- !u!23 &859960525865727452
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -367,7 +367,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 231899469356750056, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  - {fileID: 2100000, guid: eae3a8da7d41d4d478d9c8e073fc44d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -526,7 +526,6 @@ GameObject:
   - component: {fileID: 3998406555761213070}
   - component: {fileID: 8717619620582078881}
   - component: {fileID: 8639213946648846845}
-  - component: {fileID: 9196596893082318272}
   - component: {fileID: 6041075227001789850}
   m_Layer: 0
   m_Name: RR
@@ -544,7 +543,7 @@ Transform:
   m_GameObject: {fileID: 927852848297752386}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.60000014, y: 0, z: -0.275}
+  m_LocalPosition: {x: 0.60000014, y: 0, z: -0.27500004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -575,7 +574,7 @@ WheelCollider:
     m_ExtremumValue: 3
     m_AsymptoteSlip: 2
     m_AsymptoteValue: 1.5
-    m_Stiffness: 1.5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 1
     m_ExtremumValue: 2
@@ -605,24 +604,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3458474501396287086}
   skidmarksController: {fileID: 0}
---- !u!114 &9196596893082318272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 927852848297752386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 287ff19d2eb8e2247abef67ef95532a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smokeVFX: {fileID: 325963460185558941}
-  minSlipForSmoke: 75
-  maxIntensity: 1.5
-  spawnRateMultiplier: 1
-  wheelSlipMultiplier: 2
-  vehicleRb: {fileID: 3458474501396287086}
 --- !u!114 &6041075227001789850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,7 +617,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokeVFX: {fileID: 325963460185558941}
-  minSlipForSmoke: 75
+  minSlipForSmoke: 8
   maxIntensity: 1.5
   spawnRateMultiplier: 1
   wheelSlipMultiplier: 2
@@ -1018,7 +999,7 @@ WheelCollider:
     m_ExtremumValue: 3
     m_AsymptoteSlip: 2
     m_AsymptoteValue: 1.5
-    m_Stiffness: 1.5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 1
     m_ExtremumValue: 2
@@ -1147,8 +1128,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
-  - {fileID: 7210397108875402240, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  - {fileID: 2100000, guid: db4d19f1c08cb094fa8c0cde4a8a2dea, type: 2}
+  - {fileID: 2100000, guid: 8504f403d3590884caf5c496f4c3b732, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1293,10 +1274,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5690505154009615007}
-  - component: {fileID: 6577391977612963444}
   - component: {fileID: 3458474501396287086}
   - component: {fileID: 7070313891715992763}
   - component: {fileID: 4572712108194199928}
+  - component: {fileID: 1460911046517887286}
+  - component: {fileID: 5871631291221261453}
   m_Layer: 0
   m_Name: Arcade Car
   m_TagString: Player
@@ -1323,29 +1305,6 @@ Transform:
   - {fileID: 98294672136042042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &6577391977612963444
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2959722282104834670}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.39367807
-  m_Height: 1.06
-  m_Direction: 2
-  m_Center: {x: -0.0081682205, y: 0.11187947, z: 0}
 --- !u!54 &3458474501396287086
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1446,13 +1405,13 @@ MonoBehaviour:
     m_RotationOrder: 4
   maxSteeringAngle: 45
   steeringResponse: 20
-  downforce: 200
+  downforce: 150
   driftFriction: 0.5
-  normalFriction: 0.5
-  driftTiltAngle: 2
-  driftTiltSpeed: 3
+  normalFriction: 2
+  driftTiltAngle: 5
+  driftTiltSpeed: 10
   driftAutoCorrect: 20
-  minDriftSpeed: 15
+  minDriftSpeed: 5
   nitroBoost: 3
   nitroDuration: 2
   nitroSound: {fileID: 0}
@@ -1492,6 +1451,50 @@ MonoBehaviour:
   - {fileID: 5662267230151117866}
   - {fileID: 1834612505200294899}
   - {fileID: 925096067771858923}
+--- !u!136 &1460911046517887286
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2959722282104834670}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.41
+  m_Height: 0.73
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.12, z: -0.04}
+--- !u!65 &5871631291221261453
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2959722282104834670}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.18, z: 0.27}
+  m_Center: {x: 0, y: -0.16, z: 0.26}
 --- !u!1 &3046754637990887455
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,7 +1506,6 @@ GameObject:
   - component: {fileID: 7695882694659721907}
   - component: {fileID: 2530694438679314731}
   - component: {fileID: 5106960325875444949}
-  - component: {fileID: 4021824159355320321}
   - component: {fileID: 2373282081652879749}
   m_Layer: 0
   m_Name: RL
@@ -1552,7 +1554,7 @@ WheelCollider:
     m_ExtremumValue: 3
     m_AsymptoteSlip: 2
     m_AsymptoteValue: 1.5
-    m_Stiffness: 1.5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 1
     m_ExtremumValue: 2
@@ -1582,24 +1584,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 3458474501396287086}
   skidmarksController: {fileID: 0}
---- !u!114 &4021824159355320321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3046754637990887455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 287ff19d2eb8e2247abef67ef95532a4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smokeVFX: {fileID: 3637700869020126373}
-  minSlipForSmoke: 75
-  maxIntensity: 1.5
-  spawnRateMultiplier: 1
-  wheelSlipMultiplier: 2
-  vehicleRb: {fileID: 3458474501396287086}
 --- !u!114 &2373282081652879749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1613,7 +1597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokeVFX: {fileID: 3637700869020126373}
-  minSlipForSmoke: 75
+  minSlipForSmoke: 8
   maxIntensity: 1.5
   spawnRateMultiplier: 1
   wheelSlipMultiplier: 2
@@ -1828,8 +1812,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
-  - {fileID: 7210397108875402240, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  - {fileID: 2100000, guid: db4d19f1c08cb094fa8c0cde4a8a2dea, type: 2}
+  - {fileID: 2100000, guid: 8504f403d3590884caf5c496f4c3b732, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2549,7 +2533,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4848306702330730124}
-  m_Mesh: {fileID: -5658338536183748539, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  m_Mesh: {fileID: 1785832072108035389, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
 --- !u!23 &815377729385353748
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2573,7 +2557,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 231899469356750056, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  - {fileID: 2100000, guid: eae3a8da7d41d4d478d9c8e073fc44d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2652,7 +2636,7 @@ WheelCollider:
     m_ExtremumValue: 3
     m_AsymptoteSlip: 2
     m_AsymptoteValue: 1.5
-    m_Stiffness: 1.5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 1
     m_ExtremumValue: 2
@@ -3151,7 +3135,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7020115107660235778}
-  m_Mesh: {fileID: -5658338536183748539, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  m_Mesh: {fileID: 1785832072108035389, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
 --- !u!23 &-6925564499817370788
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3175,7 +3159,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 231899469356750056, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  - {fileID: 2100000, guid: eae3a8da7d41d4d478d9c8e073fc44d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3261,8 +3245,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -876546973899608171, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
-  - {fileID: 7210397108875402240, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  - {fileID: 2100000, guid: db4d19f1c08cb094fa8c0cde4a8a2dea, type: 2}
+  - {fileID: 2100000, guid: 8504f403d3590884caf5c496f4c3b732, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3464,8 +3448,8 @@ Transform:
   m_Children:
   - {fileID: 2827792424140062273}
   - {fileID: 8233187657374165886}
-  - {fileID: 7695882694659721907}
   - {fileID: 3998406555761213070}
+  - {fileID: 7695882694659721907}
   m_Father: {fileID: 5690505154009615007}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8944291865972047208
@@ -3508,7 +3492,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8944291865972047208}
-  m_Mesh: {fileID: -5658338536183748539, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  m_Mesh: {fileID: 1785832072108035389, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
 --- !u!23 &5058011454042437426
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3532,7 +3516,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 231899469356750056, guid: ce7807a590e5a564cbfebf925493abc1, type: 3}
+  - {fileID: 2100000, guid: eae3a8da7d41d4d478d9c8e073fc44d4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
