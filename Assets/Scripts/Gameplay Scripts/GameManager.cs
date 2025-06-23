@@ -49,10 +49,11 @@ public class GameManager : MonoBehaviour
         carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
-    public void SetupCar(GameObject carInstance, Transform startPosInstance)
+    public void SetupCar(GameObject carInstance, Transform startPosInstance, GameObject cameraInstance)
     {
         this.car = carInstance;
         this.startPos = startPosInstance;
+        cameraInstance.SetActive(true);
 
          //Teletransporte inmediato
         /*car.transform.position = startPos.position;

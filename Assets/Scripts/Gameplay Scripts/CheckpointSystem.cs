@@ -134,4 +134,19 @@ public class CheckpointSystem : MonoBehaviour
             return checkpoints[0].transform.position;
         }
     }
+
+    public void UnregisterCheckpoint(Checkpoint cp)
+    {
+        if (checkpoints.Contains(cp))
+        {
+            checkpoints.Remove(cp);
+            checkpointsPassed.Remove(cp); // También lo quitamos si ya fue pasado
+            if (cp == finishLine)
+            {
+                finishLine = null;
+                finishLineUnlocked = false;
+            }
+            Debug.Log($"Checkpoint {cp.name} eliminado del sistema.");
+        }
+    }
 }
