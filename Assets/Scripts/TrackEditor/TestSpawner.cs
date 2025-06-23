@@ -5,10 +5,6 @@ using TMPro;
 
 public class TestSpawner : MonoBehaviour
 {
-    [Header("Configuración")]
-    public GameObject carInScene; // Referencia al coche ya presente en el prefab de la meta
-    public Button spawnButton;
-
     [Header("Cámaras")]
     public GameObject freeLookCamera;
     public CinemachineCamera followCamera;
@@ -16,63 +12,58 @@ public class TestSpawner : MonoBehaviour
     [Header("Guardar y Prueba")]
     public GuardarJSON guardarJSON;
     public GameObject testWarningPanel;
+    public ObjectPlacer objectPlacer;
 
-    private bool isCarSpawned = false;
+    public GameObject currentCar;
     private bool testPassed = false;
     private bool testActive = false;
 
-    private ArcadeCarController carController;
+    public ArcadeCarController carController;
+    public CheckpointSystem checkpointSystem;
+    public FreeCameraController freeCamera;
 
     void Start()
     {
-        spawnButton.onClick.AddListener(ToggleCar);
-
         if (freeLookCamera != null) freeLookCamera.SetActive(true);
         if (followCamera != null) followCamera.gameObject.SetActive(false);
-
         if (testWarningPanel != null) testWarningPanel.SetActive(false);
     }
 
-    void ToggleCar()
+    public void AssignCarFromMeta(GameObject car, GameObject fc)
     {
-        if (isCarSpawned)
-        {
-            EndTest();
-        }
-        else
-        {
-            StartTest();
-        }
+        followCamera = fc.GetComponent<CinemachineCamera>();
+        currentCar = car;
+        carController = car.GetComponent<ArcadeCarController>();
+
+        checkpointSystem = FindObjectOfType<CheckpointSystem>();
+        freeCamera = FindObjectOfType<FreeCameraController>();
+
+        if (carController != null)
+        carController.canMove = false;
     }
 
-    void StartTest()
+    public void StartTest()
     {
-        if (carInScene == null)
+        if (currentCar == null)
         {
-            Debug.LogError("No se ha asignado el coche desde el prefab de la meta.");
+            Debug.LogError("No hay coche asignado para el test.");
             return;
         }
 
-        isCarSpawned = true;
-        testActive = true;
-        testPassed = false;
-
-        // Activar cámara de seguimiento
-        if (followCamera != null)
-        {
-            followCamera.gameObject.SetActive(true);
-            followCamera.Follow = carInScene.transform;
-            followCamera.LookAt = carInScene.transform;
-        }
-
+        if (followCamera != null) followCamera.gameObject.SetActive(true);
         if (freeLookCamera != null) freeLookCamera.SetActive(false);
-
-        carController = carInScene.GetComponent<ArcadeCarController>();
+        
+        testPassed = false;
+        testActive = true;
+        objectPlacer.escenarioProbado = false;
         if (carController != null) carController.canMove = false;
-
+        
+        checkpointSystem.InitializeCheckpoint();
+        checkpointSystem.OnLapCompleted += HandleLapCompletion;
+        currentCar.GetComponentInChildren<SpawnDissolveController>()?.PlayDissolve();
         Invoke(nameof(EnableCarControl), 1f);
 
-        Debug.Log("🚗 Prueba iniciada con coche existente");
+        if (freeCamera != null) freeCamera.SetProbandoTrue();
     }
 
     void EnableCarControl()
@@ -81,26 +72,28 @@ public class TestSpawner : MonoBehaviour
             carController.canMove = true;
     }
 
-    void EndTest()
+    void HandleLapCompletion()
     {
-        isCarSpawned = false;
-        testActive = false;
+        testPassed = true;
+        objectPlacer.escenarioProbado = true;
+        if (testWarningPanel != null) testWarningPanel.SetActive(false);
+        Debug.Log("✅ Circuito superado correctamente.");
+    }
 
-        if (freeLookCamera != null) freeLookCamera.SetActive(true);
+    public void CancelTest()
+    {
         if (followCamera != null) followCamera.gameObject.SetActive(false);
+        if (freeLookCamera != null) freeLookCamera.SetActive(true);
+
+        if (carController != null) carController.canMove = false;
 
         if (!testPassed && testWarningPanel != null)
         {
             testWarningPanel.SetActive(true);
         }
 
-        Debug.Log("🚗 Fin de prueba - Vuelta a edición");
-    }
-
-    public void MarkTestAsPassed()
-    {
-        testPassed = true;
-        if (testWarningPanel != null) testWarningPanel.SetActive(false);
+        testActive = false;
+        if (freeCamera != null) freeCamera.SetProbandoFalse();
     }
 
     public bool CanSaveLevel()
@@ -112,21 +105,10 @@ public class TestSpawner : MonoBehaviour
     {
         if (!testActive) return;
 
-        if (carInScene == null)
-        {
-            Debug.LogWarning("❌ El coche fue destruido sin completar la prueba.");
-            EndTest();
-        }
-
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("🔄 Respawn solicitado durante test. Cancelando prueba.");
-            EndTest();
+            Debug.Log("🔄 Respawn o cancelación detectada. Prueba cancelada.");
+            CancelTest();
         }
-    }
-
-    public void AssignCarFromMeta(GameObject carFromMeta)
-    {
-        carInScene = carFromMeta;
     }
 }

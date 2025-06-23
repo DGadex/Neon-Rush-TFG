@@ -1208,7 +1208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -91.33191, y: 90.618004}
+  m_AnchoredPosition: {x: -1203.705, y: 90.618004}
   m_SizeDelta: {x: 2000, y: 180}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &478270310
@@ -1543,12 +1543,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b89a87187dc8c946b0dcfeb6c99f70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carInScene: {fileID: 0}
-  spawnButton: {fileID: 808234419}
   freeLookCamera: {fileID: 0}
   followCamera: {fileID: 0}
   guardarJSON: {fileID: 0}
   testWarningPanel: {fileID: 0}
+  objectPlacer: {fileID: 0}
+  currentCar: {fileID: 0}
+  carController: {fileID: 0}
+  checkpointSystem: {fileID: 0}
+  freeCamera: {fileID: 0}
 --- !u!1 &689098242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1600,7 +1603,7 @@ MonoBehaviour:
   levelManager: {fileID: 0}
   checkpointSystem: {fileID: 0}
   saveDirectory: Assets/Resources/
-  fileName: {fileID: 276542845}
+  fileName: {fileID: 1387659305}
 --- !u!1 &805587891
 GameObject:
   m_ObjectHideFlags: 0
@@ -1820,9 +1823,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 689098244}
-        m_TargetAssemblyTypeName: GuardarJSON, Assembly-CSharp
-        m_MethodName: LoadFromJson
+      - m_Target: {fileID: 1308782092}
+        m_TargetAssemblyTypeName: TestSpawner, Assembly-CSharp
+        m_MethodName: StartTest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2610,8 +2613,10 @@ MonoBehaviour:
   placedGameObjects: []
   serializableObjects: []
   metaButton: {fileID: 42697270}
+  testButton: {fileID: 808234417}
   inputManager: {fileID: 824788137}
-  testSpawner: {fileID: 0}
+  testSpawner: {fileID: 1308782092}
+  checkpointSystem: {fileID: 1308782094}
   editmode: 1
   escenarioProbado: 1
   hayMeta: 0
@@ -2734,6 +2739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1308782093}
   - component: {fileID: 1308782092}
+  - component: {fileID: 1308782094}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2753,12 +2759,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b89a87187dc8c946b0dcfeb6c99f70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carInScene: {fileID: 0}
-  spawnButton: {fileID: 171169792}
   freeLookCamera: {fileID: 23237357}
-  followCamera: {fileID: 478270312}
+  followCamera: {fileID: 0}
   guardarJSON: {fileID: 689098244}
   testWarningPanel: {fileID: 808234417}
+  objectPlacer: {fileID: 1277445323}
+  currentCar: {fileID: 0}
+  carController: {fileID: 0}
+  checkpointSystem: {fileID: 1308782094}
+  freeCamera: {fileID: 0}
 --- !u!4 &1308782093
 Transform:
   m_ObjectHideFlags: 0
@@ -2774,6 +2783,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1308782094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308782091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7be88f812c9ec0e4e9940f64d9588115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpoints: []
+  car: {fileID: 0}
 --- !u!1 &1376306533
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,8 +3284,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1612797987}
   m_HandleRect: {fileID: 1612797986}
   m_Direction: 0
-  m_Value: 0.07588312
-  m_Size: 0.39820662
+  m_Value: 1.0000982
+  m_Size: 0.39679638
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
