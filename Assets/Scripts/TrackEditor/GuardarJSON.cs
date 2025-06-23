@@ -25,7 +25,7 @@ public class GuardarJSON : MonoBehaviour
     [SerializeField]
     private string saveDirectory = "Assets/Resources/"; //Application.dataPath
 
-    public TextMeshProUGUI fileName;
+    public TMP_InputField fileName;
 
     Wrapper wrapper = new Wrapper();
 

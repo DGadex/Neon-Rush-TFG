@@ -17,8 +17,12 @@ public class ObjectPlacer : MonoBehaviour
     private Button metaButton;
 
     [SerializeField]
+    private GameObject testButton;
+
+    [SerializeField]
     private InputManager inputManager;
     public TestSpawner testSpawner;
+    public CheckpointSystem checkpointSystem;
 
     public bool editmode = true;
 
@@ -48,12 +52,16 @@ public class ObjectPlacer : MonoBehaviour
         {
             metaButton.interactable = false;
             inputManager.Deselect();
-            testSpawner.AssignCarFromMeta(newObject.transform.Find("Arcade Car").gameObject);
+            testSpawner.AssignCarFromMeta(newObject.transform.Find("Arcade Car").gameObject, newObject.transform.Find("FollowCamera").gameObject);
+            testButton.SetActive(true);
+            checkpointSystem.car = newObject.transform.Find("Arcade Car").transform;
+            checkpointSystem.RegisterCheckpoint(newObject.GetComponentInChildren<Checkpoint>());
             hayMeta = true;
         }
         if (ID == 7 && editmode)
         {
             cont += 1;
+            checkpointSystem.RegisterCheckpoint(newObject.GetComponentInChildren<Checkpoint>());
             hayCheckpoint = true;
         }
         escenarioProbado = false;
@@ -68,12 +76,12 @@ public class ObjectPlacer : MonoBehaviour
             return;
         }
 
-        
         Destroy(placedGameObjects[gameObjectIndex]);
         placedGameObjects[gameObjectIndex] = null;
         if (serializableObjects[gameObjectIndex].ID == 6)
         {
             metaButton.interactable = true;
+            testButton.SetActive(false);
             hayMeta = false;
         }
         if (serializableObjects[gameObjectIndex].ID == 7)

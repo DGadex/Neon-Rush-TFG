@@ -70,7 +70,7 @@ public class InputManager : MonoBehaviour
 
     public void Desactivate()
     {
-        if (guardarJSON.fileName.text == "" || !objectPlacer.escenarioProbado || !objectPlacer.hayMeta || !objectPlacer.hayCheckpoint)
+       if (string.IsNullOrWhiteSpace(guardarJSON.fileName.text) || !objectPlacer.escenarioProbado || !objectPlacer.hayMeta || !objectPlacer.hayCheckpoint)
         {
             guardarButton.interactable = false;
         }
