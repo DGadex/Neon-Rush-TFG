@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FreeCameraController : MonoBehaviour
 {
@@ -8,6 +10,18 @@ public class FreeCameraController : MonoBehaviour
     public GameObject targetObject;
     private float yaw = 0f;
     private float pitch = 0f;
+
+    [SerializeField]
+    private Canvas canvas;
+
+    [SerializeField]
+    private GraphicRaycaster graphicRaycaster;
+    [SerializeField]
+    private TMP_InputField text;
+    [SerializeField]
+    private InputManager inputManager;
+    [SerializeField]
+    private GameManager gameManager;
 
     private bool escribiendo = false;
     public bool probando = false;
@@ -77,11 +91,19 @@ public class FreeCameraController : MonoBehaviour
     public void SetProbandoFalse()
     {
         probando = false;
+        canvas.enabled = true;
+        graphicRaycaster.enabled = true;
+        text.enabled = true;
+        gameManager.ForceRespawn();
     }
-    
+
     public void SetProbandoTrue()
     {
         probando = true;
+        canvas.enabled = false;
+        graphicRaycaster.enabled = false;
+        text.enabled = false;
+        inputManager.Deselect();
     }
 
 }

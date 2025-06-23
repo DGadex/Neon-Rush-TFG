@@ -38,9 +38,9 @@ public class InputManager : MonoBehaviour
                 OnClicked?.Invoke();
             if (Input.GetKeyDown(KeyCode.Escape))
                 onExit?.Invoke();
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            if (Input.GetKeyDown(KeyCode.UpArrow) && gridVisualization.transform.position.y <= 14*49)
                 gridVisualization.transform.position += Vector3.up * 14;
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetKeyDown(KeyCode.DownArrow) && gridVisualization.transform.position.y >= 14)
                 gridVisualization.transform.position += Vector3.down * 14;
         }
         Desactivate();
