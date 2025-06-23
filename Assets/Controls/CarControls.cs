@@ -135,6 +135,15 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Respawn"",
+                    ""type"": ""Button"",
+                    ""id"": ""d1ee56cc-63b4-4350-b7e9-b7ae8ceaa549"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -269,6 +278,28 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
                     ""action"": ""Drift"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2836c823-ce6d-4093-8e76-3139e32ac082"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Respawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30da1ba0-a0d7-44b6-b6ed-91182b9754aa"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Respawn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -282,6 +313,7 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
         m_Driving_Brake = m_Driving.FindAction("Brake", throwIfNotFound: true);
         m_Driving_Nitro = m_Driving.FindAction("Nitro", throwIfNotFound: true);
         m_Driving_Drift = m_Driving.FindAction("Drift", throwIfNotFound: true);
+        m_Driving_Respawn = m_Driving.FindAction("Respawn", throwIfNotFound: true);
     }
 
     ~@CarControls()
@@ -367,6 +399,7 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Driving_Brake;
     private readonly InputAction m_Driving_Nitro;
     private readonly InputAction m_Driving_Drift;
+    private readonly InputAction m_Driving_Respawn;
     /// <summary>
     /// Provides access to input actions defined in input action map "Driving".
     /// </summary>
@@ -398,6 +431,10 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Driving/Drift".
         /// </summary>
         public InputAction @Drift => m_Wrapper.m_Driving_Drift;
+        /// <summary>
+        /// Provides access to the underlying input action "Driving/Respawn".
+        /// </summary>
+        public InputAction @Respawn => m_Wrapper.m_Driving_Respawn;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -439,6 +476,9 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
             @Drift.started += instance.OnDrift;
             @Drift.performed += instance.OnDrift;
             @Drift.canceled += instance.OnDrift;
+            @Respawn.started += instance.OnRespawn;
+            @Respawn.performed += instance.OnRespawn;
+            @Respawn.canceled += instance.OnRespawn;
         }
 
         /// <summary>
@@ -465,6 +505,9 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
             @Drift.started -= instance.OnDrift;
             @Drift.performed -= instance.OnDrift;
             @Drift.canceled -= instance.OnDrift;
+            @Respawn.started -= instance.OnRespawn;
+            @Respawn.performed -= instance.OnRespawn;
+            @Respawn.canceled -= instance.OnRespawn;
         }
 
         /// <summary>
@@ -540,5 +583,12 @@ public partial class @CarControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnDrift(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Respawn" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRespawn(InputAction.CallbackContext context);
     }
 }

@@ -83,7 +83,6 @@ public class CheckpointSystem : MonoBehaviour
 
             // Notificar antes de resetear
             OnLapCompleted?.Invoke();
-
             ResetCheckpoints();
             return;
         }
@@ -116,6 +115,7 @@ public class CheckpointSystem : MonoBehaviour
     public void RegisterCheckpoint(Checkpoint cp)
     {
         checkpoints.Add(cp);
+        cp.checkpointSystem = this; // Asignar el sistema de checkpoints al checkpoint
     }
     public Vector3 GetRespawnPosition()
     {

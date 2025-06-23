@@ -37,8 +37,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Thickness: 1
-    - _Thickness_Bias: 1
+    - _Thickness: 10
+    - _Thickness_Bias: 0.8
     m_Colors:
     - _Color: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

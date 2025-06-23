@@ -10,20 +10,22 @@ public class ArcadeCarController : MonoBehaviour
     #region Configuración
     [Header("Referencias")]
     public Transform chassis;
-    public WheelCollider[] driveWheels;
-    public WheelCollider[] steeringWheels;
-    public InputActionAsset inputActions;
-    #endregion
-
-    [Header("Configuración Ruedas Visuales")]
+    public WheelCollider[] allWheels;
     public Transform[] wheelVisuals;
     public bool[] isSteeringWheel;
+    public bool[] isDriveWheel;
+    public InputActionAsset inputActions;
+    #endregion
 
     #region Aceleración
     [Header(" Aceleración")]
     public float maxMotorTorque = 12000f;
     public float brakeTorque = 8000f;
     public float maxSpeed = 180f;
+
+    [HideInInspector]
+    public bool canMove = true;
+    private bool isReversing = false;
     public AnimationCurve torqueCurve = new AnimationCurve(
         new Keyframe(0, 1f),
         new Keyframe(0.5f, 0.8f),
@@ -41,9 +43,9 @@ public class ArcadeCarController : MonoBehaviour
 
     #region Derrape
     [Header(" Derrape")]
-    public float driftFriction = 0.2f;
+    public float driftFriction = 0.3f;
     public float normalFriction = 2f;
-    public float driftTiltAngle = 25f;
+    public float driftTiltAngle = 10f;
     public float driftTiltSpeed = 15f;
     public float driftAutoCorrect = 20f;
     public float minDriftSpeed = 15f;
@@ -72,7 +74,7 @@ public class ArcadeCarController : MonoBehaviour
 
     #region Efectos Visuales
     [Header("VFX")]
-    public VisualEffect nitroFlamesVFX;   // Llamaradas del escape (Nitro)
+    public VisualEffect nitroFlamesVFX;
     public VisualEffect[] brakeTrailsVFX;
     #endregion
 
@@ -84,9 +86,7 @@ public class ArcadeCarController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = new Vector3(0, -0.3f, 0); // Centro de masa más bajo
 
-        // Configuración de inputs
         var map = inputActions.FindActionMap("Driving");
         throttleAction = map.FindAction("Throttle");
         brakeAction = map.FindAction("Brake");
@@ -98,6 +98,7 @@ public class ArcadeCarController : MonoBehaviour
         steerAction.Enable();
         driftAction.Enable();
         nitroAction.Enable();
+
         if (nitroFlamesVFX != null) nitroFlamesVFX.Stop();
         if (brakeTrailsVFX != null)
         {
@@ -106,16 +107,16 @@ public class ArcadeCarController : MonoBehaviour
                 trail.Stop();
             }
         }
-    }   
+    }
 
     void FixedUpdate()
     {
+        if (!canMove) return;
         float throttle = throttleAction.ReadValue<float>();
         float brake = brakeAction.ReadValue<float>();
         float steer = steerAction.ReadValue<Vector2>().x;
         bool drift = driftAction.ReadValue<float>() > 0.5f;
         bool nitro = nitroAction.IsPressed();
-        Debug.Log(nitro);
 
         ApplyDownforce();
         ApplyMotor(throttle, brake);
@@ -123,11 +124,14 @@ public class ArcadeCarController : MonoBehaviour
         HandleDrift(drift, steer);
         LimitSpeed();
         HandleNitroInput();
-        UpdateWheelVisuals();
         UpdateEngineSound();
     }
 
-    #region Físicas Mejoradas
+    void Update()
+    {
+        UpdateWheelVisuals();
+    }
+
     void ApplyDownforce()
     {
         float speedFactor = rb.linearVelocity.magnitude / maxSpeed;
@@ -136,75 +140,84 @@ public class ArcadeCarController : MonoBehaviour
 
     void ApplyMotor(float throttle, float brake)
     {
-        float speedFactor = rb.linearVelocity.magnitude / maxSpeed;
-        float currentTorque = maxMotorTorque * torqueCurve.Evaluate(speedFactor);
+        float speed = rb.linearVelocity.magnitude;
+        float currentTorque = maxMotorTorque * torqueCurve.Evaluate(speed / maxSpeed);
 
-        foreach (var wheel in driveWheels)
+        // Determinar si queremos entrar o salir del modo marcha atrás
+        if (brake > 0.1f && speed < 1f && throttle < 0.1f)
         {
-            if (throttle > 0.1f)
+            isReversing = true;
+        }
+        else if (throttle > 0.1f)
+        {
+            isReversing = false;
+        }
+
+        for (int i = 0; i < allWheels.Length; i++)
+        {
+            if (!isDriveWheel[i]) continue;
+
+            if (isReversing)
             {
-                wheel.motorTorque = throttle * currentTorque * (isNitroActive ? nitroBoost : 1f);
-                wheel.brakeTorque = 0f;
+                // Modo marcha atrás
+                allWheels[i].motorTorque = -brake * currentTorque * 1.5f;
+                allWheels[i].brakeTorque = 0f;
+            }
+            else if (throttle > 0.1f)
+            {
+                // Aceleración normal
+                allWheels[i].motorTorque = throttle * currentTorque * (isNitroActive ? nitroBoost : 1f);
+                allWheels[i].brakeTorque = 0f;
             }
             else if (brake > 0.1f)
             {
-                wheel.brakeTorque = brake * brakeTorque;
-                wheel.motorTorque = 0f;
+                // Freno normal (sin retroceso)
+                allWheels[i].motorTorque = 0f;
+                allWheels[i].brakeTorque = brake * brakeTorque;
             }
             else
             {
-                wheel.motorTorque = 0f;
-                wheel.brakeTorque = rb.linearVelocity.magnitude > 5f ? 2000f : 0f;
+                // Freno automático por inercia
+                allWheels[i].motorTorque = 0f;
+                allWheels[i].brakeTorque = speed > 5f ? 2000f : 0f;
             }
         }
     }
 
     void ApplySteering(float steerInput)
     {
-        float speedFactor = Mathf.Clamp01(rb.linearVelocity.magnitude / (maxSpeed * 0.3f));
+        float effectiveMaxSpeed = maxSpeed * (isNitroActive ? nitroBoost : 1f);
+        float speedFactor = Mathf.Clamp(rb.linearVelocity.magnitude / (effectiveMaxSpeed * 0.3f), 0.3f, 1f);
         currentSteerAngle = Mathf.Lerp(
             currentSteerAngle,
             steerInput * maxSteeringAngle * speedFactor,
             steeringResponse * Time.fixedDeltaTime
         );
 
-        foreach (var wheel in steeringWheels)
+        for (int i = 0; i < allWheels.Length; i++)
         {
-            wheel.steerAngle = currentSteerAngle;
+            if (!isSteeringWheel[i]) continue;
+            allWheels[i].steerAngle = currentSteerAngle;
         }
     }
 
     void UpdateWheelVisuals()
     {
-        // Primero actualizamos las ruedas motrices
-        for (int i = 0; i < driveWheels.Length; i++)
+        for (int i = 0; i < allWheels.Length; i++)
         {
-            driveWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
+            allWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
             wheelVisuals[i].position = position;
+            if(i == 1 || i == 3) // Rear wheels
+            {
+                rotation *= Quaternion.Euler(0, 180, 0); // Adjust rotation for rear wheels
+            }
             wheelVisuals[i].rotation = rotation;
             
-            // Aplicar rotación de dirección si es una rueda direccional
             if (isSteeringWheel[i])
             {
-                float steerAngle = driveWheels[i].steerAngle;
-                wheelVisuals[i].localRotation *= Quaternion.Euler(0, steerAngle, 0);
-            }
-        }
-        
-        // Luego las ruedas de dirección (si son diferentes)
-        for (int i = 0; i < steeringWheels.Length; i++)
-        {
-            // Calculamos el índice correcto para las visuales (asumiendo que están en el mismo orden)
-            int visualIndex = i + driveWheels.Length;
-            if (visualIndex < wheelVisuals.Length)
-            {
-                steeringWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
-                wheelVisuals[visualIndex].position = position;
-                wheelVisuals[visualIndex].rotation = rotation;
-                
-                // Todas las ruedas de dirección deberían girar
-                float steerAngle = steeringWheels[i].steerAngle;
-                wheelVisuals[visualIndex].localRotation *= Quaternion.Euler(0, steerAngle, 0);
+                float steerAngle = allWheels[i].steerAngle;
+                wheelVisuals[i].localRotation = Quaternion.Euler(0, steerAngle, 0);
+                wheelVisuals[i].rotation = rotation;
             }
         }
     }
@@ -218,18 +231,11 @@ public class ArcadeCarController : MonoBehaviour
             isDrifting = true;
             SetWheelFriction(driftFriction);
 
-            // Inclinación visual rápida
             float targetTilt = -steerInput * driftTiltAngle;
             chassis.localRotation = Quaternion.Slerp(
                 chassis.localRotation,
                 Quaternion.Euler(0, 0, targetTilt),
                 driftTiltSpeed * Time.fixedDeltaTime
-            );
-
-            // Derrape con auto-corrección
-            rb.AddTorque(
-                transform.up * steerInput * driftAutoCorrect * rb.linearVelocity.magnitude * 0.01f,
-                ForceMode.VelocityChange
             );
 
             if (!driftSound.isPlaying) driftSound.Play();
@@ -238,44 +244,46 @@ public class ArcadeCarController : MonoBehaviour
         {
             isDrifting = false;
             SetWheelFriction(normalFriction);
-            
-            // Vuelta a posición neutral rápida
+
             chassis.localRotation = Quaternion.Slerp(
                 chassis.localRotation,
                 Quaternion.identity,
                 driftTiltSpeed * 2f * Time.fixedDeltaTime
             );
-            
+
             if (driftSound.isPlaying) driftSound.Stop();
         }
     }
 
     void HandleNitroInput()
     {
-        Debug.Log("Handling Nitro Input");
-        // Si se presiona el botón de nitro y no está activo
         if (nitroAction.IsPressed() && !isNitroActive)
         {
             StartCoroutine(ActivateNitro());
         }
     }
+
+    public bool IsNitroActive()
+    {
+        return isNitroActive;
+    }
+
     void LimitSpeed()
     {
-        if (rb.linearVelocity.magnitude > maxSpeed * (isNitroActive ? nitroBoost : 1f))
+        float max = maxSpeed * (isNitroActive ? nitroBoost : 1f);
+        if (rb.linearVelocity.magnitude > max)
         {
-            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed * (isNitroActive ? nitroBoost : 1f);
+            rb.linearVelocity = rb.linearVelocity.normalized * max;
         }
     }
-    #endregion
 
-    #region Helpers
     void SetWheelFriction(float stiffness)
     {
-        foreach (var wheel in driveWheels)
+        for (int i = 0; i < allWheels.Length; i++)
         {
-            WheelFrictionCurve friction = wheel.sidewaysFriction;
-            friction.stiffness = stiffness;
-            wheel.sidewaysFriction = friction;
+            WheelFrictionCurve friction = allWheels[i].sidewaysFriction;
+            friction.stiffness = isSteeringWheel[i] ? stiffness + 0.5f : stiffness;
+            allWheels[i].sidewaysFriction = friction;
         }
     }
 
@@ -286,55 +294,31 @@ public class ArcadeCarController : MonoBehaviour
         engineSound.pitch = 0.5f + speedFactor * 1.5f;
         engineSound.volume = 0.3f + speedFactor * 0.7f;
     }
-    #endregion
 
-    #region Nitro
     IEnumerator ActivateNitro()
     {
-        Debug.Log("Activating Nitro");
         isNitroActive = true;
-        if (nitroFlamesVFX != null)
+        if (nitroFlamesVFX != null) nitroFlamesVFX.Play();
+        if (brakeTrailsVFX != null)
         {
-            nitroFlamesVFX.Play(); // Efecto visual de nitro
+            foreach (var trail in brakeTrailsVFX) trail.Play();
         }
-        if (brakeTrailsVFX != null) 
-        {
-            foreach (var trail in brakeTrailsVFX)
-        {
-            trail.Play();
-        }
-        }
-
-        
-        // Efecto de sonido
         if (nitroSound != null) nitroSound.Play();
-        
-        // Aplicar boost de velocidad
-        float originalMaxSpeed = maxSpeed;
-        maxSpeed *= nitroBoost;  // Aumentamos la velocidad máxima
-        
-        yield return new WaitForSeconds(nitroDuration);
-        
-        if (nitroFlamesVFX != null) 
-        {
-            nitroFlamesVFX.Stop();
-        }
-        if (brakeTrailsVFX != null) 
-        {
-            foreach (var trail in brakeTrailsVFX)
-        {
-            trail.Stop();
-        }        }
 
-        // Restaurar valores normales
+        float originalMaxSpeed = maxSpeed;
+        maxSpeed *= nitroBoost;
+
+        yield return new WaitForSeconds(nitroDuration);
+
+        if (nitroFlamesVFX != null) nitroFlamesVFX.Stop();
+        if (brakeTrailsVFX != null)
+        {
+            foreach (var trail in brakeTrailsVFX) trail.Stop();
+        }
         maxSpeed = originalMaxSpeed;
         isNitroActive = false;
-        
-        // Opcional: Efecto visual de desactivación
     }
-    #endregion
 
-    #region Salto
     void OnCollisionEnter(Collision collision)
     {
         if (((1 << collision.gameObject.layer) & rampLayer) != 0)
@@ -342,5 +326,4 @@ public class ArcadeCarController : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
-    #endregion
 }

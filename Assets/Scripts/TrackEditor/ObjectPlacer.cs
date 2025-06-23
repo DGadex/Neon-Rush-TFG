@@ -18,6 +18,7 @@ public class ObjectPlacer : MonoBehaviour
 
     [SerializeField]
     private InputManager inputManager;
+    public TestSpawner testSpawner;
 
     public bool editmode = true;
 
@@ -31,8 +32,7 @@ public class ObjectPlacer : MonoBehaviour
 
     public int PlaceObject(GameObject prefab, Vector3 position, Quaternion currentRotation, int ID)
     {
-        GameObject newObject = Instantiate(prefab);
-        newObject.transform.position = position;
+        GameObject newObject = Instantiate(prefab, position, Quaternion.identity);
         newObject.transform.GetChild(0).rotation = currentRotation;
         placedGameObjects.Add(newObject);
         SerializableObject serializableObject = new()
@@ -48,6 +48,7 @@ public class ObjectPlacer : MonoBehaviour
         {
             metaButton.interactable = false;
             inputManager.Deselect();
+            testSpawner.AssignCarFromMeta(newObject.transform.Find("Arcade Car").gameObject);
             hayMeta = true;
         }
         if (ID == 7 && editmode)
