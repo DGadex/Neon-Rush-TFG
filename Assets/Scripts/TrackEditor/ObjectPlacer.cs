@@ -76,12 +76,12 @@ public class ObjectPlacer : MonoBehaviour
             return;
         }
 
-        Destroy(placedGameObjects[gameObjectIndex]);
-        placedGameObjects[gameObjectIndex] = null;
+        
         if (serializableObjects[gameObjectIndex].ID == 6)
         {
             metaButton.interactable = true;
             testButton.SetActive(false);
+            checkpointSystem.UnregisterCheckpoint(placedGameObjects[gameObjectIndex].GetComponentInChildren<Checkpoint>());
             hayMeta = false;
         }
         if (serializableObjects[gameObjectIndex].ID == 7)
@@ -91,7 +91,10 @@ public class ObjectPlacer : MonoBehaviour
             {
                 hayCheckpoint = false;
             }
+            checkpointSystem.UnregisterCheckpoint(placedGameObjects[gameObjectIndex].GetComponentInChildren<Checkpoint>());
         }
+        Destroy(placedGameObjects[gameObjectIndex]);
+        placedGameObjects[gameObjectIndex] = null;
 
         serializableObjects[gameObjectIndex].ID = -1;
     }

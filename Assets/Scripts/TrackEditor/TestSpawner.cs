@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.Cinemachine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class TestSpawner : MonoBehaviour
 {
@@ -22,11 +23,20 @@ public class TestSpawner : MonoBehaviour
     public CheckpointSystem checkpointSystem;
     public FreeCameraController freeCamera;
 
+    private Vector3 initialPosition;
+    private Quaternion initialRotation;
+
+    private InputAction respawnAction;
+
     void Start()
     {
         if (freeLookCamera != null) freeLookCamera.SetActive(true);
         if (followCamera != null) followCamera.gameObject.SetActive(false);
         if (testWarningPanel != null) testWarningPanel.SetActive(false);
+
+        var map = new InputActionMap("Driving");
+        respawnAction = new InputAction("Respawn", binding: "<Keyboard>/r");
+        respawnAction.Enable();
     }
 
     public void AssignCarFromMeta(GameObject car, GameObject fc)
@@ -39,7 +49,7 @@ public class TestSpawner : MonoBehaviour
         freeCamera = FindObjectOfType<FreeCameraController>();
 
         if (carController != null)
-        carController.canMove = false;
+            carController.canMove = false;
     }
 
     public void StartTest()
@@ -52,14 +62,22 @@ public class TestSpawner : MonoBehaviour
 
         if (followCamera != null) followCamera.gameObject.SetActive(true);
         if (freeLookCamera != null) freeLookCamera.SetActive(false);
-        
+
         testPassed = false;
         testActive = true;
         objectPlacer.escenarioProbado = false;
-        if (carController != null) carController.canMove = false;
-        
+        if (carController != null)
+        {
+            carController.canMove = false;
+            carController.enabled = true;}
+
         checkpointSystem.InitializeCheckpoint();
         checkpointSystem.OnLapCompleted += HandleLapCompletion;
+
+        // Guardamos la posición inicial del test
+        initialPosition = currentCar.transform.position;
+        initialRotation = currentCar.transform.rotation;
+
         currentCar.GetComponentInChildren<SpawnDissolveController>()?.PlayDissolve();
         Invoke(nameof(EnableCarControl), 1f);
 
@@ -85,7 +103,11 @@ public class TestSpawner : MonoBehaviour
         if (followCamera != null) followCamera.gameObject.SetActive(false);
         if (freeLookCamera != null) freeLookCamera.SetActive(true);
 
-        if (carController != null) carController.canMove = false;
+        if (carController != null)
+        {
+            carController.canMove = false;
+            carController.enabled = false;
+        }
 
         if (!testPassed && testWarningPanel != null)
         {
@@ -105,10 +127,33 @@ public class TestSpawner : MonoBehaviour
     {
         if (!testActive) return;
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (respawnAction.WasPerformedThisFrame())
         {
-            Debug.Log("🔄 Respawn o cancelación detectada. Prueba cancelada.");
-            CancelTest();
+            Debug.Log("🔄 Respawn detectado. Reiniciando posición del coche.");
+            RespawnCar();
         }
+    }
+
+    void RespawnCar()
+    {
+        if (currentCar == null) return;
+
+        Rigidbody rb = currentCar.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.MovePosition(initialPosition);
+            rb.MoveRotation(initialRotation);
+        }
+
+        currentCar.GetComponentInChildren<SpawnDissolveController>()?.PlayDissolve();
+
+        if (carController != null)
+        {
+            carController.canMove = false;
+            Invoke(nameof(EnableCarControl), 1.5f); // Delay según VFX
+        }
+        CancelTest();
     }
 }
