@@ -13,6 +13,9 @@ public class GuardarJSON : MonoBehaviour
 
     [SerializeField]
     private GameManager gameManager;
+    
+    [SerializeField]
+    private PostProcessManager postProcessManager;
     [SerializeField]
     private LevelManager levelManager;
 
@@ -69,6 +72,7 @@ public class GuardarJSON : MonoBehaviour
                     GameObject startPos = objectPlacer.placedGameObjects[objectNumber].transform.Find("startPos").gameObject;
                     gameManager.SetupCar(car, startPos.transform);
                     levelManager.SetupCar(car);
+                    postProcessManager.Setup(car);
                 }
                 checkpointSystem.RegisterCheckpoint(objectPlacer.placedGameObjects[objectNumber].GetComponentInChildren<Checkpoint>());
             }

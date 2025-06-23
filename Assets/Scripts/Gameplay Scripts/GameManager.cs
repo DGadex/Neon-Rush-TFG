@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Cinemachine;
+using UnityEngine.VFX;
 
 public class GameManager : MonoBehaviour
 {
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
         // Rigidbody config
         carRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         //carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+        car.GetComponentInChildren<SpawnDissolveController>()?.PlayDissolve();
 
         StartCoroutine(DelayedResetPosition()); // Reset con delay
     }
@@ -82,7 +84,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f); // Pequeño delay para asegurar estabilidad
         Debug.LogWarning("DALE POSICION");
         //carRigidbody.isKinematic = true;
-        carController.transform.SetLocalPositionAndRotation(startPos.localPosition, startPos.localRotation);
+        //carController.transform.SetLocalPositionAndRotation(startPos.localPosition, startPos.localRotation);
         carRigidbody.isKinematic = false;
         carRigidbody.linearVelocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
@@ -127,18 +129,28 @@ public class GameManager : MonoBehaviour
 
     // Para reinicio manual (por ejemplo, al caer al vacío)
     public void ForceRespawn()
+{
+    if (car == null || carRigidbody == null || checkpointSystem == null) return;
+    car.GetComponentInChildren<SpawnDissolveController>()?.PlayDissolve();
+
+    Vector3 respawnPos = checkpointSystem.GetRespawnPosition();
+    Quaternion respawnRot = Quaternion.Euler(0, 0, 0);
+
+    carRigidbody.linearVelocity = Vector3.zero;
+    carRigidbody.angularVelocity = Vector3.zero;
+
+    carRigidbody.MovePosition(respawnPos);
+    carRigidbody.MoveRotation(respawnRot);
+
+
+    // Opcional: Desactivar el control del coche hasta que el VFX termine
+    StartCoroutine(EnableCarAfterDelay(1.5f)); // Ajusta el tiempo según la duración del VFX
+}
+
+    IEnumerator EnableCarAfterDelay(float delay)
     {
-        if (car == null || carRigidbody == null || checkpointSystem == null) return;
-
-        // Obtener posición de respawn
-        Vector3 respawnPos = checkpointSystem.GetRespawnPosition();
-        Quaternion respawnRot = Quaternion.Euler(0, car.transform.rotation.eulerAngles.y, 0); // Orientación neutral
-
-        // Reset Rigidbody
-        carRigidbody.linearVelocity = Vector3.zero;
-        carRigidbody.angularVelocity = Vector3.zero;
-
-        carRigidbody.MovePosition(respawnPos);
-        carRigidbody.MoveRotation(respawnRot);
+        carController.enabled = false;
+        yield return new WaitForSeconds(delay);
+        carController.enabled = true;
     }
 }

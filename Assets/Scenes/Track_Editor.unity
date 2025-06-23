@@ -1208,7 +1208,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -4.338166, y: 90.618004}
+  m_AnchoredPosition: {x: -91.33191, y: 90.618004}
   m_SizeDelta: {x: 2000, y: 180}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &478270310
@@ -1543,11 +1543,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b89a87187dc8c946b0dcfeb6c99f70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carPrefab: {fileID: 2959722282104834670, guid: 7bcdf07ee4ca39e449af04cf12030d30, type: 3}
-  spawnPoint: {fileID: 0}
+  carInScene: {fileID: 0}
   spawnButton: {fileID: 808234419}
   freeLookCamera: {fileID: 0}
   followCamera: {fileID: 0}
+  guardarJSON: {fileID: 0}
+  testWarningPanel: {fileID: 0}
 --- !u!1 &689098242
 GameObject:
   m_ObjectHideFlags: 0
@@ -1594,6 +1595,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsDatabase: {fileID: 11400000, guid: 8dc272c2eb9ee994b81f27875f46a121, type: 2}
   objectPlacer: {fileID: 1277445323}
+  gameManager: {fileID: 0}
+  postProcessManager: {fileID: 0}
+  levelManager: {fileID: 0}
   checkpointSystem: {fileID: 0}
   saveDirectory: Assets/Resources/
   fileName: {fileID: 276542845}
@@ -2607,6 +2611,7 @@ MonoBehaviour:
   serializableObjects: []
   metaButton: {fileID: 42697270}
   inputManager: {fileID: 824788137}
+  testSpawner: {fileID: 0}
   editmode: 1
   escenarioProbado: 1
   hayMeta: 0
@@ -2719,6 +2724,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1286206244}
   m_CullTransparentMesh: 1
+--- !u!1 &1308782091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1308782093}
+  - component: {fileID: 1308782092}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1308782092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308782091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b89a87187dc8c946b0dcfeb6c99f70e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carInScene: {fileID: 0}
+  spawnButton: {fileID: 171169792}
+  freeLookCamera: {fileID: 23237357}
+  followCamera: {fileID: 478270312}
+  guardarJSON: {fileID: 689098244}
+  testWarningPanel: {fileID: 808234417}
+--- !u!4 &1308782093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1308782091}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 77.01565, y: 12.828717, z: 5.2297297}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1376306533
 GameObject:
   m_ObjectHideFlags: 0
@@ -3206,8 +3261,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1612797987}
   m_HandleRect: {fileID: 1612797986}
   m_Direction: 0
-  m_Value: 0.0036043904
-  m_Size: 0.39820665
+  m_Value: 0.07588312
+  m_Size: 0.39820662
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4699,3 +4754,4 @@ SceneRoots:
   - {fileID: 1467662744}
   - {fileID: 1109265047}
   - {fileID: 23237359}
+  - {fileID: 1308782093}

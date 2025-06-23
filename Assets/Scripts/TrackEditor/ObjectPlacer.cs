@@ -18,6 +18,7 @@ public class ObjectPlacer : MonoBehaviour
 
     [SerializeField]
     private InputManager inputManager;
+    public TestSpawner testSpawner;
 
     public bool editmode = true;
 
@@ -47,6 +48,7 @@ public class ObjectPlacer : MonoBehaviour
         {
             metaButton.interactable = false;
             inputManager.Deselect();
+            testSpawner.AssignCarFromMeta(newObject.transform.Find("Arcade Car").gameObject);
             hayMeta = true;
         }
         if (ID == 7 && editmode)
