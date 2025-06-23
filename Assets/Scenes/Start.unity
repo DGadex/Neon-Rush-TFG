@@ -2269,8 +2269,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -6226,7 +6226,7 @@ MonoBehaviour:
   optionsCamera: {fileID: 1759732349}
   startCanvasGroup: {fileID: 1132887467}
   mainMenuCanvas: {fileID: 1008174344}
-  optionsCanvas: {fileID: 764490211}
+  optionsCanvas: {fileID: 1088421996}
   fadeDuration: 1
 --- !u!4 &1587417253
 Transform:
@@ -7149,8 +7149,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1918018232}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.04329471, y: 0.73928964, z: -0.04774944, w: -0.6702958}
-  m_LocalPosition: {x: 3.3646564, y: 1.0250051, z: -3.5379758}
+  m_LocalRotation: {x: -0.0086367875, y: -0.94940835, z: -0.026212359, w: 0.31282932}
+  m_LocalPosition: {x: 3.632337, y: 1.2962191, z: 3.0370321}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -69,8 +69,9 @@ public class GuardarJSON : MonoBehaviour
                 if (data.ID == 6)
                 {
                     GameObject car = objectPlacer.placedGameObjects[objectNumber].transform.Find("Arcade Car").gameObject;
+                     GameObject camera = objectPlacer.placedGameObjects[objectNumber].transform.Find("FollowCamera").gameObject;
                     GameObject startPos = objectPlacer.placedGameObjects[objectNumber].transform.Find("startPos").gameObject;
-                    gameManager.SetupCar(car, startPos.transform);
+                    gameManager.SetupCar(car, startPos.transform, camera);
                     levelManager.SetupCar(car);
                     postProcessManager.Setup(car);
                 }
