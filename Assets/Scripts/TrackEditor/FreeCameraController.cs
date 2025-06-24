@@ -20,8 +20,6 @@ public class FreeCameraController : MonoBehaviour
     private TMP_InputField text;
     [SerializeField]
     private InputManager inputManager;
-    [SerializeField]
-    private GameManager gameManager;
 
     private bool escribiendo = false;
     public bool probando = false;
@@ -94,7 +92,6 @@ public class FreeCameraController : MonoBehaviour
         canvas.enabled = true;
         graphicRaycaster.enabled = true;
         text.enabled = true;
-        gameManager.ForceRespawn();
     }
 
     public void SetProbandoTrue()
