@@ -20,12 +20,20 @@ public class UIFlowManager : MonoBehaviour
     [Header("Fade Config")]
     public float fadeDuration = 1f;
 
+    [Header("Audio")]
+    public AudioSource menuMusic;
+    //public AudioSource optionsMusic;
+    public AudioSource buttonClickSound;
+    public AudioSource openOptionsSound;
+    public AudioSource backFromOptionsSound;
+
     private CinemachineCamera currentCamera;
 
     void Start()
     {
         currentCamera = startCamera;
-
+        if (menuMusic != null && !menuMusic.isPlaying)
+            menuMusic.Play();
         // Estado inicial
         SetCameraPriority(startCamera, 20);
         SetCameraPriority(mainMenuCamera, 10);
@@ -38,6 +46,7 @@ public class UIFlowManager : MonoBehaviour
     #region --- Start Flow ---
     public void OnStartButtonPressed()
     {
+        if (buttonClickSound != null) buttonClickSound.Play();
         StartCoroutine(FadeOutAndSwitch(startCanvasGroup, mainMenuCamera, () =>
         {
             mainMenuCanvas.SetActive(true);
@@ -48,6 +57,7 @@ public class UIFlowManager : MonoBehaviour
     #region --- Options Flow ---
     public void OnOptionsButtonPressed()
     {
+        if (openOptionsSound != null) openOptionsSound.Play();
         SwitchCamera(optionsCamera);
         mainMenuCanvas.SetActive(false);
         optionsCanvas.SetActive(true);
@@ -55,6 +65,7 @@ public class UIFlowManager : MonoBehaviour
 
     public void OnBackFromOptions()
     {
+        if (backFromOptionsSound != null) backFromOptionsSound.Play();
         SwitchCamera(mainMenuCamera);
         optionsCanvas.SetActive(false);
         mainMenuCanvas.SetActive(true);
@@ -89,4 +100,9 @@ public class UIFlowManager : MonoBehaviour
         onComplete?.Invoke();
     }
     #endregion
+
+    public void PlayButtonSound()
+    {
+        if (buttonClickSound != null) buttonClickSound.Play();
+    }
 }

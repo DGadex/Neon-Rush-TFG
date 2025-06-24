@@ -114,6 +114,7 @@ public class TestSpawner : MonoBehaviour
         {
             testWarningPanel.SetActive(true);
         }
+        RespawnCar();
 
         testActive = false;
         if (freeCamera != null) freeCamera.SetProbandoFalse();
@@ -134,6 +135,8 @@ public class TestSpawner : MonoBehaviour
         {
             Debug.Log("🔄 Respawn detectado. Reiniciando posición del coche.");
             RespawnCar();
+            CancelTest();
+
         }
     }
 
@@ -157,6 +160,5 @@ public class TestSpawner : MonoBehaviour
             carController.canMove = false;
             Invoke(nameof(EnableCarControl), 1.5f); // Delay según VFX
         }
-        CancelTest();
     }
 }

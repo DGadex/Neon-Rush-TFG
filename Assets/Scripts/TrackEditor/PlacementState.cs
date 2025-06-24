@@ -52,7 +52,7 @@ public class PlacementState : IBuildingState
         if (placementValidity == false)
             return;
 
-        // SourceFilter.Play(); Sonido al posicionar
+        objectPlacer.placementSound?.Play();
 
         int index = objectPlacer.PlaceObject(database.objectsData[selectedObjectIndex].Prefab, grid.CellToWorld(gridPosition), currentRotation, database.objectsData[selectedObjectIndex].ID);
 
