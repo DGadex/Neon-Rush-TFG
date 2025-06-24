@@ -2,6 +2,7 @@ using System;
 using System.IO.Enumeration;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InputManager : MonoBehaviour
@@ -38,7 +39,7 @@ public class InputManager : MonoBehaviour
                 OnClicked?.Invoke();
             if (Input.GetKeyDown(KeyCode.Escape))
                 onExit?.Invoke();
-            if (Input.GetKeyDown(KeyCode.UpArrow) && gridVisualization.transform.position.y <= 14*49)
+            if (Input.GetKeyDown(KeyCode.UpArrow) && gridVisualization.transform.position.y <= 14 * 49)
                 gridVisualization.transform.position += Vector3.up * 14;
             if (Input.GetKeyDown(KeyCode.DownArrow) && gridVisualization.transform.position.y >= 14)
                 gridVisualization.transform.position += Vector3.down * 14;
@@ -70,7 +71,7 @@ public class InputManager : MonoBehaviour
 
     public void Desactivate()
     {
-       if (string.IsNullOrWhiteSpace(guardarJSON.fileName.text) || !objectPlacer.escenarioProbado || !objectPlacer.hayMeta || !objectPlacer.hayCheckpoint)
+        if (string.IsNullOrWhiteSpace(guardarJSON.fileName.text) || !objectPlacer.escenarioProbado || !objectPlacer.hayMeta || !objectPlacer.hayCheckpoint)
         {
             guardarButton.interactable = false;
         }
@@ -79,6 +80,11 @@ public class InputManager : MonoBehaviour
             guardarButton.interactable = true;
         }
 
+    }
+
+    public void GoBack()
+    {
+        SceneManager.LoadScene("Start"); // Cargar la escena principal
     }
 
 

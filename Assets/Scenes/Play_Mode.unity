@@ -290,17 +290,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183708258}
   m_CullTransparentMesh: 1
---- !u!114 &372088617 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3746978125591016877, guid: 95e32346c10d57545b510762e211ade3, type: 3}
-  m_PrefabInstance: {fileID: 8814406401496977613}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &422181376
 GameObject:
   m_ObjectHideFlags: 0
@@ -2846,7 +2835,10 @@ MonoBehaviour:
   placedGameObjects: []
   serializableObjects: []
   metaButton: {fileID: 0}
+  testButton: {fileID: 0}
   inputManager: {fileID: 0}
+  testSpawner: {fileID: 0}
+  checkpointSystem: {fileID: 0}
   editmode: 1
   escenarioProbado: 1
   hayMeta: 0
@@ -2880,7 +2872,7 @@ MonoBehaviour:
   levelManager: {fileID: 1214671215}
   checkpointSystem: {fileID: 148081685}
   saveDirectory: Assets/Resources/
-  fileName: {fileID: 372088617}
+  fileName: {fileID: 0}
 --- !u!1001 &8814406401496977613
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2959,11 +2951,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8470759350603085499, guid: 95e32346c10d57545b510762e211ade3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -703
+      value: -1229
       objectReference: {fileID: 0}
     - target: {fileID: 8470759350603085499, guid: 95e32346c10d57545b510762e211ade3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 210.85
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 8470759350603085499, guid: 95e32346c10d57545b510762e211ade3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
