@@ -95,7 +95,7 @@ public class TestSpawner : MonoBehaviour
         testPassed = true;
         objectPlacer.escenarioProbado = true;
         CancelTest();
-        if (testWarningPanel != null) testWarningPanel.SetActive(false);
+        //if (testWarningPanel != null) testWarningPanel.SetActive(false);
         Debug.Log("✅ Circuito superado correctamente.");
     }
 
@@ -122,6 +122,7 @@ public class TestSpawner : MonoBehaviour
 
     public bool CanSaveLevel()
     {
+        RespawnCar();
         return testPassed;
     }
 
