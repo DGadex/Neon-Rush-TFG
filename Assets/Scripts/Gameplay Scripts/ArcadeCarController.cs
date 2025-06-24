@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
 
-
 [RequireComponent(typeof(Rigidbody))]
 public class ArcadeCarController : MonoBehaviour
 {
@@ -49,6 +48,7 @@ public class ArcadeCarController : MonoBehaviour
     public float driftTiltSpeed = 15f;
     public float driftAutoCorrect = 20f;
     public float minDriftSpeed = 15f;
+    public float slipThreshold = 0.3f;
     private bool isDrifting;
     #endregion
 
@@ -70,6 +70,7 @@ public class ArcadeCarController : MonoBehaviour
     [Header("Sonidos")]
     public AudioSource driftSound;
     public AudioSource engineSound;
+    public AudioSource crashSound;
     #endregion
 
     #region Efectos Visuales
@@ -115,13 +116,12 @@ public class ArcadeCarController : MonoBehaviour
         float throttle = throttleAction.ReadValue<float>();
         float brake = brakeAction.ReadValue<float>();
         float steer = steerAction.ReadValue<Vector2>().x;
-        bool drift = driftAction.ReadValue<float>() > 0.5f;
         bool nitro = nitroAction.IsPressed();
 
         ApplyDownforce();
         ApplyMotor(throttle, brake);
         ApplySteering(steer);
-        HandleDrift(drift, steer);
+        HandleDrift();
         LimitSpeed();
         HandleNitroInput();
         UpdateEngineSound();
@@ -143,7 +143,6 @@ public class ArcadeCarController : MonoBehaviour
         float speed = rb.linearVelocity.magnitude;
         float currentTorque = maxMotorTorque * torqueCurve.Evaluate(speed / maxSpeed);
 
-        // Determinar si queremos entrar o salir del modo marcha atrás
         if (brake > 0.1f && speed < 1f && throttle < 0.1f)
         {
             isReversing = true;
@@ -159,25 +158,21 @@ public class ArcadeCarController : MonoBehaviour
 
             if (isReversing)
             {
-                // Modo marcha atrás
                 allWheels[i].motorTorque = -brake * currentTorque * 1.5f;
                 allWheels[i].brakeTorque = 0f;
             }
             else if (throttle > 0.1f)
             {
-                // Aceleración normal
                 allWheels[i].motorTorque = throttle * currentTorque * (isNitroActive ? nitroBoost : 1f);
                 allWheels[i].brakeTorque = 0f;
             }
             else if (brake > 0.1f)
             {
-                // Freno normal (sin retroceso)
                 allWheels[i].motorTorque = 0f;
                 allWheels[i].brakeTorque = brake * brakeTorque;
             }
             else
             {
-                // Freno automático por inercia
                 allWheels[i].motorTorque = 0f;
                 allWheels[i].brakeTorque = speed > 5f ? 2000f : 0f;
             }
@@ -207,12 +202,12 @@ public class ArcadeCarController : MonoBehaviour
         {
             allWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
             wheelVisuals[i].position = position;
-            if(i == 1 || i == 3) // Rear wheels
+            if(i == 1 || i == 3)
             {
-                rotation *= Quaternion.Euler(0, 180, 0); // Adjust rotation for rear wheels
+                rotation *= Quaternion.Euler(0, 180, 0);
             }
             wheelVisuals[i].rotation = rotation;
-            
+
             if (isSteeringWheel[i])
             {
                 float steerAngle = allWheels[i].steerAngle;
@@ -222,15 +217,32 @@ public class ArcadeCarController : MonoBehaviour
         }
     }
 
-    void HandleDrift(bool driftInput, float steerInput)
+    void HandleDrift()
     {
-        bool canDrift = rb.linearVelocity.magnitude > minDriftSpeed && Mathf.Abs(steerInput) > 0.3f;
+        float averageSlip = 0f;
+        int slipCount = 0;
 
-        if (driftInput && canDrift)
+        foreach (var wheel in allWheels)
+        {
+            WheelHit hit;
+            if (wheel.GetGroundHit(out hit))
+            {
+                averageSlip += Mathf.Abs(hit.sidewaysSlip);
+                slipCount++;
+            }
+        }
+
+        if (slipCount > 0)
+            averageSlip /= slipCount;
+
+        bool slipping = averageSlip > slipThreshold;
+
+        if (slipping)
         {
             isDrifting = true;
             SetWheelFriction(driftFriction);
 
+            float steerInput = steerAction.ReadValue<Vector2>().x;
             float targetTilt = -steerInput * driftTiltAngle;
             chassis.localRotation = Quaternion.Slerp(
                 chassis.localRotation,
@@ -238,7 +250,10 @@ public class ArcadeCarController : MonoBehaviour
                 driftTiltSpeed * Time.fixedDeltaTime
             );
 
-            if (!driftSound.isPlaying) driftSound.Play();
+            if (!driftSound.isPlaying)
+                driftSound.Play();
+
+            driftSound.pitch = 1f + rb.linearVelocity.magnitude * 10f / maxSpeed;
         }
         else if (isDrifting)
         {
@@ -251,7 +266,7 @@ public class ArcadeCarController : MonoBehaviour
                 driftTiltSpeed * 2f * Time.fixedDeltaTime
             );
 
-            if (driftSound.isPlaying) driftSound.Stop();
+            driftSound.Stop();
         }
     }
 
@@ -291,8 +306,9 @@ public class ArcadeCarController : MonoBehaviour
     {
         if (!engineSound) return;
         float speedFactor = rb.linearVelocity.magnitude / maxSpeed;
-        engineSound.pitch = 0.5f + speedFactor * 1.5f;
-        engineSound.volume = 0.3f + speedFactor * 0.7f;
+        engineSound.pitch = 2.5f + speedFactor * 20f;
+        engineSound.volume = 0.3f;
+        if (!engineSound.isPlaying) engineSound.Play();
     }
 
     IEnumerator ActivateNitro()
@@ -321,9 +337,12 @@ public class ArcadeCarController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (((1 << collision.gameObject.layer) & rampLayer) != 0)
+
+        if (crashSound != null && collision.relativeVelocity.magnitude > 2f)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            crashSound.volume = Mathf.Clamp01(collision.relativeVelocity.magnitude / 60f);
+            crashSound.pitch = 0.8f + (collision.relativeVelocity.magnitude / 100f);
+            crashSound.Play();
         }
     }
 }

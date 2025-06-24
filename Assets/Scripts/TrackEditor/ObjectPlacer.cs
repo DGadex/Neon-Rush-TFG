@@ -23,6 +23,7 @@ public class ObjectPlacer : MonoBehaviour
     private InputManager inputManager;
     public TestSpawner testSpawner;
     public CheckpointSystem checkpointSystem;
+    public AudioSource placementSound;
 
     public bool editmode = true;
 

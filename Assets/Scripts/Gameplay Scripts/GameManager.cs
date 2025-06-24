@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
     private ArcadeCarController carController;
     private Rigidbody carRigidbody;
 
+    [Header("Audio")]
+    public AudioSource backgroundMusic;
 
     public WheelSkid[] wheelSkids;
     private InputAction respawnAction;
@@ -36,6 +38,12 @@ public class GameManager : MonoBehaviour
         var map = inputActions.FindActionMap("Driving");
         respawnAction = map.FindAction("Respawn");
         respawnAction.Enable();
+        if (backgroundMusic != null && !backgroundMusic.isPlaying)
+        {
+            backgroundMusic.loop = true;
+            backgroundMusic.volume = 0.1f; // o lo que prefieras
+            backgroundMusic.Play();
+        }
     }
 
     void InitializeComponents()
