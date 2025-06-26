@@ -550,18 +550,18 @@ MonoBehaviour:
   m_Content: {fileID: 1600262687}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: -3
   m_Viewport: {fileID: 183708259}
   m_HorizontalScrollbar: {fileID: 0}
   m_VerticalScrollbar: {fileID: 1387307396}
   m_HorizontalScrollbarVisibility: 2
   m_VerticalScrollbarVisibility: 2
   m_HorizontalScrollbarSpacing: -3
-  m_VerticalScrollbarSpacing: -3
+  m_VerticalScrollbarSpacing: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -578,7 +578,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2917,7 +2917,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 150}
-  m_SizeDelta: {x: -1200, y: -580}
+  m_SizeDelta: {x: -1801.9958, y: -580}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1950428956
 MonoBehaviour:
@@ -3288,9 +3288,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3746978125591016877, guid: 95e32346c10d57545b510762e211ade3, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746978125591016877, guid: 95e32346c10d57545b510762e211ade3, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: b9be80ef8152b344187847856f7da347, type: 2}
+    - target: {fileID: 3746978125591016877, guid: 95e32346c10d57545b510762e211ade3, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3746978125591016877, guid: 95e32346c10d57545b510762e211ade3, type: 3}
       propertyPath: m_sharedMaterial
       value: 
@@ -3353,11 +3361,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8470759350603085499, guid: 95e32346c10d57545b510762e211ade3, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 212.8278
+      value: 267.6376
       objectReference: {fileID: 0}
     - target: {fileID: 8470759350603085499, guid: 95e32346c10d57545b510762e211ade3, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 78.2997
+      value: 120.9299
       objectReference: {fileID: 0}
     - target: {fileID: 8470759350603085499, guid: 95e32346c10d57545b510762e211ade3, type: 3}
       propertyPath: m_LocalPosition.x
