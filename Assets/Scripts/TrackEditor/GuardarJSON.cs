@@ -23,7 +23,7 @@ public class GuardarJSON : MonoBehaviour
     private CheckpointSystem checkpointSystem;
 
     [SerializeField]
-    private string saveDirectory = "Assets/Resources/"; //Application.dataPath
+    private string saveDirectory = Application.dataPath + "/Levels/";
 
     public TMP_InputField fileName;
 
