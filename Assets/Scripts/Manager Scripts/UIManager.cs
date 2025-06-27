@@ -26,8 +26,8 @@ public class UIManager : MonoBehaviour
     // Actualiza la UI durante la carrera
     public void UpdateRaceUI(int currentLap, int totalLaps, float time)
     {
-        lapsText.text = $"Vuelta: {currentLap}/{totalLaps}";
-        timeText.text = $"Tiempo: {time:F2}s";
+        lapsText.text = $"Lap: {currentLap}/{totalLaps}";
+        timeText.text = $"Time: {time:F2}s";
     }
 
     // Muestra el panel de fin de carrera
@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviour
     {
         finishPanel.SetActive(true);
         raceUIPanel.SetActive(false);
-        finalTimeText.text = $"Tiempo final: {finalTime:F2}s";
+        finalTimeText.text = $"Final Time: {finalTime:F2}s";
     }
 
     // Botones (vinculados desde el Inspector)
