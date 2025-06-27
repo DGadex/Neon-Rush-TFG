@@ -28,4 +28,8 @@ public class StartController : MonoBehaviour
     {
         SceneManager.LoadScene("Track_Editor"); // Cargar la escena del editor de pistas
     }
+    public void Exit()
+    {
+        Application.Quit();
+    }
 }

@@ -31,7 +31,6 @@ public class PostProcessManager : MonoBehaviour
 
     void Start()
     {
-        // Obtener efectos del Volume Profile
         volume.profile.TryGet(out lensDistortion);
         volume.profile.TryGet(out chromaticAberration);
 
@@ -43,14 +42,12 @@ public class PostProcessManager : MonoBehaviour
     {
         if (car == null || cinemachineCam == null)
         {
-            Debug.LogWarning("PostProcessManager no está configurado correctamente.");
             return;
         }
         else
         {
             float speed = car.GetComponent<Rigidbody>().linearVelocity.magnitude;
 
-            // 🔺 Calcular FOV
             targetFOV = baseFOV + Mathf.Clamp(speed * fovSpeedMultiplier, 0f, maxFOV - baseFOV);
             cinemachineCam.GetComponent<CinemachineCamera>().Lens.FieldOfView = Mathf.Lerp(
                 cinemachineCam.GetComponent<CinemachineCamera>().Lens.FieldOfView,
@@ -58,7 +55,6 @@ public class PostProcessManager : MonoBehaviour
                 Time.deltaTime * 5f
             );
 
-            // 🔻 Lens Distortion en función de velocidad
             if (lensDistortion != null)
             {
                 float distortion = Mathf.Clamp(speed * -distortionSpeedMultiplier, maxDistortion, 0f);
@@ -73,7 +69,6 @@ public class PostProcessManager : MonoBehaviour
                 chromaticAberration.intensity.value = Mathf.Lerp(chromaticAberration.intensity.value, targetChromatic, Time.deltaTime * 5f);
             }
 
-            // Lanzar impulso solo al comenzar el nitro
             if (nitroNow && !wasNitroActive && impulseSource != null)
             {
                 impulseSource.GenerateImpulse();
@@ -90,14 +85,11 @@ public class PostProcessManager : MonoBehaviour
         impulseSource = cinemachineCam.GetComponent<CinemachineImpulseSource>();
         if (car == null)
         {
-            Debug.LogError("El GameObject proporcionado no tiene un componente ArcadeCarController.");
             return;
         }
 
-        // Configurar FOV inicial
         cinemachineCam.GetComponent<CinemachineCamera>().Lens.FieldOfView = baseFOV;
 
-        // Asegurarse de que los efectos están desactivados al inicio
         if (lensDistortion != null) lensDistortion.intensity.value = 0f;
         if (chromaticAberration != null) chromaticAberration.intensity.value = 0f;
 
