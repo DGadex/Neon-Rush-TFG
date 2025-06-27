@@ -50,57 +50,44 @@ public class CheckpointSystem : MonoBehaviour
     {
         totalTime = 0f;
 
-        // Buscar el checkpoint de meta
         foreach (Checkpoint cp in checkpoints)
         {
             if (cp.isFinishLine)
             {
                 finishLine = cp;
-                Debug.Log("LLAMADA META");
+
                 break;
             }
         }
 
         if (finishLine == null)
         {
-            Debug.LogError("No se ha encontrado un checkpoint de meta en la lista.");
         }
     }
     public void OnCheckpointPassed(Checkpoint checkpoint)
     {
-        // Si es el checkpoint de meta pero no está desbloqueado aún, ignorar
         if (checkpoint == finishLine && !finishLineUnlocked)
         {
-            Debug.Log("El checkpoint de meta aún no está desbloqueado.");
             return;
         }
 
-        // Si es la meta y ya está desbloqueado, completar la vuelta
         if (checkpoint == finishLine && finishLineUnlocked)
         {
-            Debug.Log("¡Vuelta completada!");
-            Debug.Log($"Tiempo total: {totalTime:F2} segundos.");
-
-            // Notificar antes de resetear
             OnLapCompleted?.Invoke();
             ResetCheckpoints();
             return;
         }
 
-        // Si no es la meta y no se ha pasado aún
         if (!checkpointsPassed.Contains(checkpoint) && checkpoint != finishLine)
         {
             checkpointsPassed.Add(checkpoint);
-            Debug.Log($"Checkpoint {checkpoint.name} registrado.");
 
-            // Si ahora solo queda la meta sin pasar, desbloquearla
-            int totalNonFinishCheckpoints = checkpoints.Count - 1; // descontamos el de meta
+            int totalNonFinishCheckpoints = checkpoints.Count - 1;
             if (checkpointsPassed.Count == totalNonFinishCheckpoints)
             {
                 finishLineUnlocked = true;
-                Debug.Log("¡Checkpoint de meta desbloqueado!");
 
-                OnFinishLineUnlocked?.Invoke(); // Para efectos visuales
+                OnFinishLineUnlocked?.Invoke();
             }
         }
     }
@@ -115,7 +102,7 @@ public class CheckpointSystem : MonoBehaviour
     public void RegisterCheckpoint(Checkpoint cp)
     {
         checkpoints.Add(cp);
-        cp.checkpointSystem = this; // Asignar el sistema de checkpoints al checkpoint
+        cp.checkpointSystem = this;
     }
     public Vector3 GetRespawnPosition()
     {
@@ -140,13 +127,12 @@ public class CheckpointSystem : MonoBehaviour
         if (checkpoints.Contains(cp))
         {
             checkpoints.Remove(cp);
-            checkpointsPassed.Remove(cp); // También lo quitamos si ya fue pasado
+            checkpointsPassed.Remove(cp);
             if (cp == finishLine)
             {
                 finishLine = null;
                 finishLineUnlocked = false;
             }
-            Debug.Log($"Checkpoint {cp.name} eliminado del sistema.");
         }
     }
 }

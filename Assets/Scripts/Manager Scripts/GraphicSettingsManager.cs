@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using TMPro; // Si usas TMP para dropdowns
+using TMPro;
 
 public class GraphicsSettingsManager : MonoBehaviour
 {
@@ -13,7 +13,7 @@ public class GraphicsSettingsManager : MonoBehaviour
 
     void Start()
     {
-        // Asumimos que todos los efectos ya están en el Volume Profile
+
         if (volume.profile.TryGet(out bloom))
             bloom.active = true;
 
@@ -26,7 +26,6 @@ public class GraphicsSettingsManager : MonoBehaviour
 
     public void SetLensFlareIntensity(int optionIndex)
     {
-        // Simulamos "intensidad de lens flare" usando bloom
         switch (optionIndex)
         {
             case 0: bloom.intensity.value = 0f; break;       // OFF

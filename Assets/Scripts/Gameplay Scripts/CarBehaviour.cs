@@ -1,4 +1,7 @@
-using System.Collections;
+//CODIGO ANTIGUO DEL SISTEMA DEL COCHE
+
+
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,28 +9,28 @@ using UnityEngine.InputSystem;
 public class CarBehaviour : MonoBehaviour
 {
     [Header("Suspension Settings")]
-    public Transform[] wheels; // Array de transformaciones de las ruedas
-    public float suspensionRestDistance = 0.5f; // Distancia de reposo de la suspensión
-    public float springStrength = 35000f; // Fuerza del muelle de la suspensión
-    public float springDamper = 4500f; // Amortiguador de la suspensión
+    public Transform[] wheels;
+    public float suspensionRestDistance = 0.5f;
+    public float springStrength = 35000f;
+    public float springDamper = 4500f;
 
     [Header("Steering Settings")]
-    public float tireMass = 20f; // Masa de cada neumático
-    public float tireGripFactor = 1.0f; // Factor de agarre del neumático
+    public float tireMass = 20f;
+    public float tireGripFactor = 1.0f;
 
     [Header("Acceleration / Braking Settings")]
-    public AnimationCurve powerCurve; // Curva de potencia del coche
-    public float carTopSpeed = 200f; // Velocidad máxima del coche
-    public bool isFrontWheelDrive = true; // Indica si el coche es de tracción delantera
+    public AnimationCurve powerCurve;
+    public float carTopSpeed = 200f;
+    public bool isFrontWheelDrive = true;
 
-    private float accelerationInput; // Entrada de aceleración
-    private float brakeInput; // Entrada de frenado
-    private float steeringInput; // Entrada de dirección
+    private float accelerationInput;
+    private float brakeInput;
+    private float steeringInput;
     
-    private Rigidbody carRigidBody; // Componente Rigidbody del coche
-    private CarControls carControls; // Controles del coche
+    private Rigidbody carRigidBody;
+    private CarControls carControls; 
 
-    // Estados del coche para gestionar aceleración y frenado
+
     enum CarState { Accelerating, Braking, Neutral }
     CarState currentState = CarState.Neutral;
 
@@ -35,10 +38,10 @@ public class CarBehaviour : MonoBehaviour
     {
         carRigidBody = GetComponent<Rigidbody>();
 
-        // Inicializar el sistema de inputs
+
         carControls = new CarControls();
         
-        // Conectar las acciones del Input System a nuestras variables
+
         carControls.Driving.Throttle.performed += ctx => accelerationInput = ctx.ReadValue<float>();
         carControls.Driving.Brake.performed += ctx => brakeInput = ctx.ReadValue<float>();
         carControls.Driving.Steering.performed += ctx => 
@@ -62,8 +65,8 @@ public class CarBehaviour : MonoBehaviour
     {
         UpdateState();
 
-        // Calcula el grip base
-        float baseGripFactor = 2.0f; // Ajusta este valor según sea necesario
+
+        float baseGripFactor = 2.0f;
         float carSpeed = carRigidBody.linearVelocity.magnitude;
         float gripAdjustment = Mathf.Clamp(1 - (carSpeed / carTopSpeed), 0.5f, 1);
         tireGripFactor = baseGripFactor * gripAdjustment * (1 - Mathf.Abs(steeringInput) * 0.5f);
@@ -75,19 +78,19 @@ public class CarBehaviour : MonoBehaviour
             ApplyAccelerationAndBraking(wheel);
         }
 
-        // Añadir fuerzas laterales para mejorar la tracción en curvas
+
         Vector3 lateralForce = Vector3.Cross(carRigidBody.linearVelocity, transform.up) * tireGripFactor;
         carRigidBody.AddForce(lateralForce);
 
-        // Control de estabilidad
+
         if (Mathf.Abs(carRigidBody.angularVelocity.y) > 0.5f)
         {
-            Vector3 correctiveForce = -carRigidBody.angularVelocity * tireGripFactor * 0.1f; // Reduce el factor correctivo
+            Vector3 correctiveForce = -carRigidBody.angularVelocity * tireGripFactor * 0.1f;
             carRigidBody.AddTorque(correctiveForce);
         }
     }
 
-    // Actualiza el estado del coche basado en las entradas de aceleración y frenado
+
     void UpdateState()
     {
         if (accelerationInput > 0)
@@ -98,7 +101,7 @@ public class CarBehaviour : MonoBehaviour
             currentState = CarState.Neutral;
     }
 
-    // Aplica la suspensión a cada rueda
+
     void ApplySuspension(Transform wheel)
     {
         RaycastHit hit;
@@ -111,13 +114,13 @@ public class CarBehaviour : MonoBehaviour
             float force = (offset * springStrength) - (velocity * springDamper);
             carRigidBody.AddForceAtPosition(springDir * force, wheel.position);
 
-            // Debug Ray for Suspension
-            Debug.DrawRay(wheel.position, -wheel.up * hit.distance, Color.green);  // Raycast de suspensión
-            Debug.DrawRay(wheel.position, springDir * force * 0.001f, Color.yellow);  // Fuerza de suspensión
+
+            Debug.DrawRay(wheel.position, -wheel.up * hit.distance, Color.green);
+            Debug.DrawRay(wheel.position, springDir * force * 0.001f, Color.yellow);
         }
     }
 
-    // Aplica la dirección a las ruedas delanteras
+
     void ApplySteering(Transform wheel)
     {
         RaycastHit hit;
@@ -134,12 +137,12 @@ public class CarBehaviour : MonoBehaviour
             Vector3 tireWorldVel = carRigidBody.GetPointVelocity(wheel.position);
             float steeringVel = Vector3.Dot(steeringDir, tireWorldVel);
 
-            // Cambiar el cálculo de desiredVelChange para ser más suave
+         
             float desiredVelChange = -steeringVel * tireGripFactor;
             float desiredAccel = desiredVelChange / Time.fixedDeltaTime;
 
-            // Asegúrate de que no se aplique una fuerza excesiva
-            float maxForce = tireMass * 100; // Ajusta este valor si es necesario
+            
+            float maxForce = tireMass * 100;
             float appliedForce = Mathf.Clamp(desiredAccel * tireMass, -maxForce, maxForce);
 
             carRigidBody.AddForceAtPosition(steeringDir * appliedForce, wheel.position);
@@ -148,7 +151,7 @@ public class CarBehaviour : MonoBehaviour
         }
     }
 
-    // Aplica la aceleración y el frenado a las ruedas
+  
     void ApplyAccelerationAndBraking(Transform wheel)
     {
         RaycastHit hit;
@@ -164,30 +167,29 @@ public class CarBehaviour : MonoBehaviour
                 float normalizedSpeed = Mathf.Clamp01(Mathf.Abs(carSpeed) / carTopSpeed);
                 float availableTorque = powerCurve.Evaluate(normalizedSpeed) * accelerationInput;
 
-                // Aplicar fuerza de aceleración solo si hay input de aceleración
+               
                 if (accelerationInput > 0)
                 {
                     carRigidBody.AddForceAtPosition(accelDir * availableTorque * 500, wheel.position);
-                    Debug.DrawRay(wheel.position, accelDir * availableTorque * 500 * 0.001f, Color.red); // Debug de aceleración
-                }
+                    Debug.DrawRay(wheel.position, accelDir * availableTorque * 500 * 0.001f, Color.red);
 
-                // Freno
+            
                 if (brakeInput > 0.0f)
                 {
-                    float brakeForce = brakeInput * carRigidBody.mass * 10f; // Ajusta el multiplicador según sea necesario
+                    float brakeForce = brakeInput * carRigidBody.mass * 10f; 
                     Vector3 brakeDirection = -carRigidBody.linearVelocity.normalized;
                     carRigidBody.AddForce(brakeDirection * brakeForce, ForceMode.Force);
-                    Debug.DrawRay(wheel.position, brakeDirection * brakeForce * 0.001f, Color.magenta); // Debug de frenado
+                    Debug.DrawRay(wheel.position, brakeDirection * brakeForce * 0.001f, Color.magenta);
                 }
 
-                // Freno motor (reducción de velocidad cuando no hay aceleración)
+              
                 if (accelerationInput == 0 && brakeInput == 0)
                 {
-                    float engineBrakeForce = carRigidBody.mass * 2f; // Ajusta este valor según sea necesario
+                    float engineBrakeForce = carRigidBody.mass * 2f;
                     Vector3 engineBrakeDirection = -carRigidBody.linearVelocity.normalized;
                     carRigidBody.AddForce(engineBrakeDirection * engineBrakeForce, ForceMode.Force);
                 }
             }
         }
     }
-}
+}*/

@@ -8,26 +8,24 @@ public class LevelManager : MonoBehaviour
     [Header("Referencias")]
     public GameObject car;
 
-    public GameObject countdownPanel; // Panel UI con el texto "3, 2, 1, ¡GO!"
-    public GameObject racePanel; // Panel UI con el texto "3, 2, 1, ¡GO!"
+    public GameObject countdownPanel;
+    public GameObject racePanel;
     public TextMeshProUGUI countdownText;
-    public ArcadeCarController carController; // Script del coche
+    public ArcadeCarController carController;
     public GameManager gameManager;
 
     [Header("Configuración")]
-    public float countdownDuration = 3f; // Duración en segundos
+    public float countdownDuration = 3f;
 
     void Start()
     {
     }
 
-    // Corrutina para la cuenta atrás
     public IEnumerator StartCountdown()
     {
-        carController.enabled = false; // Bloquea controles
+        carController.enabled = false;
         countdownPanel.SetActive(true);
 
-        // Cuenta regresiva
         for (int i = 3; i > 0; i--)
         {
             countdownText.text = i.ToString();
@@ -35,7 +33,7 @@ public class LevelManager : MonoBehaviour
         }
 
         countdownText.text = "¡GO!";
-        carController.enabled = true; // Libera controles
+        carController.enabled = true;
         yield return new WaitForSeconds(1);
         countdownPanel.SetActive(false);
         racePanel.SetActive(true);
@@ -45,13 +43,10 @@ public class LevelManager : MonoBehaviour
     {
         this.car = carInstance;
         carController = carInstance.GetComponent<ArcadeCarController>();
-        StartCoroutine(StartCountdown()); // Inicia la cuenta atrás al configurar el coche
+        StartCoroutine(StartCountdown());
     }
-
-    // Llamado al completar el nivel
     public void FinishLevel()
     {
-        carController.enabled = false; // Bloquea controles
-        // (El UIManager se encargará de mostrar el panel de fin)
+        carController.enabled = false;
     }
 }

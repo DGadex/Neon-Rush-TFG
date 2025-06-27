@@ -34,7 +34,6 @@ public class UIFlowManager : MonoBehaviour
         currentCamera = startCamera;
         if (menuMusic != null && !menuMusic.isPlaying)
             menuMusic.Play();
-        // Estado inicial
         SetCameraPriority(startCamera, 20);
         SetCameraPriority(mainMenuCamera, 10);
         SetCameraPriority(optionsCamera, 5);
@@ -75,8 +74,8 @@ public class UIFlowManager : MonoBehaviour
     #region --- Utility ---
     private void SwitchCamera(CinemachineCamera targetCamera)
     {
-        SetCameraPriority(currentCamera, 10);      // Baja prioridad
-        SetCameraPriority(targetCamera, 20);       // Sube prioridad
+        SetCameraPriority(currentCamera, 10);      
+        SetCameraPriority(targetCamera, 20);       
         currentCamera = targetCamera;
     }
 

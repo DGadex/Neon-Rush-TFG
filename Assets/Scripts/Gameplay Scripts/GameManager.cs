@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private float raceTime = 0f;
     private ArcadeCarController carController;
     private Rigidbody carRigidbody;
+    public Skidmarks skidmarksController;
 
     [Header("Audio")]
     public AudioSource backgroundMusic;
@@ -41,7 +42,7 @@ public class GameManager : MonoBehaviour
         if (backgroundMusic != null && !backgroundMusic.isPlaying)
         {
             backgroundMusic.loop = true;
-            backgroundMusic.volume = 0.1f; // o lo que prefieras
+            backgroundMusic.volume = 0.1f;
             backgroundMusic.Play();
         }
     }
@@ -52,7 +53,6 @@ public class GameManager : MonoBehaviour
         carRigidbody = car.GetComponent<Rigidbody>();
         checkpointSystem.OnLapCompleted += HandleLapCompletion;
         
-        // Configuración inicial del Rigidbody
         carRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
@@ -63,35 +63,30 @@ public class GameManager : MonoBehaviour
         this.startPos = startPosInstance;
         cameraInstance.SetActive(true);
 
-         //Teletransporte inmediato
-        /*car.transform.position = startPos.position;
-        car.transform.rotation = startPos.rotation;*/
-
         carController = car.GetComponent<ArcadeCarController>();
         carRigidbody = car.GetComponent<Rigidbody>();
         wheelSkids = car.GetComponentsInChildren<WheelSkid>();
+        foreach (WheelSkid skid in wheelSkids)
+        {
+            skid.skidmarksController = skidmarksController;
+        }
+        carController.nitroFlamesVFX.Stop();
 
-        // Cinemachine
-        //Camera.Follow = car.transform;
-        //Camera.LookAt = car.transform;
 
-        // Checkpoint system
         checkpointSystem.car = car.transform;
 
-        // Rigidbody config
         carRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         //carRigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
         car.GetComponentInChildren<SpawnDissolveController>()?.PlayDissolve();
 
-        StartCoroutine(DelayedResetPosition()); // Reset con delay
+        StartCoroutine(DelayedResetPosition());
     }
 
     IEnumerator DelayedResetPosition()
     {
-        yield return new WaitForFixedUpdate(); // Espera al próximo FixedUpdate
+        yield return new WaitForFixedUpdate();
         
-        yield return new WaitForSeconds(1f); // Pequeño delay para asegurar estabilidad
-        Debug.LogWarning("DALE POSICION");
+        yield return new WaitForSeconds(1f);
         //carRigidbody.isKinematic = true;
         //carController.transform.SetLocalPositionAndRotation(startPos.localPosition, startPos.localRotation);
         carRigidbody.isKinematic = false;
@@ -118,25 +113,17 @@ public class GameManager : MonoBehaviour
         {
             FinishRace();
         }
-        else
-        {
-            Debug.Log($"Vuelta {currentLap}/ {totalLaps}");
-            // Efecto visual/sonoro opcional al completar vuelta
-        }
     }
 
     private void FinishRace()
     {
         raceFinished = true;
         uiManager.ShowFinishPanel(raceTime);
-        
-        // Desactivar controles suavemente
         carController.enabled = false;
         carRigidbody.linearVelocity = Vector3.zero;
         carRigidbody.angularVelocity = Vector3.zero;
     }
 
-    // Para reinicio manual (por ejemplo, al caer al vacío)
     public void ForceRespawn()
 {
     if (car == null || carRigidbody == null || checkpointSystem == null) return;
@@ -152,8 +139,8 @@ public class GameManager : MonoBehaviour
     carRigidbody.MoveRotation(respawnRot);
 
 
-    // Opcional: Desactivar el control del coche hasta que el VFX termine
-    StartCoroutine(EnableCarAfterDelay(1.5f)); // Ajusta el tiempo según la duración del VFX
+
+    StartCoroutine(EnableCarAfterDelay(1.5f));
 }
 
     IEnumerator EnableCarAfterDelay(float delay)
