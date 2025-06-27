@@ -46,6 +46,6 @@ public class UIManager : MonoBehaviour
 
     public void OnMenuButton()
     {
-        SceneLoaderManager.Instance.LoadScene("0_MainMenu");
+        SceneLoaderManager.Instance.LoadScene("Start");
     }
 }

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private float raceTime = 0f;
     private ArcadeCarController carController;
     private Rigidbody carRigidbody;
+    public Skidmarks skidmarksController;
 
     [Header("Audio")]
     public AudioSource backgroundMusic;
@@ -70,6 +71,11 @@ public class GameManager : MonoBehaviour
         carController = car.GetComponent<ArcadeCarController>();
         carRigidbody = car.GetComponent<Rigidbody>();
         wheelSkids = car.GetComponentsInChildren<WheelSkid>();
+        foreach (WheelSkid skid in wheelSkids)
+        {
+            skid.skidmarksController = skidmarksController;
+        }
+        carController.nitroFlamesVFX.Stop();
 
         // Cinemachine
         //Camera.Follow = car.transform;

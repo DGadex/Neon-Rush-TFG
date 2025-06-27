@@ -196,26 +196,34 @@ public class ArcadeCarController : MonoBehaviour
         }
     }
 
-    void UpdateWheelVisuals()
+void UpdateWheelVisuals()
+{
+    for (int i = 0; i < allWheels.Length; i++)
     {
-        for (int i = 0; i < allWheels.Length; i++)
-        {
-            allWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
-            wheelVisuals[i].position = position;
-            if(i == 1 || i == 3)
-            {
-                rotation *= Quaternion.Euler(0, 180, 0);
-            }
-            wheelVisuals[i].rotation = rotation;
+        allWheels[i].GetWorldPose(out Vector3 position, out Quaternion rotation);
 
-            if (isSteeringWheel[i])
-            {
-                float steerAngle = allWheels[i].steerAngle;
-                wheelVisuals[i].localRotation = Quaternion.Euler(0, steerAngle, 0);
-                wheelVisuals[i].rotation = rotation;
-            }
+        float offset = 0.09f;
+
+        if (i == 1 || i == 3) offset *= -1f;
+
+        position += transform.right * offset;
+
+        wheelVisuals[i].position = position;
+
+        if (i == 1 || i == 3)
+        {
+            rotation *= Quaternion.Euler(0, 180, 0);
+        }
+        wheelVisuals[i].rotation = rotation;
+
+        if (isSteeringWheel[i])
+        {
+            float steerAngle = allWheels[i].steerAngle;
+            wheelVisuals[i].localRotation = Quaternion.Euler(0, steerAngle, 0);
+            wheelVisuals[i].rotation = rotation;
         }
     }
+}
 
     void HandleDrift()
     {
