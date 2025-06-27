@@ -723,7 +723,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Satinado
+  m_text: Satin
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b9be80ef8152b344187847856f7da347, type: 2}
   m_sharedMaterial: {fileID: 4421244969742895230, guid: b9be80ef8152b344187847856f7da347, type: 2}
@@ -3247,7 +3247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Metalico
+  m_text: Metallic
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b9be80ef8152b344187847856f7da347, type: 2}
   m_sharedMaterial: {fileID: 4421244969742895230, guid: b9be80ef8152b344187847856f7da347, type: 2}
@@ -3446,7 +3446,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Mate
+  m_text: Matte
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b9be80ef8152b344187847856f7da347, type: 2}
   m_sharedMaterial: {fileID: 4421244969742895230, guid: b9be80ef8152b344187847856f7da347, type: 2}
@@ -4922,7 +4922,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
